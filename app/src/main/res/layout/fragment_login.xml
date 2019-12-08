@@ -95,7 +95,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="32dp"
-                    android:background="@drawable/ic_rounded_corner"
+                    android:background="@drawable/ic_rounded_corner_green"
                     android:paddingStart="32dp"
                     android:paddingTop="8dp"
                     android:paddingEnd="32dp"

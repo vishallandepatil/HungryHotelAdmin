@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Order {
     private int orderId;
+    private Hotel hotel;
     private boolean isNewOrder;
     private String orderImage;
     private String orderDate;
@@ -18,6 +19,7 @@ public class Order {
     private float orderRating;
 
     public Order() {
+
     }
 
     public int getOrderId() {
@@ -122,5 +124,13 @@ public class Order {
 
     public void setOrderRating(float orderRating) {
         this.orderRating = orderRating;
+    }
+
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
     }
 }
