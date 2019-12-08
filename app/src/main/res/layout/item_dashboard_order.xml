@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rlDashboardOrderItem"
+    android:elevation="28dp"
+    android:layout_width="match_parent"
+    android:layout_height="200dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/tvNewOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="8dp"
+            android:background="@color/red"
+            android:padding="8dp"
+            android:rotation="45"
+            android:text="NEW"
+            android:textColor="@color/white" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTotalOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="8dp"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                tools:text="1000" />
+
+            <TextView
+                android:id="@+id/tvOrderName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="8dp"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                tools:text="1000" />
+
+            <TextView
+                android:id="@+id/tvOrderPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/white"
+                tools:text="1000" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
