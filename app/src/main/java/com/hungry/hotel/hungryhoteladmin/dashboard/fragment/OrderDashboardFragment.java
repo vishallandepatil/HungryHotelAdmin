@@ -50,7 +50,7 @@ public class OrderDashboardFragment extends Fragment {
         Button btnOtherOrder = dashboardView.findViewById(R.id.btnOtherOrder);
         RecyclerView rvOrderDashboard = dashboardView.findViewById(R.id.rvOrderDashboard);
         List<OrderDashboard> orderList = getOrdersList();
-        DashboardOrderAdapter dashboardOrderAdapter = new DashboardOrderAdapter(orderList, new DashboardOrderAdapter.OrderClickListener() {
+        DashboardOrderAdapter dashboardOrderAdapter = new DashboardOrderAdapter(getActivity(), orderList, new DashboardOrderAdapter.OrderClickListener() {
             @Override
             public void orderOpen(OrderDashboard order) {
                 Toast.makeText(dashboardView.getContext(), "Order clicked", Toast.LENGTH_LONG).show();
@@ -80,12 +80,12 @@ public class OrderDashboardFragment extends Fragment {
         List<OrderDashboard> orders = new ArrayList<>();
 
 
-        orders.add(new OrderDashboard(100, OrderDashboard.TOTAL_ORDER, 100.00, false, R.color.newGreen));
+        orders.add(new OrderDashboard(100, OrderDashboard.TOTAL_ORDER, 100.00, false, R.color.totalOrder));
         orders.add(new OrderDashboard(100, OrderDashboard.NEW_ORDER, 100.00, true, R.color.darkGreen));
-        orders.add(new OrderDashboard(100, OrderDashboard.ACCEPTED_ORDER, 100.00, false, R.color.purple));
-        orders.add(new OrderDashboard(100, OrderDashboard.READY_ORDER, 100.00, false, R.color.blue));
-        orders.add(new OrderDashboard(100, OrderDashboard.REJECTED_ORDER, 100.00, false, R.color.brown));
-        orders.add(new OrderDashboard(100, OrderDashboard.DELIVERED_ORDER, 100.00, false, R.color.darkpurple));
+        orders.add(new OrderDashboard(100, OrderDashboard.ACCEPTED_ORDER, 100.00, false, R.color.accepted));
+        orders.add(new OrderDashboard(100, OrderDashboard.READY_ORDER, 100.00, false, R.color.ready));
+        orders.add(new OrderDashboard(100, OrderDashboard.REJECTED_ORDER, 100.00, false, R.color.lightGray));
+        orders.add(new OrderDashboard(100, OrderDashboard.DELIVERED_ORDER, 100.00, false, R.color.delivered));
 
         return orders;
     }
@@ -125,6 +125,7 @@ public class OrderDashboardFragment extends Fragment {
                     outRect.top = spacing; // item top
                 }
             }
+
         }
 
     }

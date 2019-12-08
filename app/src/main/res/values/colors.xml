@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#BAEC7F</color>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#424242</color>
+    <color name="colorAccent">#ead95a</color>
+
     <color name="white">#FFFFFF</color>
     <color name="darkGreen">#4CAF50</color>
     <color name="black">#000000</color>
     <color name="red">#FF0000</color>
-    <color name="newGreen">#009489</color>
-    <color name="purple">#633BAC</color>
-    <color name="blue">#3E54AC</color>
-    <color name="brown">#717571</color>
-    <color name="darkpurple">#932BA6</color>
+    <color name="lightGray">#757575</color>
+    <color name="darkGray">#424242</color>
+    <color name="grey">#a4a4a4</color>
+
+    <color name="ready">#3f51b5</color>
+    <color name="totalOrder">#009688</color>
+    <color name="accepted">#673ab7</color>
+
+    <color name="delivered">#9c27b0</color>
 </resources>

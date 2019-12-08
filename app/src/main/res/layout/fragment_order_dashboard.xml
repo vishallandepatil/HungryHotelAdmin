@@ -29,8 +29,7 @@
         android:background="@color/darkGreen"
         android:padding="16dp"
         android:text="Other Orders"
-        android:textAppearance="?android:textAppearanceLarge"
-        android:textStyle="bold" />
+        android:textAppearance="?android:textAppearanceLarge" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvOrderDashboard"

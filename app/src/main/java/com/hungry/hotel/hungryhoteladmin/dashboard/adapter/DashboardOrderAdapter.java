@@ -1,8 +1,11 @@
 package com.hungry.hotel.hungryhoteladmin.dashboard.adapter;
 
+import android.app.Activity;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -12,16 +15,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hungry.hotel.hungryhoteladmin.R;
 import com.hungry.hotel.hungryhoteladmin.dashboard.model.OrderDashboard;
+import com.hungry.hotel.hungryhoteladmin.utils.HungryAdminUtility;
 
 import java.util.List;
 
 public class DashboardOrderAdapter extends RecyclerView.Adapter<DashboardOrderAdapter.DashboardViewHolder> {
     List<OrderDashboard> orderDashboardList;
     OrderClickListener orderClickListener;
+    Activity context;
 
-    public DashboardOrderAdapter(List<OrderDashboard> orderDashboardList, OrderClickListener orderClickListener) {
+    public DashboardOrderAdapter(Activity context, List<OrderDashboard> orderDashboardList, OrderClickListener orderClickListener) {
         this.orderDashboardList = orderDashboardList;
         this.orderClickListener = orderClickListener;
+        this.context = context;
     }
 
     @NonNull
@@ -29,15 +35,16 @@ public class DashboardOrderAdapter extends RecyclerView.Adapter<DashboardOrderAd
     public DashboardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_dashboard_order, parent, false);
-
+        itemView.setMinimumHeight(itemView.getWidth());
         return new DashboardViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull DashboardViewHolder holder, int position) {
         final OrderDashboard orderDashboard = orderDashboardList.get(position);
+
+        holder.itemView.setBackgroundColor(orderDashboard.getBackgroundColor());
         holder.tvTotalOrders.setText(String.valueOf(orderDashboard.getTotalOrder()));
-        holder.rlDashboardOrderItem.setBackgroundColor(orderDashboard.getBackgroundColor());
         holder.tvOrderName.setText(orderDashboard.getOrderName());
         holder.tvOrderPrice.setText(String.valueOf(orderDashboard.getOrderPrice()));
         if (orderDashboard.isNew()) {
@@ -53,6 +60,15 @@ public class DashboardOrderAdapter extends RecyclerView.Adapter<DashboardOrderAd
             }
         });
 
+//        final DisplayMetrics displayMetrics = new DisplayMetrics();
+//        context.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+//        int width = (int) (displayMetrics.widthPixels - HungryAdminUtility.getDpFfromPixel(60, context)) / 1;
+//        // int width = (int)(holder1.itemview.getWidth());
+//
+//        int height = (int) (width * 1.8);
+//
+//        holder.itemView.setLayoutParams(new CardView.LayoutParams(width, height));
+
 
     }
 
@@ -67,6 +83,7 @@ public class DashboardOrderAdapter extends RecyclerView.Adapter<DashboardOrderAd
 
         public DashboardViewHolder(@NonNull View itemView) {
             super(itemView);
+
             rlDashboardOrderItem = itemView.findViewById(R.id.rlDashboardOrderItem);
             tvTotalOrders = itemView.findViewById(R.id.tvTotalOrder);
             tvNewOrder = itemView.findViewById(R.id.tvNewOrder);
@@ -74,6 +91,11 @@ public class DashboardOrderAdapter extends RecyclerView.Adapter<DashboardOrderAd
             tvOrderPrice = itemView.findViewById(R.id.tvOrderPrice);
 //            int width = rlDashboardOrderItem.getWidth();
 //            rlDashboardOrderItem.setMinimumHeight(width);
+//            DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+//            int dpWidth = displayMetrics.widthPixels;
+//            int height = dpWidth;
+//
+//            itemView.setLayoutParams(new CardView.LayoutParams(new ViewGroup.LayoutParams(dpWidth, height)));
 
 
         }
