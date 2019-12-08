@@ -2,12 +2,13 @@ package com.hungry.hotel.hungryhoteladmin;
 
 
 import android.os.Bundle;
-import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.hungry.hotel.hungryhoteladmin.login.fragment.LoginFragment;
 
 public class MainActivity extends AppCompatActivity {
 //    FrameLayout flContainer = findViewById(R.id.flContainer);
@@ -16,8 +17,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-            LoginFragment loginFragment = new LoginFragment();
-            showLoginActitivty(loginFragment);
+        getSupportActionBar().hide();
+        LoginFragment loginFragment = new LoginFragment();
+
+        showLoginActitivty(loginFragment);
+
 //
 
     }
@@ -26,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.flContainer, fragment);
-        fragmentTransaction.addToBackStack("LOGIN_FRAGMENT");
-//        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//        fragmentTransaction.addToBackStack("LOGIN_FRAGMENT");
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         fragmentTransaction.commit();
     }
 }
