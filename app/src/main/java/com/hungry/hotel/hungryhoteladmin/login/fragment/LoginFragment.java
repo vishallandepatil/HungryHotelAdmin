@@ -18,12 +18,10 @@ import androidx.fragment.app.Fragment;
 import com.hungry.hotel.hungryhoteladmin.R;
 import com.hungry.hotel.hungryhoteladmin.home.MainActivity2;
 import com.hungry.hotel.hungryhoteladmin.login.model.User;
-import com.hungry.hotel.hungryhoteladmin.utils.SharedPrefenceHelper;
+import com.hungry.hotel.hungryhoteladmin.utils.SharedPreferenceHelper;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.content.Context.MODE_PRIVATE;
 
 
 public class LoginFragment extends Fragment {
@@ -92,17 +90,17 @@ public class LoginFragment extends Fragment {
     private void showHomePage(View loginView, User user) {
         boolean isValidUser = true;
         if (isValidUser) {
-            saveDetailsaToPrefernces(user);
+            saveDetailsToPreferences(user);
             Intent intent = new Intent(loginView.getContext()
                     , MainActivity2.class);
             startActivity(intent);
         }
     }
 
-    private void saveDetailsaToPrefernces(User user) {
-        SharedPreferences.Editor spEditor = SharedPrefenceHelper.getSharedPreferenceInstance(getActivity());
-        spEditor.putString("ACCOUNT_TYPE", user.getAccountType());
-        SharedPrefenceHelper.savePreference(spEditor);
+    private void saveDetailsToPreferences(User user) {
+        SharedPreferences.Editor spEditor = SharedPreferenceHelper.getEditorInstance(getActivity(), "USER");
+        spEditor.putString(User.ACCOUNT_TYPE, user.getAccountType());
+        SharedPreferenceHelper.savePreference(spEditor);
     }
 
 }

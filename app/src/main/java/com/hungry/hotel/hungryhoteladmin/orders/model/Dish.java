@@ -1,6 +1,9 @@
 package com.hungry.hotel.hungryhoteladmin.orders.model;
 
-public class Dish {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Dish implements Parcelable {
     private int dishId;
     private String dishName;
     private double dishPrice;
@@ -13,6 +16,36 @@ public class Dish {
         this.dishName = dishName;
         this.dishPrice = dishPrice;
     }
+
+    protected Dish(Parcel in) {
+        dishId = in.readInt();
+        dishName = in.readString();
+        dishPrice = in.readDouble();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(dishId);
+        dest.writeString(dishName);
+        dest.writeDouble(dishPrice);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Dish> CREATOR = new Creator<Dish>() {
+        @Override
+        public Dish createFromParcel(Parcel in) {
+            return new Dish(in);
+        }
+
+        @Override
+        public Dish[] newArray(int size) {
+            return new Dish[size];
+        }
+    };
 
     public int getDishId() {
         return dishId;

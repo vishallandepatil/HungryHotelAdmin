@@ -1,10 +1,12 @@
 package com.hungry.hotel.hungryhoteladmin.orders.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
-public class Order {
+public class Order implements Parcelable {
     private int orderId;
-    private Hotel hotel;
     private boolean isNewOrder;
     private String orderImage;
     private String orderDate;
@@ -14,16 +16,86 @@ public class Order {
     private int dishCount;
     private String orderStatus;
     private double totalPrice;
+    private double commissionPercent;
     private double commission;
     private double receivableAmount;
     private float orderRating;
+    private String deliveryAddress;
+    private String orderFeedback;
+    private Hotel hotel;
+
 
     public Order() {
-
     }
+
+    protected Order(Parcel in) {
+        orderId = in.readInt();
+        isNewOrder = in.readByte() != 0;
+        orderImage = in.readString();
+        orderDate = in.readString();
+        customer = in.readParcelable(Customer.class.getClassLoader());
+        dishList = in.createTypedArrayList(Dish.CREATOR);
+        deliveryBoy = in.readParcelable(DeliveryBoy.class.getClassLoader());
+        dishCount = in.readInt();
+        orderStatus = in.readString();
+        totalPrice = in.readDouble();
+        commissionPercent = in.readDouble();
+        commission = in.readDouble();
+        receivableAmount = in.readDouble();
+        orderRating = in.readFloat();
+        deliveryAddress = in.readString();
+        orderFeedback = in.readString();
+        hotel = in.readParcelable(Hotel.class.getClassLoader());
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(orderId);
+        dest.writeByte((byte) (isNewOrder ? 1 : 0));
+        dest.writeString(orderImage);
+        dest.writeString(orderDate);
+        dest.writeParcelable(customer, flags);
+        dest.writeTypedList(dishList);
+        dest.writeParcelable(deliveryBoy, flags);
+        dest.writeInt(dishCount);
+        dest.writeString(orderStatus);
+        dest.writeDouble(totalPrice);
+        dest.writeDouble(commissionPercent);
+        dest.writeDouble(commission);
+        dest.writeDouble(receivableAmount);
+        dest.writeFloat(orderRating);
+        dest.writeString(deliveryAddress);
+        dest.writeString(orderFeedback);
+        dest.writeParcelable(hotel, flags);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Order> CREATOR = new Creator<Order>() {
+        @Override
+        public Order createFromParcel(Parcel in) {
+            return new Order(in);
+        }
+
+        @Override
+        public Order[] newArray(int size) {
+            return new Order[size];
+        }
+    };
 
     public int getOrderId() {
         return orderId;
+    }
+
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
     }
 
     public void setOrderId(int orderId) {
@@ -102,6 +174,14 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
+    public double getCommissionPercent() {
+        return commissionPercent;
+    }
+
+    public void setCommissionPercent(double commissionPercent) {
+        this.commissionPercent = commissionPercent;
+    }
+
     public double getCommission() {
         return commission;
     }
@@ -126,11 +206,19 @@ public class Order {
         this.orderRating = orderRating;
     }
 
-    public Hotel getHotel() {
-        return hotel;
+    public String getDeliveryAddress() {
+        return deliveryAddress;
     }
 
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
+    public void setDeliveryAddress(String deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
+    }
+
+    public String getOrderFeedback() {
+        return orderFeedback;
+    }
+
+    public void setOrderFeedback(String orderFeedback) {
+        this.orderFeedback = orderFeedback;
     }
 }

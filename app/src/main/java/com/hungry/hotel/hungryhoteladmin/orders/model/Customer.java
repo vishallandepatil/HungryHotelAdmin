@@ -1,6 +1,9 @@
 package com.hungry.hotel.hungryhoteladmin.orders.model;
 
-public class Customer {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Customer implements Parcelable {
     private int customerId;
     private String customerName;
     private String customerMobileNumber;
@@ -15,6 +18,25 @@ public class Customer {
         this.customerMobileNumber = customerMobileNumber;
         this.customerAddress = customerAddress;
     }
+
+    protected Customer(Parcel in) {
+        customerId = in.readInt();
+        customerName = in.readString();
+        customerMobileNumber = in.readString();
+        customerAddress = in.readString();
+    }
+
+    public static final Creator<Customer> CREATOR = new Creator<Customer>() {
+        @Override
+        public Customer createFromParcel(Parcel in) {
+            return new Customer(in);
+        }
+
+        @Override
+        public Customer[] newArray(int size) {
+            return new Customer[size];
+        }
+    };
 
     public int getCustomerId() {
         return customerId;
@@ -46,5 +68,18 @@ public class Customer {
 
     public void setCustomerAddress(String customerAddress) {
         this.customerAddress = customerAddress;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(customerId);
+        dest.writeString(customerName);
+        dest.writeString(customerMobileNumber);
+        dest.writeString(customerAddress);
     }
 }
