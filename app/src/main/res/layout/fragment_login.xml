@@ -41,49 +41,52 @@
 
                 <EditText
                     android:id="@+id/etUserName"
-                    android:layout_width="match_parent"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:drawableLeft="@drawable/ic_mobile"
-                    android:drawablePadding="4dp"
-                    android:ellipsize="start"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/border"
+                    android:drawableLeft="@drawable/ic_smartphone_black_24dp"
+                    android:drawablePadding="8dp"
                     android:gravity="center_vertical"
                     android:hint="User Name"
-                    android:padding="4dp"
-                    android:paddingStart="8dp"
-                    android:paddingTop="4dp"
-                    android:paddingEnd="8dp"
-                    android:paddingBottom="4dp" />
+                    android:padding="10dp"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/grey"
+                    android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/etPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:drawableLeft="@drawable/ic_user"
-                    android:drawablePadding="4dp"
-                    android:ellipsize="start"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/border"
+                    android:drawableLeft="@drawable/ic_account_box_black_24dp"
+                    android:drawablePadding="8dp"
                     android:gravity="center_vertical"
                     android:hint="Password"
-                    android:padding="4dp"
-                    android:paddingStart="8dp"
-                    android:paddingTop="4dp"
-                    android:paddingEnd="8dp"
-                    android:paddingBottom="4dp" />
+                    android:inputType="textPassword"
+                    android:padding="10dp"
+                    android:singleLine="true"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textColorHint="@color/grey"
+                    android:textSize="14sp" />
 
-                <Spinner
-                    android:id="@+id/spAccountType"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginTop="16dp"
+
+                    android:background="@drawable/border">
+
+                    <Spinner
+                        android:id="@+id/spAccountType"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:padding="10dp" />
+
+
+                </LinearLayout>
 
                 <Button
                     android:id="@+id/btnLogin"
@@ -92,7 +95,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="32dp"
-                    android:background="@drawable/ic_rounded_corner"
+                    android:background="@drawable/ic_rounded_corner_green"
                     android:paddingStart="32dp"
                     android:paddingTop="8dp"
                     android:paddingEnd="32dp"

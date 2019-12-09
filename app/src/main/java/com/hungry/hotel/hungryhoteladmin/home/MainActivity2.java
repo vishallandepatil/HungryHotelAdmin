@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import com.google.android.material.navigation.NavigationView;
 import com.hungry.hotel.hungryhoteladmin.R;
 import com.hungry.hotel.hungryhoteladmin.dashboard.fragment.OrderDashboardFragment;
+import com.hungry.hotel.hungryhoteladmin.home.listener.DrawerLocker;
+import com.hungry.hotel.hungryhoteladmin.orders.fragment.OrderFragment;
 
 import android.view.Menu;
 
@@ -24,14 +26,18 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 public class MainActivity2 extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, DrawerLocker {
+    DrawerLayout drawer;
+    ActionBarDrawerToggle toggle;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(null);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,9 +46,9 @@ public class MainActivity2 extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
@@ -89,12 +95,12 @@ public class MainActivity2 extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
         if (id == R.id.navOrders) {
-            loadFragment(new OrderDashboardFragment(), "ORDER_DASHBOARD", false);
+            loadFragment(new OrderFragment(), "ORDER_DASHBOARD", false);
         } else if (id == R.id.navMenus) {
-        } else if (id == R.id.navReports) {
 
+        } else if (id == R.id.navReports) {
+            loadFragment(new OrderDashboardFragment(), "ORDER_DASHBOARD", false);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
@@ -113,5 +119,14 @@ public class MainActivity2 extends AppCompatActivity
         fragmentTransaction.addToBackStack(fragmentName);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void setDrawerLocked(boolean shouldLock) {
+        if (shouldLock) {
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        } else {
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        }
     }
 }

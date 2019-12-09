@@ -3,9 +3,9 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rlDashboardOrderItem"
-    android:elevation="28dp"
     android:layout_width="match_parent"
-    android:layout_height="200dp">
+    android:layout_height="200dp"
+    android:elevation="28dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
