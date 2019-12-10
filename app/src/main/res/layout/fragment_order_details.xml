@@ -4,12 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:scrollbars="none"
-    tools:context=".orderdetail.OrderDetailsFragment">
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
@@ -59,6 +58,7 @@
                         android:layout_gravity="left"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="4dp"
+                        android:text="Mazhar Shaikh"
                         android:textAppearance="?android:textAppearanceLarge"
                         android:textStyle="bold" />
 
@@ -68,6 +68,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="left"
                         android:layout_marginBottom="4dp"
+                        android:text="23 Feb 2019"
                         android:textAppearance="?android:textAppearanceMedium" />
 
                     <TextView
@@ -75,6 +76,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
+                        android:text="New"
                         android:textAppearance="?android:textAppearanceSmall" />
 
 
@@ -113,6 +115,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
+                        android:text="Rs. 200.00"
                         android:textAppearance="?android:textAppearanceLarge"
                         android:textStyle="bold" />
 
@@ -120,15 +123,16 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <ImageView
+
+        <View
             android:layout_width="match_parent"
             android:layout_height="5dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:layerType="software"
-            android:src="@drawable/dotted_border" />
+            android:background="@drawable/dashed_line"
+            android:layerType="software" />
 
         <TextView
             android:id="@+id/tvSummary"
@@ -150,15 +154,15 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvDishes"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:layout_marginBottom="8dp" />
 
-            <ImageView
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
                 android:layout_marginBottom="8dp"
-                android:layerType="software"
-                android:src="@drawable/dotted_border" />
+                android:background="@drawable/dashed_line"
+                android:layerType="software" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -182,12 +186,13 @@
                     tools:text="200.00" />
             </RelativeLayout>
 
-            <ImageView
+
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
                 android:layout_marginBottom="4dp"
-                android:layerType="software"
-                android:src="@drawable/dotted_border" />
+                android:background="@drawable/dashed_line"
+                android:layerType="software" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -195,7 +200,7 @@
                 android:layout_marginBottom="8dp">
 
                 <TextView
-                    android:id="@+id/tvCommisionPercent"
+                    android:id="@+id/tvCommissionPercent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -203,7 +208,7 @@
                     android:textAppearance="?android:textAppearanceSmall" />
 
                 <TextView
-                    android:id="@+id/tvCommisionAmount"
+                    android:id="@+id/tvCommissionAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -211,12 +216,14 @@
                     tools:text="200.00" />
             </RelativeLayout>
 
-            <ImageView
+
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
                 android:layout_marginBottom="4dp"
-                android:layerType="software"
-                android:src="@drawable/dotted_border" />
+                android:background="@drawable/dashed_line"
+                android:layerType="software" />
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -240,12 +247,13 @@
                     tools:text="200.00" />
             </RelativeLayout>
 
-            <ImageView
+
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
                 android:layout_marginBottom="4dp"
-                android:layerType="software"
-                android:src="@drawable/dotted_border" />
+                android:background="@drawable/dashed_line"
+                android:layerType="software" />
 
 
         </LinearLayout>
@@ -260,7 +268,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvDeliverylabel"
+                android:id="@+id/tvDeliveryLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -272,7 +280,6 @@
                 android:id="@+id/tvDeliveredToName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_marginBottom="4dp"
                 android:text="Mazhar Shaikh"
                 android:textAppearance="?android:textAppearanceMedium"
@@ -282,7 +289,6 @@
                 android:id="@+id/tvDeliveryAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_marginBottom="4dp"
                 android:text="Mominpura Ghorpade peth swargate pune 411042"
                 android:textAppearance="?android:textAppearanceMedium"
@@ -292,7 +298,6 @@
                 android:id="@+id/tvDeliveryMobileNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:text="8888888888"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:textColor="#0000FF" />
@@ -311,7 +316,6 @@
                 android:id="@+id/tvDispatchLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:text="Dispatched To"
                 android:textAppearance="?android:textAppearanceMedium" />
 
@@ -349,18 +353,18 @@
                     android:id="@+id/tvDeliveryBoyName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
                     android:layout_gravity="center_vertical"
                     android:text="Gagan"
                     android:textAppearance="?android:textAppearanceMedium"
                     android:textColor="@color/lightGray" />
             </LinearLayout>
 
-            <ImageView
+
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
-                android:layerType="software"
-                android:src="@drawable/dotted_border" />
+                android:background="@drawable/dashed_line"
+                android:layerType="software" />
         </LinearLayout>
 
         <LinearLayout
@@ -376,7 +380,6 @@
                 android:id="@+id/tvFeedbackLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_marginBottom="4dp"
                 android:text="Feedback"
                 android:textAppearance="?android:textAppearanceMedium"
@@ -386,7 +389,6 @@
                 android:id="@+id/tvOrderFeedback"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:text="The food was tasty but quantity was less"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:textColor="@color/lightGray" />
@@ -452,5 +454,4 @@
 
 
     </LinearLayout>
-
 </ScrollView>

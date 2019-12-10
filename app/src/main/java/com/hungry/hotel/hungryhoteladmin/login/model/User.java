@@ -1,6 +1,7 @@
 package com.hungry.hotel.hungryhoteladmin.login.model;
 
 public class User {
+    public static String ACCOUNT_TYPE = "ACCOUNT_TYPE";
     public static String DELIVERY_BOY = "Delivery Boy";
     public static String HOTEL_ADMIN = "Hotel";
     private int id;
