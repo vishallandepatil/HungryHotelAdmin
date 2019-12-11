@@ -9,8 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hungry.hotel.hungryhoteladmin.R;
-import com.hungry.hotel.hungryhoteladmin.orders.model.Dish;
+import com.hungry.hotel.hungryhoteladmin.restaurentmenu.model.Dish;
 
+import java.util.Collections;
 import java.util.List;
 
 public class DishesAdapter extends RecyclerView.Adapter<DishesAdapter.DishHolder> {
@@ -38,7 +39,7 @@ public class DishesAdapter extends RecyclerView.Adapter<DishesAdapter.DishHolder
 
     @Override
     public int getItemCount() {
-        return 0;
+        return dishList.size();
     }
 
     public class DishHolder extends RecyclerView.ViewHolder {

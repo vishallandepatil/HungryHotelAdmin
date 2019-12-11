@@ -1,4 +1,4 @@
-package com.hungry.hotel.hungryhoteladmin.orders.fragment;
+package com.hungry.hotel.hungryhoteladmin.orders;
 
 
 import android.os.Bundle;

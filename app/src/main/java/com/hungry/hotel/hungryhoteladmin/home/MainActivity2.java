@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import com.google.android.material.navigation.NavigationView;
 import com.hungry.hotel.hungryhoteladmin.R;
 import com.hungry.hotel.hungryhoteladmin.dashboard.fragment.OrderDashboardFragment;
+import com.hungry.hotel.hungryhoteladmin.deliveryboy.DeliveryBoyFragment;
 import com.hungry.hotel.hungryhoteladmin.home.listener.DrawerLocker;
 import com.hungry.hotel.hungryhoteladmin.orders.fragment.OrderFragment;
 
@@ -105,6 +106,8 @@ public class MainActivity2 extends AppCompatActivity
 
         } else if (id == R.id.nav_send) {
 
+        } else if (id == R.id.nav_deliveryBoy) {
+            loadFragment(new DeliveryBoyFragment(), "DELIVERY_BOY", true);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
