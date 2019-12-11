@@ -80,12 +80,12 @@ public class OrderDashboardFragment extends Fragment {
         List<OrderDashboard> orders = new ArrayList<>();
 
 
-        orders.add(new OrderDashboard(100, OrderDashboard.TOTAL_ORDER, 100.00, false, R.color.totalOrder));
-        orders.add(new OrderDashboard(100, OrderDashboard.NEW_ORDER, 100.00, true, R.color.darkGreen));
-        orders.add(new OrderDashboard(100, OrderDashboard.ACCEPTED_ORDER, 100.00, false, R.color.accepted));
-        orders.add(new OrderDashboard(100, OrderDashboard.READY_ORDER, 100.00, false, R.color.ready));
-        orders.add(new OrderDashboard(100, OrderDashboard.REJECTED_ORDER, 100.00, false, R.color.lightGray));
-        orders.add(new OrderDashboard(100, OrderDashboard.DELIVERED_ORDER, 100.00, false, R.color.delivered));
+        orders.add(new OrderDashboard(100, OrderDashboard.TOTAL_ORDER, 100.00, false));
+        orders.add(new OrderDashboard(100, OrderDashboard.NEW_ORDER, 100.00, true));
+        orders.add(new OrderDashboard(100, OrderDashboard.ACCEPTED_ORDER, 100.00, false));
+        orders.add(new OrderDashboard(100, OrderDashboard.READY_ORDER, 100.00, false));
+        orders.add(new OrderDashboard(100, OrderDashboard.REJECTED_ORDER, 100.00, false));
+        orders.add(new OrderDashboard(100, OrderDashboard.DELIVERED_ORDER, 100.00, false));
 
         return orders;
     }

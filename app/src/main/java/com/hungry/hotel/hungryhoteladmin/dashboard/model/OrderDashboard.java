@@ -15,18 +15,16 @@ public class OrderDashboard implements Parcelable {
     private String orderName;
     private double orderPrice;
     private boolean isNew;
-    private int backgroundColor;
 
 
     public OrderDashboard() {
     }
 
-    public OrderDashboard(int totalOrder, String orderName, double orderPrice, boolean isNew, int backgroundColor) {
+    public OrderDashboard(int totalOrder, String orderName, double orderPrice, boolean isNew) {
         this.totalOrder = totalOrder;
         this.orderName = orderName;
         this.orderPrice = orderPrice;
         this.isNew = isNew;
-        this.backgroundColor = backgroundColor;
     }
 
     protected OrderDashboard(Parcel in) {
@@ -34,7 +32,6 @@ public class OrderDashboard implements Parcelable {
         orderName = in.readString();
         orderPrice = in.readDouble();
         isNew = in.readByte() != 0;
-        backgroundColor = in.readInt();
     }
 
     public static final Creator<OrderDashboard> CREATOR = new Creator<OrderDashboard>() {
@@ -81,14 +78,6 @@ public class OrderDashboard implements Parcelable {
         isNew = aNew;
     }
 
-    public int getBackgroundColor() {
-        return backgroundColor;
-    }
-
-    public void setBackgroundColor(int backgroundColor) {
-        this.backgroundColor = backgroundColor;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -100,6 +89,5 @@ public class OrderDashboard implements Parcelable {
         dest.writeString(orderName);
         dest.writeDouble(orderPrice);
         dest.writeByte((byte) (isNew ? 1 : 0));
-        dest.writeInt(backgroundColor);
     }
 }
