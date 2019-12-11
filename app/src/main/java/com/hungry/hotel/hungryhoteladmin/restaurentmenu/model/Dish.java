@@ -6,6 +6,7 @@ import android.os.Parcelable;
 public class Dish implements Parcelable {
     private int dishId;
     private String dishName;
+    private String dishImage;
     private double dishPrice;
     private boolean isShown;
     private String dishType;
@@ -14,14 +15,17 @@ public class Dish implements Parcelable {
     private String dishCategory;
     private String dishStartTime;
     private String dishEndTime;
+    private boolean isVeg;
 
 
     public Dish() {
     }
 
+
     protected Dish(Parcel in) {
         dishId = in.readInt();
         dishName = in.readString();
+        dishImage = in.readString();
         dishPrice = in.readDouble();
         isShown = in.readByte() != 0;
         dishType = in.readString();
@@ -30,6 +34,7 @@ public class Dish implements Parcelable {
         dishCategory = in.readString();
         dishStartTime = in.readString();
         dishEndTime = in.readString();
+        isVeg = in.readByte() != 0;
     }
 
     public static final Creator<Dish> CREATOR = new Creator<Dish>() {
@@ -58,6 +63,14 @@ public class Dish implements Parcelable {
 
     public void setDishName(String dishName) {
         this.dishName = dishName;
+    }
+
+    public String getDishImage() {
+        return dishImage;
+    }
+
+    public void setDishImage(String dishImage) {
+        this.dishImage = dishImage;
     }
 
     public double getDishPrice() {
@@ -124,6 +137,14 @@ public class Dish implements Parcelable {
         this.dishEndTime = dishEndTime;
     }
 
+    public boolean isVeg() {
+        return isVeg;
+    }
+
+    public void setVeg(boolean veg) {
+        isVeg = veg;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -133,6 +154,7 @@ public class Dish implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(dishId);
         dest.writeString(dishName);
+        dest.writeString(dishImage);
         dest.writeDouble(dishPrice);
         dest.writeByte((byte) (isShown ? 1 : 0));
         dest.writeString(dishType);
@@ -141,5 +163,6 @@ public class Dish implements Parcelable {
         dest.writeString(dishCategory);
         dest.writeString(dishStartTime);
         dest.writeString(dishEndTime);
+        dest.writeByte((byte) (isVeg ? 1 : 0));
     }
 }

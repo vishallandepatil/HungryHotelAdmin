@@ -1,10 +1,12 @@
 package com.hungry.hotel.hungryhoteladmin.home;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import android.util.Log;
 import android.view.View;
 import android.view.MenuItem;
 
@@ -13,10 +15,17 @@ import com.hungry.hotel.hungryhoteladmin.R;
 import com.hungry.hotel.hungryhoteladmin.dashboard.fragment.OrderDashboardFragment;
 import com.hungry.hotel.hungryhoteladmin.deliveryboy.DeliveryBoyFragment;
 import com.hungry.hotel.hungryhoteladmin.home.listener.DrawerLocker;
+import com.hungry.hotel.hungryhoteladmin.login.fragment.LoginFragment;
+import com.hungry.hotel.hungryhoteladmin.login.model.User;
 import com.hungry.hotel.hungryhoteladmin.orders.fragment.OrderFragment;
+import com.hungry.hotel.hungryhoteladmin.restaurentmenu.RestaurentMenuFragment;
+import com.hungry.hotel.hungryhoteladmin.utils.SharedPreferenceHelper;
 
 import android.view.Menu;
+import android.widget.AutoCompleteTextView;
+import android.widget.ImageButton;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -31,6 +40,9 @@ public class MainActivity2 extends AppCompatActivity
     DrawerLayout drawer;
     ActionBarDrawerToggle toggle;
     Toolbar toolbar;
+    AutoCompleteTextView actvSearchMenu;
+    ImageButton ibFilter;
+    ImageButton ibSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +66,8 @@ public class MainActivity2 extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-        loadFragment(new OrderDashboardFragment(), "ORDER_DASHBOARD", false);
+
+        loadFragment(new LoginFragment(), "ORDER_DASHBOARD", false);
 //        adding fragments
 
     }
@@ -81,7 +94,10 @@ public class MainActivity2 extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
+
         int id = item.getItemId();
+
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
@@ -96,10 +112,11 @@ public class MainActivity2 extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+
         if (id == R.id.navOrders) {
             loadFragment(new OrderFragment(), "ORDER_DASHBOARD", false);
         } else if (id == R.id.navMenus) {
-
+            loadFragment(new RestaurentMenuFragment(), "RESTAURANT_MENU", false);
         } else if (id == R.id.navReports) {
             loadFragment(new OrderDashboardFragment(), "ORDER_DASHBOARD", false);
         } else if (id == R.id.nav_share) {
@@ -119,7 +136,9 @@ public class MainActivity2 extends AppCompatActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.clHomePageContainer, fragment);
-        fragmentTransaction.addToBackStack(fragmentName);
+        if (needToBackStack) {
+            fragmentTransaction.addToBackStack(fragmentName);
+        }
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         fragmentTransaction.commit();
     }
@@ -132,4 +151,16 @@ public class MainActivity2 extends AppCompatActivity
             drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         }
     }
+
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+
+        if (fragment instanceof LoginFragment) {
+            getSupportActionBar().hide();
+        } else {
+            getSupportActionBar().show();
+        }
+    }
+
+
 }

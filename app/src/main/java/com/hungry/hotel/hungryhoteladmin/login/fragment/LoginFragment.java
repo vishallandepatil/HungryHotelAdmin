@@ -1,5 +1,6 @@
 package com.hungry.hotel.hungryhoteladmin.login.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,9 +14,13 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.hungry.hotel.hungryhoteladmin.R;
+import com.hungry.hotel.hungryhoteladmin.dashboard.fragment.OrderDashboardFragment;
 import com.hungry.hotel.hungryhoteladmin.home.MainActivity2;
 import com.hungry.hotel.hungryhoteladmin.login.model.User;
 import com.hungry.hotel.hungryhoteladmin.utils.SharedPreferenceHelper;
@@ -46,8 +51,10 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         String accountType = "";
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         final View loginView = inflater.inflate(R.layout.fragment_login, container, false);
         EditText etUserName = loginView.findViewById(R.id.etUserName);
         EditText etPassword = loginView.findViewById(R.id.etPassword);
@@ -66,17 +73,7 @@ public class LoginFragment extends Fragment {
         user.setName(userName);
         user.setPassword(password);
         user.setAccountType(account);
-        spAccountType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//        accountType = adapterView.getItemAtPosition(i).toString();
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,9 +88,7 @@ public class LoginFragment extends Fragment {
         boolean isValidUser = true;
         if (isValidUser) {
             saveDetailsToPreferences(user);
-            Intent intent = new Intent(loginView.getContext()
-                    , MainActivity2.class);
-            startActivity(intent);
+            loadFragment(new OrderDashboardFragment(), "ORDER_DASHBOARD", true);
         }
     }
 
@@ -101,6 +96,17 @@ public class LoginFragment extends Fragment {
         SharedPreferences.Editor spEditor = SharedPreferenceHelper.getEditorInstance(getActivity(), "USER");
         spEditor.putString(User.ACCOUNT_TYPE, user.getAccountType());
         SharedPreferenceHelper.savePreference(spEditor);
+    }
+
+    private void loadFragment(Fragment fragment, String fragmentName, boolean needToBackStack) {
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.clHomePageContainer, fragment);
+        if (needToBackStack) {
+            fragmentTransaction.addToBackStack(fragmentName);
+        }
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fragmentTransaction.commit();
     }
 
 }

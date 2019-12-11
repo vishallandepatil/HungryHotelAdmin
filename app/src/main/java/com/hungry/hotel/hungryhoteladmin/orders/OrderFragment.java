@@ -137,10 +137,17 @@ public class OrderFragment extends Fragment {
         order.setReceivableAmount(200.00);
         order.setOrderRating(3.5f);
         order.setDeliveryAddress("Ghorpade peth swar gate Mominpura Pune 411042");
-        orderList.add(order);
-        orderList.add(order);
-        orderList.add(order);
         order.setDishList(dishList);
+        orderList.add(order);
+        orderList.add(order);
+        orderList.add(order);
+        orderList.add(order);
+        orderList.add(order);
+        orderList.add(order);
+        orderList.add(order);
+        orderList.add(order);
+        orderList.add(order);
+
         return orderList;
     }
 

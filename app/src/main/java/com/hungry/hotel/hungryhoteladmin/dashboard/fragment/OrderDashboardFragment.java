@@ -7,9 +7,14 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -29,12 +34,16 @@ import android.content.res.Resources;
 import android.widget.Toast;
 
 public class OrderDashboardFragment extends Fragment {
+    private OrderDashboardFragmentListener orderDashboardFragmentListener;
 
 
     public OrderDashboardFragment() {
         // Required empty public constructor
     }
 
+    public void setOrderDashboardFragmentListener(OrderDashboardFragmentListener orderDashboardFragmentListener) {
+        this.orderDashboardFragmentListener = orderDashboardFragmentListener;
+    }
 
     public static OrderDashboardFragment newInstance(String param1, String param2) {
 
@@ -45,6 +54,18 @@ public class OrderDashboardFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("Order dashborad");
+        toolbar.setTitleTextColor(getActivity().getResources().getColor(R.color.black));
+        AutoCompleteTextView actvSearchMenu = toolbar.findViewById(R.id.actvSearchMenu);
+        ImageButton ibFilter = toolbar.findViewById(R.id.ibFilter);
+        ImageButton ibSearch = toolbar.findViewById(R.id.ibSearch);
+        actvSearchMenu.setVisibility(View.GONE);
+        ibSearch.setVisibility(View.GONE);
+        ibFilter.setVisibility(View.GONE);
+
+
         final View dashboardView = inflater.inflate(R.layout.fragment_order_dashboard, container, false);
         TextView tvTodaysStatus = dashboardView.findViewById(R.id.tvTodaysStatus);
         Button btnOtherOrder = dashboardView.findViewById(R.id.btnOtherOrder);
@@ -138,4 +159,9 @@ public class OrderDashboardFragment extends Fragment {
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         fragmentTransaction.commit();
     }
+
+    public interface OrderDashboardFragmentListener {
+        void onDashboardOpen();
+    }
+
 }
