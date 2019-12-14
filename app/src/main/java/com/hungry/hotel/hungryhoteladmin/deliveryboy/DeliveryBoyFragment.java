@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
+import android.widget.ImageButton;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.hungry.hotel.hungryhoteladmin.R;
-
 
 
 public class DeliveryBoyFragment extends Fragment {
@@ -44,7 +47,21 @@ public class DeliveryBoyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        setupToolbar();
         return inflater.inflate(R.layout.fragment_delivery_boy, container, false);
+    }
+
+    private void setupToolbar() {
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("Delivery Boy");
+        toolbar.setTitleTextColor(getActivity().getResources().getColor(R.color.black));
+        AutoCompleteTextView actvSearchMenu = toolbar.findViewById(R.id.actvSearchMenu);
+        ImageButton ibFilter = toolbar.findViewById(R.id.ibFilter);
+        ImageButton ibSearch = toolbar.findViewById(R.id.ibSearch);
+        actvSearchMenu.setVisibility(View.GONE);
+        ibSearch.setVisibility(View.GONE);
+        ibFilter.setVisibility(View.GONE);
     }
 
 }
