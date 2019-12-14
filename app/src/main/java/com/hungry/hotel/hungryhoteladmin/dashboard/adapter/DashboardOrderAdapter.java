@@ -48,7 +48,7 @@ public class DashboardOrderAdapter extends RecyclerView.Adapter<DashboardOrderAd
 //        holder.itemView.setBackgroundColor(orderDashboard.getBackgroundColor());
         holder.tvTotalOrders.setText(String.valueOf(orderDashboard.getTotalOrder()));
         holder.tvOrderName.setText(orderDashboard.getOrderName());
-        holder.tvOrderPrice.setText(String.valueOf(orderDashboard.getOrderPrice()));
+        holder.tvOrderPrice.setText(String.valueOf(HungryAdminUtility.getFormattedPrice(orderDashboard.getOrderPrice())));
         if (orderDashboard.isNew()) {
             holder.tvNewOrder.setVisibility(View.VISIBLE);
             holder.tvNewOrder.setText("NEW");

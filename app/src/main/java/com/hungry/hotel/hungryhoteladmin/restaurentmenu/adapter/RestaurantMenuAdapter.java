@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -17,12 +18,13 @@ import com.hungry.hotel.hungryhoteladmin.R;
 import com.hungry.hotel.hungryhoteladmin.restaurentmenu.listener.EditMenuListener;
 import com.hungry.hotel.hungryhoteladmin.restaurentmenu.listener.LoadMoreListener;
 import com.hungry.hotel.hungryhoteladmin.restaurentmenu.model.Dish;
+import com.hungry.hotel.hungryhoteladmin.utils.HungryAdminUtility;
 
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class RestaurentMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RestaurantMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int VIEW_TYPE_NO_RECORD = 0;
     private final int VIEW_TYPE_LOADING = 1;
     private final int VIEW_TYPE_MENU_ITEM = 2;
@@ -33,10 +35,11 @@ public class RestaurentMenuAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private boolean isMenuLoading;
     RecyclerView rvDishes;
 
-    public RestaurentMenuAdapter(Activity activity, List<Dish> dishList, RecyclerView rvDishes) {
+    public RestaurantMenuAdapter(Activity activity, List<Dish> dishList, RecyclerView rvDishes, EditMenuListener editMenuListener) {
         this.dishList = dishList;
         this.activity = activity;
         this.rvDishes = rvDishes;
+        this.editMenuListener = editMenuListener;
     }
 
     @NonNull
@@ -48,7 +51,7 @@ public class RestaurentMenuAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 return new NoRecordViewHolder(noDishView);
             case VIEW_TYPE_LOADING:
                 View loadingView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_progress_bar_small, parent, false);
-                return new MenuLoadinViewHolder(loadingView);
+                return new MenuLoadingViewHolder(loadingView);
             case VIEW_TYPE_MENU_ITEM:
                 View menuView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_menu_item, parent, false);
                 return new MenuViewHolder(menuView);
@@ -61,7 +64,7 @@ public class RestaurentMenuAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof NoRecordViewHolder) {
 
-        } else if (holder instanceof MenuLoadinViewHolder) {
+        } else if (holder instanceof MenuLoadingViewHolder) {
 
         } else if (holder instanceof MenuViewHolder) {
             Dish dish = dishList.get(position);
@@ -73,7 +76,7 @@ public class RestaurentMenuAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     .into(menuViewHolder.civDIshImage);
             menuViewHolder.tvDishName.setText(dish.getDishName());
             menuViewHolder.tvDishQuantity.setText(dish.getDishQuantity() + " items");
-            menuViewHolder.tvDishPrice.setText("RS. " + dish.getDishPrice());
+            menuViewHolder.tvDishPrice.setText("RS. " + HungryAdminUtility.getFormattedPrice(dish.getDishPrice()));
             menuViewHolder.tvDishTime.setText(dish.getDishStartTime() + " to " + dish.getDishEndTime());
             if (dish.isVeg()) {
 
@@ -83,9 +86,15 @@ public class RestaurentMenuAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 //            edit icon ivEditMenu
             if (dish.isShown()) {
                 menuViewHolder.tvDishShown.setText("visible");
+                menuViewHolder.tvDishShown.setTextColor(ContextCompat.getColor(activity, R.color.darkGreen));
             } else {
                 menuViewHolder.tvDishShown.setText("Hide");
+                menuViewHolder.tvDishShown.setTextColor(ContextCompat.getColor(activity, R.color.red));
+
             }
+            menuViewHolder.itemView.setOnClickListener((view) -> {
+                editMenuListener.openEditMenu(dish);
+            });
 
         }
     }
@@ -131,10 +140,10 @@ public class RestaurentMenuAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         }
     }
 
-    public class MenuLoadinViewHolder extends RecyclerView.ViewHolder {
+    public class MenuLoadingViewHolder extends RecyclerView.ViewHolder {
         public ProgressBar pbLoading;
 
-        public MenuLoadinViewHolder(View v) {
+        public MenuLoadingViewHolder(View v) {
             super(v);
             pbLoading = v.findViewById(R.id.pbLoading);
         }

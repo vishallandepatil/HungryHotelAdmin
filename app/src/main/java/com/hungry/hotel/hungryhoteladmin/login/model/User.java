@@ -8,6 +8,8 @@ public class User {
     private String name;
     private String password;
     private String accountType;
+    String mobileNumber;
+    String otp;
 
     public int getId() {
         return id;
@@ -39,5 +41,21 @@ public class User {
 
     public void setAccountType(String accountType) {
         this.accountType = accountType;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
+    public String getOtp() {
+        return otp;
+    }
+
+    public void setOtp(String otp) {
+        this.otp = otp;
     }
 }

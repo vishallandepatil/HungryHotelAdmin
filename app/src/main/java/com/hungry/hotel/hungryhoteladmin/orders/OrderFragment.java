@@ -1,6 +1,8 @@
 package com.hungry.hotel.hungryhoteladmin.orders;
 
 
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,7 @@ import com.hungry.hotel.hungryhoteladmin.orders.model.DeliveryBoy;
 import com.hungry.hotel.hungryhoteladmin.restaurentmenu.model.Dish;
 import com.hungry.hotel.hungryhoteladmin.orders.model.Hotel;
 import com.hungry.hotel.hungryhoteladmin.orders.model.Order;
+import com.hungry.hotel.hungryhoteladmin.utils.OnFragmentInteractionListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +32,7 @@ import java.util.List;
 public class OrderFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     String orderName;
-
+    private OnFragmentInteractionListener mListener;
 
     public OrderFragment() {
         // Required empty public constructor
@@ -150,5 +153,27 @@ public class OrderFragment extends Fragment {
 
         return orderList;
     }
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(this);
+        }
+    }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
 }
