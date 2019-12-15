@@ -1,31 +1,30 @@
 package com.hungry.hotel.hungryhoteladmin.home;
 
-import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-import android.util.Log;
 import android.view.View;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 import com.hungry.hotel.hungryhoteladmin.R;
-import com.hungry.hotel.hungryhoteladmin.dashboard.fragment.OrderDashboardFragment;
+import com.hungry.hotel.hungryhoteladmin.dashboard.OrderDashboardFragment;
 import com.hungry.hotel.hungryhoteladmin.deliveryboy.DeliveryBoyFragment;
 import com.hungry.hotel.hungryhoteladmin.home.listener.DrawerLocker;
-import com.hungry.hotel.hungryhoteladmin.login.fragment.LoginFragment;
-import com.hungry.hotel.hungryhoteladmin.login.model.User;
+import com.hungry.hotel.hungryhoteladmin.login.LoginFragment;
+import com.hungry.hotel.hungryhoteladmin.menudetails.AddUpdateMenuFragment;
+import com.hungry.hotel.hungryhoteladmin.orderdetail.OrderDetailsFragment;
 import com.hungry.hotel.hungryhoteladmin.orders.fragment.OrderFragment;
-import com.hungry.hotel.hungryhoteladmin.restaurentmenu.RestaurentMenuFragment;
-import com.hungry.hotel.hungryhoteladmin.utils.SharedPreferenceHelper;
+import com.hungry.hotel.hungryhoteladmin.restaurentmenu.RestaurantMenuFragment;
+import com.hungry.hotel.hungryhoteladmin.utils.OnFragmentInteractionListener;
 
 import android.view.Menu;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -36,8 +35,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 public class MainActivity2 extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, DrawerLocker {
+        implements NavigationView.OnNavigationItemSelectedListener, DrawerLocker, OnFragmentInteractionListener {
     DrawerLayout drawer;
+    NavigationView navigationView;
     ActionBarDrawerToggle toggle;
     Toolbar toolbar;
     AutoCompleteTextView actvSearchMenu;
@@ -60,13 +60,15 @@ public class MainActivity2 extends AppCompatActivity
             }
         });
         drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-
+        /*navigationView = findViewById(R.id.nav_view);
+        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu.findItem(R.id.navMenus).setVisible(false);*/
         loadFragment(new LoginFragment(), "ORDER_DASHBOARD", false);
 //        adding fragments
 
@@ -116,7 +118,7 @@ public class MainActivity2 extends AppCompatActivity
         if (id == R.id.navOrders) {
             loadFragment(new OrderFragment(), "ORDER_DASHBOARD", false);
         } else if (id == R.id.navMenus) {
-            loadFragment(new RestaurentMenuFragment(), "RESTAURANT_MENU", false);
+            loadFragment(new RestaurantMenuFragment(), "RESTAURANT_MENU", false);
         } else if (id == R.id.navReports) {
             loadFragment(new OrderDashboardFragment(), "ORDER_DASHBOARD", false);
         } else if (id == R.id.nav_share) {
@@ -124,7 +126,7 @@ public class MainActivity2 extends AppCompatActivity
         } else if (id == R.id.nav_send) {
 
         } else if (id == R.id.nav_deliveryBoy) {
-            loadFragment(new DeliveryBoyFragment(), "DELIVERY_BOY", true);
+            loadFragment(new DeliveryBoyFragment(), "DELIVERY_BOY", false);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -163,4 +165,17 @@ public class MainActivity2 extends AppCompatActivity
     }
 
 
+    @Override
+    public void onFragmentInteraction(Fragment fragment) {
+        if (fragment instanceof LoginFragment) {
+
+        } else if (fragment instanceof OrderDashboardFragment) {
+//            Menu nav_Menu = navigationView.getMenu();
+//            nav_Menu.findItem(R.id.navMenus).setVisible(false);
+        } else if (fragment instanceof DeliveryBoyFragment) {
+        } else if (fragment instanceof RestaurantMenuFragment) {
+        } else if (fragment instanceof OrderDetailsFragment) {
+        }
+
+    }
 }

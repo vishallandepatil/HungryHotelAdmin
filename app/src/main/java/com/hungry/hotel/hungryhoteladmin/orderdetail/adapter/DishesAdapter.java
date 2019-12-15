@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hungry.hotel.hungryhoteladmin.R;
 import com.hungry.hotel.hungryhoteladmin.restaurentmenu.model.Dish;
+import com.hungry.hotel.hungryhoteladmin.utils.HungryAdminUtility;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,7 +35,7 @@ public class DishesAdapter extends RecyclerView.Adapter<DishesAdapter.DishHolder
     public void onBindViewHolder(@NonNull DishHolder holder, int position) {
         Dish dish = dishList.get(position);
         holder.tvDishName.setText(dish.getDishName());
-        holder.tvDishPrice.setText("Rs. " + dish.getDishPrice());
+        holder.tvDishPrice.setText("Rs. " + HungryAdminUtility.getFormattedPrice(dish.getDishPrice()));
     }
 
     @Override

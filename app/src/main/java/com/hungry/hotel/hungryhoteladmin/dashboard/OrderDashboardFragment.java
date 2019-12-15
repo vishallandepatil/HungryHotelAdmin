@@ -1,10 +1,15 @@
-package com.hungry.hotel.hungryhoteladmin.dashboard.fragment;
+package com.hungry.hotel.hungryhoteladmin.dashboard;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
@@ -12,7 +17,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -22,10 +26,14 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.navigation.NavigationView;
 import com.hungry.hotel.hungryhoteladmin.R;
 import com.hungry.hotel.hungryhoteladmin.dashboard.adapter.DashboardOrderAdapter;
 import com.hungry.hotel.hungryhoteladmin.dashboard.model.OrderDashboard;
+import com.hungry.hotel.hungryhoteladmin.login.model.User;
 import com.hungry.hotel.hungryhoteladmin.orders.fragment.OrderFragment;
+import com.hungry.hotel.hungryhoteladmin.utils.OnFragmentInteractionListener;
+import com.hungry.hotel.hungryhoteladmin.utils.SharedPreferenceHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +43,7 @@ import android.widget.Toast;
 
 public class OrderDashboardFragment extends Fragment {
     private OrderDashboardFragmentListener orderDashboardFragmentListener;
+    private OnFragmentInteractionListener mListener;
 
 
     public OrderDashboardFragment() {
@@ -67,6 +76,15 @@ public class OrderDashboardFragment extends Fragment {
 
 
         final View dashboardView = inflater.inflate(R.layout.fragment_order_dashboard, container, false);
+        SharedPreferences sharedPreferences = SharedPreferenceHelper.getSharedPreferenceInstance(getActivity(), "USER");
+        String accountType = sharedPreferences.getString(User.ACCOUNT_TYPE, "NONE");
+        Log.d("Dashboard", accountType);
+        /*if (accountType.equalsIgnoreCase(User.HOTEL_ADMIN)) {
+            NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+            Menu nav_Menu = navigationView.getMenu();
+            nav_Menu.findItem(R.id.nav_deliveryBoy).setVisible(false);
+        }*/
+
         TextView tvTodaysStatus = dashboardView.findViewById(R.id.tvTodaysStatus);
         Button btnOtherOrder = dashboardView.findViewById(R.id.btnOtherOrder);
         RecyclerView rvOrderDashboard = dashboardView.findViewById(R.id.rvOrderDashboard);
@@ -81,7 +99,9 @@ public class OrderDashboardFragment extends Fragment {
         });
         setDashboardProperty(dashboardView, rvOrderDashboard);
         rvOrderDashboard.setAdapter(dashboardOrderAdapter);
+        btnOtherOrder.setOnClickListener(v -> {
 
+        });
         return dashboardView;
     }
 
@@ -162,6 +182,30 @@ public class OrderDashboardFragment extends Fragment {
 
     public interface OrderDashboardFragmentListener {
         void onDashboardOpen();
+    }
+
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(this);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
     }
 
 }

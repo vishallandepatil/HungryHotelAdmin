@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:scrollbars="none">
@@ -11,15 +12,16 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <androidx.cardview.widget.CardView
+      <!--  <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp">
+            >-->
 
             <LinearLayout
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:baselineAligned="false"
@@ -116,12 +118,12 @@
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
                         android:text="Rs. 200.00"
-                        android:textAppearance="?android:textAppearanceLarge"
+                        android:textAppearance="?android:textAppearanceMedium"
                         android:textStyle="bold" />
 
                 </RelativeLayout>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        <!--</androidx.cardview.widget.CardView>-->
 
 
         <View
@@ -282,7 +284,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
                 android:text="Mazhar Shaikh"
-                android:textAppearance="?android:textAppearanceMedium"
+                android:textAppearance="?android:textAppearanceSmall"
                 android:textStyle="bold" />
 
             <TextView
@@ -291,17 +293,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
                 android:text="Mominpura Ghorpade peth swargate pune 411042"
-                android:textAppearance="?android:textAppearanceMedium"
+                android:textAppearance="?android:textAppearanceSmall"
                 android:textColor="@color/lightGray" />
 
             <TextView
                 android:id="@+id/tvDeliveryMobileNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="8888888888"
-                android:textAppearance="?android:textAppearanceMedium"
+                android:text="9595858565"
+                android:textAppearance="?android:textAppearanceSmall"
                 android:textColor="#0000FF" />
         </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/llDeliveryBoy"
@@ -312,10 +315,21 @@
             android:layout_marginBottom="8dp"
             android:orientation="vertical">
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/dashed_line"
+                android:layerType="software" />
+
             <TextView
                 android:id="@+id/tvDispatchLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:text="Dispatched To"
                 android:textAppearance="?android:textAppearanceMedium" />
 
@@ -324,6 +338,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="8dp"
                 android:background="@drawable/border"
                 android:drawableLeft="@drawable/ic_key"
                 android:drawablePadding="8dp"
@@ -336,6 +351,7 @@
                 android:textSize="14sp" />
 
             <LinearLayout
+                android:id="@+id/llDeliveryBoyName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -355,16 +371,11 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="Gagan"
-                    android:textAppearance="?android:textAppearanceMedium"
+                    android:textAppearance="?android:textAppearanceSmall"
                     android:textColor="@color/lightGray" />
             </LinearLayout>
 
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:background="@drawable/dashed_line"
-                android:layerType="software" />
         </LinearLayout>
 
         <LinearLayout
@@ -375,6 +386,13 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="24dp"
             android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/dashed_line"
+                android:layerType="software" />
 
             <TextView
                 android:id="@+id/tvFeedbackLabel"
@@ -390,7 +408,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="The food was tasty but quantity was less"
-                android:textAppearance="?android:textAppearanceMedium"
+                android:textAppearance="?android:textAppearanceSmall"
                 android:textColor="@color/lightGray" />
         </LinearLayout>
 
@@ -443,7 +461,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/ic_rounded_corner_gray"
+                android:background="@drawable/ic_rounded_corner_green"
                 android:paddingStart="32dp"
                 android:paddingTop="8dp"
                 android:paddingEnd="32dp"
