@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:orientation="horizontal"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
             app:navigationIcon="@drawable/ic_menu_black_24dp"
             app:popupTheme="@style/AppTheme.PopupOverlay">
             <!--android:background="?attr/colorPrimary"-->
@@ -24,14 +25,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-          <!--      <TextView
+                <!--      <TextView
 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="Hello World"
-                    android:textAppearance="?android:textAppearanceLarge"
-                    android:textStyle="bold" />-->
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_centerInParent="true"
+                          android:text="Hello World"
+                          android:textAppearance="?android:textAppearanceLarge"
+                          android:textStyle="bold" />-->
 
                 <AutoCompleteTextView
                     android:id="@+id/actvSearchMenu"
@@ -61,6 +62,18 @@
                     android:layout_toStartOf="@id/ibFilter"
                     android:background="?attr/colorPrimary"
                     android:src="@drawable/ic_search" />
+
+                <ImageButton
+                    android:id="@+id/ibBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toStartOf="@id/actvSearchMenu"
+                    android:background="?attr/colorPrimary"
+                    android:src="@drawable/ic_left_arrow" />
             </RelativeLayout>
 
 

@@ -26,8 +26,15 @@ public class DashboardOrderAdapter extends RecyclerView.Adapter<DashboardOrderAd
     OrderClickListener orderClickListener;
     Activity context;
 
-    public DashboardOrderAdapter(Activity context, List<OrderDashboard> orderDashboardList, OrderClickListener orderClickListener) {
+    public List<OrderDashboard> getOrderDashboardList() {
+        return orderDashboardList;
+    }
+
+    public void setOrderDashboardList(List<OrderDashboard> orderDashboardList) {
         this.orderDashboardList = orderDashboardList;
+    }
+
+    public DashboardOrderAdapter(Activity context, OrderClickListener orderClickListener) {
         this.orderClickListener = orderClickListener;
         this.context = context;
     }
@@ -65,11 +72,11 @@ public class DashboardOrderAdapter extends RecyclerView.Adapter<DashboardOrderAd
 //        final DisplayMetrics displayMetrics = new DisplayMetrics();
 //        context.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 //        int width = (int) (displayMetrics.widthPixels - HungryAdminUtility.getDpFfromPixel(60, context)) / 1;
-//        // int width = (int)(holder1.itemview.getWidth());
+////         int width = (int)(holder.itemView.getWidth());
 //
 //        int height = (int) (width * 1.8);
 //
-//        holder.itemView.setLayoutParams(new CardView.LayoutParams(width, height));
+//        holder.itemView.setLayoutParams(new LinearLayout.LayoutParams(width, height));
 
 
     }
