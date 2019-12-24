@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +22,7 @@ import com.hungry.hotel.hungryhoteladmin.orderdetail.OrderDetailsFragment;
 import com.hungry.hotel.hungryhoteladmin.orders.adapter.OrdersAdapter;
 import com.hungry.hotel.hungryhoteladmin.orders.model.Customer;
 import com.hungry.hotel.hungryhoteladmin.orders.model.DeliveryBoy;
+import com.hungry.hotel.hungryhoteladmin.orders.viewmodel.OrdersViewModel;
 import com.hungry.hotel.hungryhoteladmin.restaurentmenu.model.Dish;
 import com.hungry.hotel.hungryhoteladmin.orders.model.Hotel;
 import com.hungry.hotel.hungryhoteladmin.orders.model.Order;
@@ -63,13 +66,23 @@ public class OrderFragment extends Fragment {
 
         View orderView = inflater.inflate(R.layout.fragment_order, container, false);
         RecyclerView rvOrders = orderView.findViewById(R.id.rvOrders);
-        List<Order> orderList = getOrders();
+        OrdersViewModel ordersViewModel = ViewModelProviders.of(getActivity()).get(OrdersViewModel.class);
 
-        OrdersAdapter ordersAdapter = new OrdersAdapter(orderList, new OrdersAdapter.OrderOpenListener() {
+
+        OrdersAdapter ordersAdapter
+                = new OrdersAdapter(new OrdersAdapter.OrderOpenListener() {
             @Override
             public void openOrder(Order order) {
 
                 openOrderDetailFragment(order);
+            }
+        });
+        ordersViewModel.getOrderListObserver().observe(getActivity(), new Observer<List<Order>>() {
+            @Override
+            public void onChanged(List<Order> orders) {
+                if (orders != null && orders.size() > 0) {
+                    ordersAdapter.setOrderList(orders);
+                }
             }
         });
         setOrdersProperty(rvOrders);
@@ -101,58 +114,6 @@ public class OrderFragment extends Fragment {
         fragmentTransaction.commit();
     }
 
-    private List<Order> getOrders() {
-        List<Order> orderList = new ArrayList<>();
-
-//        Customer
-        Customer customer = new Customer();
-        customer.setCustomerName("Prasad Chawan");
-        customer.setCustomerMobileNumber("8888888888");
-        customer.setCustomerAddress("Ghorpade peth swar gate Mominpura Pune 411042");
-//DeliveryBoy
-        DeliveryBoy deliveryBoy = new DeliveryBoy();
-        deliveryBoy.setDeliveryBoyName("Delivery Boy");
-        deliveryBoy.setDeliveryBoyMobile("9999999999");
-//        Hotel
-        Hotel hotel = new Hotel();
-        hotel.setHotelName("Hotel Royal");
-//        Dishes
-        Dish dish = new Dish();
-        dish.setDishName("Sev Bhaji");
-        dish.setDishPrice(80.00);
-        List<Dish> dishList = new ArrayList<>();
-        dishList.add(dish);
-        dishList.add(dish);
-//        Order
-        Order order = new Order();
-        order.setHotel(hotel);
-        order.setNewOrder(true);
-        order.setOrderImage("");
-        order.setOrderDate("26 Nov 2019 11:55AM");
-        order.setCustomer(customer);
-        order.setCustomer(customer);
-        order.setDeliveryBoy(deliveryBoy);
-        order.setDishCount(3);
-        order.setOrderStatus("NEW");
-        order.setTotalPrice(300.00);
-        order.setCommissionPercent(20);
-        order.setCommission(15.00);
-        order.setReceivableAmount(200.00);
-        order.setOrderRating(3.5f);
-        order.setDeliveryAddress("Ghorpade peth swar gate Mominpura Pune 411042");
-        order.setDishList(dishList);
-        orderList.add(order);
-        orderList.add(order);
-        orderList.add(order);
-        orderList.add(order);
-        orderList.add(order);
-        orderList.add(order);
-        orderList.add(order);
-        orderList.add(order);
-        orderList.add(order);
-
-        return orderList;
-    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {

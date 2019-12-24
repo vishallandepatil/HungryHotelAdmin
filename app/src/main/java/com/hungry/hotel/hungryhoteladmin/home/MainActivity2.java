@@ -1,6 +1,5 @@
 package com.hungry.hotel.hungryhoteladmin.home;
 
-import android.net.Uri;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -15,9 +14,8 @@ import com.hungry.hotel.hungryhoteladmin.dashboard.OrderDashboardFragment;
 import com.hungry.hotel.hungryhoteladmin.deliveryboy.DeliveryBoyFragment;
 import com.hungry.hotel.hungryhoteladmin.home.listener.DrawerLocker;
 import com.hungry.hotel.hungryhoteladmin.login.LoginFragment;
-import com.hungry.hotel.hungryhoteladmin.menudetails.AddUpdateMenuFragment;
 import com.hungry.hotel.hungryhoteladmin.orderdetail.OrderDetailsFragment;
-import com.hungry.hotel.hungryhoteladmin.orders.fragment.OrderFragment;
+import com.hungry.hotel.hungryhoteladmin.orders.OrderFragment;
 import com.hungry.hotel.hungryhoteladmin.restaurentmenu.RestaurantMenuFragment;
 import com.hungry.hotel.hungryhoteladmin.utils.OnFragmentInteractionListener;
 
@@ -50,7 +48,6 @@ public class MainActivity2 extends AppCompatActivity
         setContentView(R.layout.activity_main2);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(null);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +66,7 @@ public class MainActivity2 extends AppCompatActivity
         /*navigationView = findViewById(R.id.nav_view);
         Menu nav_Menu = navigationView.getMenu();
         nav_Menu.findItem(R.id.navMenus).setVisible(false);*/
-        loadFragment(new LoginFragment(), "ORDER_DASHBOARD", false);
+        loadFragment(new LoginFragment(), "LOGIN", false);
 //        adding fragments
 
     }
@@ -173,9 +170,15 @@ public class MainActivity2 extends AppCompatActivity
 //            Menu nav_Menu = navigationView.getMenu();
 //            nav_Menu.findItem(R.id.navMenus).setVisible(false);
         } else if (fragment instanceof DeliveryBoyFragment) {
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+            // Remove hamburger
+            toggle.setDrawerIndicatorEnabled(false);
+            // Show back button
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         } else if (fragment instanceof RestaurantMenuFragment) {
         } else if (fragment instanceof OrderDetailsFragment) {
         }
 
     }
+
 }

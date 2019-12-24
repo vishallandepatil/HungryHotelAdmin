@@ -92,7 +92,7 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 menuViewHolder.tvDishShown.setTextColor(ContextCompat.getColor(activity, R.color.red));
 
             }
-            menuViewHolder.itemView.setOnClickListener((view) -> {
+            menuViewHolder.ivDishEdit.setOnClickListener((view) -> {
                 editMenuListener.openEditMenu(dish);
             });
 

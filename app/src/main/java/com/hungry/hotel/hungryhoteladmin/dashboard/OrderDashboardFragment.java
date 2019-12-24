@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
@@ -22,16 +21,19 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.navigation.NavigationView;
 import com.hungry.hotel.hungryhoteladmin.R;
 import com.hungry.hotel.hungryhoteladmin.dashboard.adapter.DashboardOrderAdapter;
 import com.hungry.hotel.hungryhoteladmin.dashboard.model.OrderDashboard;
+import com.hungry.hotel.hungryhoteladmin.dashboard.viewmodel.DashboardViewModel;
 import com.hungry.hotel.hungryhoteladmin.login.model.User;
-import com.hungry.hotel.hungryhoteladmin.orders.fragment.OrderFragment;
+import com.hungry.hotel.hungryhoteladmin.orders.OrderFragment;
+import com.hungry.hotel.hungryhoteladmin.orders.viewmodel.OrdersViewModel;
 import com.hungry.hotel.hungryhoteladmin.utils.OnFragmentInteractionListener;
 import com.hungry.hotel.hungryhoteladmin.utils.SharedPreferenceHelper;
 
@@ -88,13 +90,22 @@ public class OrderDashboardFragment extends Fragment {
         TextView tvTodaysStatus = dashboardView.findViewById(R.id.tvTodaysStatus);
         Button btnOtherOrder = dashboardView.findViewById(R.id.btnOtherOrder);
         RecyclerView rvOrderDashboard = dashboardView.findViewById(R.id.rvOrderDashboard);
-        List<OrderDashboard> orderList = getOrdersList();
-        DashboardOrderAdapter dashboardOrderAdapter = new DashboardOrderAdapter(getActivity(), orderList, new DashboardOrderAdapter.OrderClickListener() {
+        DashboardViewModel dashboardViewModel = ViewModelProviders.of(getActivity()).get(DashboardViewModel.class);
+        DashboardOrderAdapter dashboardOrderAdapter = new DashboardOrderAdapter(getActivity(), new DashboardOrderAdapter.OrderClickListener() {
             @Override
             public void orderOpen(OrderDashboard order) {
                 Toast.makeText(dashboardView.getContext(), "Order clicked", Toast.LENGTH_LONG).show();
                 OrderFragment orderFragment = OrderFragment.newInstance(order.getOrderName());
                 loadFragment(orderFragment, "ORDER_FRAGMENT", true);
+            }
+        });
+
+        dashboardViewModel.getOrdersList().observe(getActivity(), new Observer<List<OrderDashboard>>() {
+            @Override
+            public void onChanged(List<OrderDashboard> dashboardOrderList) {
+                if (dashboardOrderList != null && dashboardOrderList.size() > 0) {
+                    dashboardOrderAdapter.setOrderDashboardList(dashboardOrderList);
+                }
             }
         });
         setDashboardProperty(dashboardView, rvOrderDashboard);
@@ -117,19 +128,6 @@ public class OrderDashboardFragment extends Fragment {
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
 
-    private List<OrderDashboard> getOrdersList() {
-        List<OrderDashboard> orders = new ArrayList<>();
-
-
-        orders.add(new OrderDashboard(100, OrderDashboard.TOTAL_ORDER, 100.00, false));
-        orders.add(new OrderDashboard(100, OrderDashboard.NEW_ORDER, 100.00, true));
-        orders.add(new OrderDashboard(100, OrderDashboard.ACCEPTED_ORDER, 100.00, false));
-        orders.add(new OrderDashboard(100, OrderDashboard.READY_ORDER, 100.00, false));
-        orders.add(new OrderDashboard(100, OrderDashboard.REJECTED_ORDER, 100.00, false));
-        orders.add(new OrderDashboard(100, OrderDashboard.DELIVERED_ORDER, 100.00, false));
-
-        return orders;
-    }
 
     /**
      * RecyclerView item decoration - give equal margin around grid item

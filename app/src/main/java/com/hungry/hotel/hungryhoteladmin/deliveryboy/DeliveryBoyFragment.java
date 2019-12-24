@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -61,6 +62,7 @@ public class DeliveryBoyFragment extends Fragment {
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Delivery Boy");
         toolbar.setTitleTextColor(getActivity().getResources().getColor(R.color.black));
+
         AutoCompleteTextView actvSearchMenu = toolbar.findViewById(R.id.actvSearchMenu);
         ImageButton ibFilter = toolbar.findViewById(R.id.ibFilter);
         ImageButton ibSearch = toolbar.findViewById(R.id.ibSearch);
@@ -68,6 +70,7 @@ public class DeliveryBoyFragment extends Fragment {
         ibSearch.setVisibility(View.GONE);
         ibFilter.setVisibility(View.GONE);
     }
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -80,6 +83,7 @@ public class DeliveryBoyFragment extends Fragment {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
+            mListener.onFragmentInteraction(this);
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");

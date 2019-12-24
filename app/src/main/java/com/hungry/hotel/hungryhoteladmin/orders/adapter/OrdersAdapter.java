@@ -22,8 +22,15 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
     List<Order> orderList;
     OrderOpenListener orderOpenListener;
 
-    public OrdersAdapter(List<Order> orderList, OrderOpenListener orderOpenListener) {
+    public List<Order> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<Order> orderList) {
         this.orderList = orderList;
+    }
+
+    public OrdersAdapter(OrderOpenListener orderOpenListener) {
         this.orderOpenListener = orderOpenListener;
     }
 
