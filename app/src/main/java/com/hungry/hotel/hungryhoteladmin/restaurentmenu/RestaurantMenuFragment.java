@@ -11,9 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -22,6 +27,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hungry.hotel.hungryhoteladmin.R;
+import com.hungry.hotel.hungryhoteladmin.home.MainActivity2;
 import com.hungry.hotel.hungryhoteladmin.menudetails.AddUpdateMenuFragment;
 import com.hungry.hotel.hungryhoteladmin.orderdetail.OrderDetailsFragment;
 import com.hungry.hotel.hungryhoteladmin.orders.model.Order;
@@ -35,7 +41,10 @@ import java.util.List;
 
 public class RestaurantMenuFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
-
+    Toolbar toolbar;
+    ActionBar actionBar;
+    ActionBarDrawerToggle toggle;
+    DrawerLayout drawer;
     RecyclerView rvMenu;
 
     public RestaurantMenuFragment() {
@@ -65,9 +74,7 @@ public class RestaurantMenuFragment extends Fragment {
         setupToolbar();
         rvMenu = dishMenu.findViewById(R.id.rvMenu);
         List<Dish> dishList = getDishes();
-        RestaurantMenuAdapter menuAdapter = new RestaurantMenuAdapter(getActivity(), dishList, rvMenu, (dish) -> {
-            openEditMenuFragment(dish);
-        });
+        RestaurantMenuAdapter menuAdapter = new RestaurantMenuAdapter(getActivity(), dishList, rvMenu, this::openEditMenuFragment);
 //        loadFragment(new AddUpdateMenuFragment(), "ADD_EDIT_MENU", true);
 
         setRecyclerViewProperty(rvMenu);
@@ -77,7 +84,28 @@ public class RestaurantMenuFragment extends Fragment {
     }
 
     private void setupToolbar() {
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar = ((MainActivity2) getActivity()).findViewById(R.id.toolbar);
+        actionBar = ((MainActivity2) getActivity()).getSupportActionBar();
+        drawer = ((MainActivity2) getActivity()).findViewById(R.id.drawer_layout);
+        toggle = new ActionBarDrawerToggle(
+                getActivity(), drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        toggle.setDrawerIndicatorEnabled(false);
+        // Show back button
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
+        ((MainActivity2) getActivity()).setDrawerLocked(true);
+        TextView tvToolbarTitle = toolbar.findViewById(R.id.tvToolbarTitle);
+        tvToolbarTitle.setText("Menus");
+        toggle.syncState();
+
+        /*Toolbar tbMain = getActivity().findViewById(R.id.tbMain);
+        tbMain.setVisibility(View.VISIBLE);*/
+        /*Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Menus");
         toolbar.setTitleTextColor(getActivity().getResources().getColor(R.color.black));
         AutoCompleteTextView actvSearchMenu = toolbar.findViewById(R.id.actvSearchMenu);
@@ -88,9 +116,8 @@ public class RestaurantMenuFragment extends Fragment {
         ibFilter.setVisibility(View.VISIBLE);
         ibFilter.setOnClickListener((v) -> {
             showMenuFilter();
-        });
+        });*/
     }
-
 
 
     private List<Dish> getDishes() {
@@ -163,6 +190,7 @@ public class RestaurantMenuFragment extends Fragment {
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         fragmentTransaction.commit();
     }
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {

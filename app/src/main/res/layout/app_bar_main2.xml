@@ -16,70 +16,66 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:orientation="horizontal"
-            app:layout_scrollFlags="scroll|enterAlways|snap"
-            app:navigationIcon="@drawable/ic_menu_black_24dp"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
+            android:theme="@style/AppTheme.NoActionBar"
+            app:layout_scrollFlags="scroll|enterAlways|snap">
+
+            <!--app:popupTheme="@style/AppTheme.AppBarOverlay"-->
             <!--android:background="?attr/colorPrimary"-->
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <!--      <TextView
-
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_centerInParent="true"
-                          android:text="Hello World"
-                          android:textAppearance="?android:textAppearanceLarge"
-                          android:textStyle="bold" />-->
-
-                <AutoCompleteTextView
-                    android:id="@+id/actvSearchMenu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginEnd="2dp"
-                    android:layout_toLeftOf="@id/ibSearch" />
-
-                <ImageButton
-                    android:id="@+id/ibFilter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:background="?attr/colorPrimary"
-                    android:src="@drawable/ic_filter" />
-
-                <ImageButton
-                    android:id="@+id/ibSearch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_toStartOf="@id/ibFilter"
-                    android:background="?attr/colorPrimary"
-                    android:src="@drawable/ic_search" />
-
-                <ImageButton
-                    android:id="@+id/ibBack"
+                <TextView
+                    android:id="@+id/tvToolbarTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_toStartOf="@id/actvSearchMenu"
-                    android:background="?attr/colorPrimary"
-                    android:src="@drawable/ic_left_arrow" />
+                    android:textAppearance="?android:textAppearanceMedium"
+                    tools:text="Hello World" />
+
+                <!-- <AutoCompleteTextView
+                     android:id="@+id/actvSearchMenu"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_centerVertical="true"
+                     android:layout_marginStart="2dp"
+                     android:layout_marginEnd="2dp"
+                     android:layout_toLeftOf="@id/ibSearch" />
+
+                 <ImageButton
+                     android:id="@+id/ibFilter"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_alignParentEnd="true"
+                     android:layout_centerVertical="true"
+                     android:background="?attr/colorPrimary"
+                     android:src="@drawable/ic_filter" />
+
+                 <ImageButton
+                     android:id="@+id/ibSearch"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_centerVertical="true"
+                     android:layout_marginStart="8dp"
+                     android:layout_marginEnd="8dp"
+                     android:layout_toStartOf="@id/ibFilter"
+                     android:background="?attr/colorPrimary"
+                     android:src="@drawable/ic_search" />-->
             </RelativeLayout>
 
 
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tbMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+    </androidx.appcompat.widget.Toolbar>
 
     <include layout="@layout/content_main2" />
 

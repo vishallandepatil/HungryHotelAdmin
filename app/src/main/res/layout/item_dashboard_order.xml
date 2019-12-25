@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.hungry.hotel.hungryhoteladmin.utils.SquareLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rlDashboardOrderItem"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="wrap_content"
     android:elevation="28dp">
 
     <RelativeLayout
@@ -63,4 +63,4 @@
         </LinearLayout>
     </RelativeLayout>
 
-</androidx.cardview.widget.CardView>
+</com.hungry.hotel.hungryhoteladmin.utils.SquareLayout>

@@ -7,7 +7,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -17,18 +22,15 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.hungry.hotel.hungryhoteladmin.R;
+import com.hungry.hotel.hungryhoteladmin.home.MainActivity2;
 import com.hungry.hotel.hungryhoteladmin.orderdetail.OrderDetailsFragment;
 import com.hungry.hotel.hungryhoteladmin.orders.adapter.OrdersAdapter;
-import com.hungry.hotel.hungryhoteladmin.orders.model.Customer;
-import com.hungry.hotel.hungryhoteladmin.orders.model.DeliveryBoy;
 import com.hungry.hotel.hungryhoteladmin.orders.viewmodel.OrdersViewModel;
-import com.hungry.hotel.hungryhoteladmin.restaurentmenu.model.Dish;
-import com.hungry.hotel.hungryhoteladmin.orders.model.Hotel;
 import com.hungry.hotel.hungryhoteladmin.orders.model.Order;
 import com.hungry.hotel.hungryhoteladmin.utils.OnFragmentInteractionListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -36,6 +38,11 @@ public class OrderFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     String orderName;
     private OnFragmentInteractionListener mListener;
+    FloatingActionButton fab;
+    Toolbar toolbar;
+    ActionBar actionBar;
+    ActionBarDrawerToggle toggle;
+    DrawerLayout drawer;
 
     public OrderFragment() {
         // Required empty public constructor
@@ -63,7 +70,7 @@ public class OrderFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 //        ((DrawerLocker) getActivity()).setDrawerLocked(true);
-
+        setupToolbar();
         View orderView = inflater.inflate(R.layout.fragment_order, container, false);
         RecyclerView rvOrders = orderView.findViewById(R.id.rvOrders);
         OrdersViewModel ordersViewModel = ViewModelProviders.of(getActivity()).get(OrdersViewModel.class);
@@ -89,6 +96,34 @@ public class OrderFragment extends Fragment {
         rvOrders.setAdapter(ordersAdapter);
 
         return orderView;
+    }
+
+    private void setupToolbar() {
+        fab = ((MainActivity2) getActivity()).findViewById(R.id.fab);
+        toolbar = ((MainActivity2) getActivity()).findViewById(R.id.toolbar);
+        actionBar = ((MainActivity2) getActivity()).getSupportActionBar();
+        drawer = ((MainActivity2) getActivity()).findViewById(R.id.drawer_layout);
+        toggle = new ActionBarDrawerToggle(
+                getActivity(), drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        toggle.setDrawerIndicatorEnabled(false);
+        // Show back button
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
+        ((MainActivity2) getActivity()).setDrawerLocked(true);
+        TextView tvToolbarTitle = toolbar.findViewById(R.id.tvToolbarTitle);
+        tvToolbarTitle.setText("Orders");
+        toggle.syncState();
     }
 
     @Override

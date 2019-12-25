@@ -3,8 +3,8 @@ package com.hungry.hotel.hungryhoteladmin.orders.repository;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.hungry.hotel.hungryhoteladmin.deliveryboy.model.DeliveryBoy;
 import com.hungry.hotel.hungryhoteladmin.orders.model.Customer;
-import com.hungry.hotel.hungryhoteladmin.orders.model.DeliveryBoy;
 import com.hungry.hotel.hungryhoteladmin.orders.model.Hotel;
 import com.hungry.hotel.hungryhoteladmin.orders.model.Order;
 import com.hungry.hotel.hungryhoteladmin.restaurentmenu.model.Dish;
