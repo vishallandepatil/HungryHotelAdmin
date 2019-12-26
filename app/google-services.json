@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "772916249730",
+    "firebase_url": "https://hungryhoteladmin.firebaseio.com",
+    "project_id": "hungryhoteladmin",
+    "storage_bucket": "hungryhoteladmin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:772916249730:android:dff4d749bcac2a3c0ea09b",
+        "android_client_info": {
+          "package_name": "com.hungry.hotel.hungryhoteladmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "772916249730-jd2cvkm2q6hofk2amf868n14d07433h4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hungry.hotel.hungryhoteladmin",
+            "certificate_hash": "e38201a2ca69268ff266e0805be020a3fb18f6fd"
+          }
+        },
+        {
+          "client_id": "772916249730-7gblak9knoqtdtsulh6mc866i1f8p44r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvpfkwInI0gtcnNYOuZRIJwZ6bEt2tJ0M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "772916249730-7gblak9knoqtdtsulh6mc866i1f8p44r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
