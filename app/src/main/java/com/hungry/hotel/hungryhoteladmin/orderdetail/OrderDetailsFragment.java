@@ -19,6 +19,10 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,6 +30,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.hungry.hotel.hungryhoteladmin.R;
+import com.hungry.hotel.hungryhoteladmin.home.MainActivity2;
 import com.hungry.hotel.hungryhoteladmin.login.model.User;
 import com.hungry.hotel.hungryhoteladmin.orderdetail.adapter.DishesAdapter;
 import com.hungry.hotel.hungryhoteladmin.orders.model.Order;
@@ -87,6 +92,7 @@ public class OrderDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        setupToolbar();
         String accountType = "";
 
         View orderDetailsView = inflater.inflate(R.layout.fragment_order_details, container, false);
@@ -153,7 +159,7 @@ public class OrderDetailsFragment extends Fragment {
         builder.setPositiveButton("Yes", (dialog, which) -> {
             if (isOrderAccepted) {
                 btnTrackDispatch.setVisibility(View.VISIBLE);
-                if(isDeliveryBoy){
+                if (isDeliveryBoy) {
                     btnTrackDispatch.setBackground(getActivity().getResources().getDrawable(R.drawable.ic_rounded_corner_gray));
                     btnTrackDispatch.setText(TRACK_ORDER);
                 } else {
@@ -283,6 +289,51 @@ public class OrderDetailsFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    private void setupToolbar() {
+        Toolbar toolbar;
+        ActionBar actionBar;
+        ActionBarDrawerToggle toggle;
+        DrawerLayout drawer;
+        toolbar = ((MainActivity2) getActivity()).findViewById(R.id.toolbar);
+        actionBar = ((MainActivity2) getActivity()).getSupportActionBar();
+        drawer = ((MainActivity2) getActivity()).findViewById(R.id.drawer_layout);
+        toggle = new ActionBarDrawerToggle(
+                getActivity(), drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        toggle.setDrawerIndicatorEnabled(false);
+        // Show back button
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
+        ((MainActivity2) getActivity()).setDrawerLocked(true);
+        TextView tvToolbarTitle = toolbar.findViewById(R.id.tvToolbarTitle);
+        tvToolbarTitle.setText("Order Details");
+        toggle.syncState();
+//        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+      /*  Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("Delivery Boy");
+        toolbar.setTitleTextColor(getActivity().getResources().getColor(R.color.black));
+
+        AutoCompleteTextView actvSearchMenu = toolbar.findViewById(R.id.actvSearchMenu);
+        ImageButton ibFilter = toolbar.findViewById(R.id.ibFilter);
+        ImageButton ibSearch = toolbar.findViewById(R.id.ibSearch);
+        actvSearchMenu.setVisibility(View.GONE);
+        ibSearch.setVisibility(View.GONE);
+        ibFilter.setVisibility(View.GONE);*/
+        /*Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("Delivery Boy");
+        toolbar.setTitleTextColor(getActivity().getResources().getColor(R.color.black));
+        AutoCompleteTextView actvSearchMenu = toolbar.findViewById(R.id.actvSearchMenu);
+        ImageButton ibFilter = toolbar.findViewById(R.id.ibFilter);
+        ImageButton ibSearch = toolbar.findViewById(R.id.ibSearch);
+        actvSearchMenu.setVisibility(View.GONE);
+        ibSearch.setVisibility(View.GONE);
+        ibFilter.setVisibility(View.GONE);*/
     }
 
 }

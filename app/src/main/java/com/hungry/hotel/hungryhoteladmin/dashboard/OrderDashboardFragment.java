@@ -16,8 +16,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -27,13 +30,16 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.hungry.hotel.hungryhoteladmin.R;
 import com.hungry.hotel.hungryhoteladmin.dashboard.adapter.DashboardOrderAdapter;
 import com.hungry.hotel.hungryhoteladmin.dashboard.model.OrderDashboard;
 import com.hungry.hotel.hungryhoteladmin.dashboard.viewmodel.DashboardViewModel;
+import com.hungry.hotel.hungryhoteladmin.home.MainActivity2;
 import com.hungry.hotel.hungryhoteladmin.login.model.User;
 import com.hungry.hotel.hungryhoteladmin.orders.OrderFragment;
 import com.hungry.hotel.hungryhoteladmin.orders.viewmodel.OrdersViewModel;
+import com.hungry.hotel.hungryhoteladmin.utils.FragmentUtils;
 import com.hungry.hotel.hungryhoteladmin.utils.OnFragmentInteractionListener;
 import com.hungry.hotel.hungryhoteladmin.utils.SharedPreferenceHelper;
 
@@ -46,6 +52,10 @@ import android.widget.Toast;
 public class OrderDashboardFragment extends Fragment {
     private OrderDashboardFragmentListener orderDashboardFragmentListener;
     private OnFragmentInteractionListener mListener;
+    Toolbar toolbar;
+    ActionBar actionBar;
+    ActionBarDrawerToggle toggle;
+    DrawerLayout drawer;
 
 
     public OrderDashboardFragment() {
@@ -65,7 +75,10 @@ public class OrderDashboardFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        setupToolbar();
+
+
+       /* ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Order dashborad");
         toolbar.setTitleTextColor(getActivity().getResources().getColor(R.color.black));
@@ -74,13 +87,15 @@ public class OrderDashboardFragment extends Fragment {
         ImageButton ibSearch = toolbar.findViewById(R.id.ibSearch);
         actvSearchMenu.setVisibility(View.GONE);
         ibSearch.setVisibility(View.GONE);
-        ibFilter.setVisibility(View.GONE);
+        ibFilter.setVisibility(View.GONE);*/
 
 
         final View dashboardView = inflater.inflate(R.layout.fragment_order_dashboard, container, false);
         SharedPreferences sharedPreferences = SharedPreferenceHelper.getSharedPreferenceInstance(getActivity(), "USER");
         String accountType = sharedPreferences.getString(User.ACCOUNT_TYPE, "NONE");
         Log.d("Dashboard", accountType);
+       /* Toolbar tbMain = getActivity().findViewById(R.id.tbMain);
+        tbMain.setVisibility(View.GONE);*/
         /*if (accountType.equalsIgnoreCase(User.HOTEL_ADMIN)) {
             NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
             Menu nav_Menu = navigationView.getMenu();
@@ -134,6 +149,7 @@ public class OrderDashboardFragment extends Fragment {
      */
     public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
 
+
         private int spanCount;
         private int spacing;
         private boolean includeEdge;
@@ -166,6 +182,7 @@ public class OrderDashboardFragment extends Fragment {
             }
 
         }
+
 
     }
 
@@ -204,6 +221,39 @@ public class OrderDashboardFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    private void setupToolbar() {
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        toolbar = ((MainActivity2) getActivity()).findViewById(R.id.toolbar);
+        actionBar = ((MainActivity2) getActivity()).getSupportActionBar();
+        drawer = ((MainActivity2) getActivity()).findViewById(R.id.drawer_layout);
+        toggle = new ActionBarDrawerToggle(
+                getActivity(), drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        toggle.setDrawerIndicatorEnabled(true);
+        // Show back button
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        ((MainActivity2) getActivity()).setDrawerLocked(false);
+        TextView tvToolbarTitle = toolbar.findViewById(R.id.tvToolbarTitle);
+        tvToolbarTitle.setText("Dashboard");
+
+//        actionBar.setTitle("Dashboard");
+        toggle.syncState();
+        /*toggle.setDrawerIndicatorEnabled(true);
+        // Show back button
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        toggle.syncState();*/
+//        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+      /*  Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("Delivery Boy");
+        toolbar.setTitleTextColor(getActivity().getResources().getColor(R.color.black));
+
+        AutoCompleteTextView actvSearchMenu = toolbar.findViewById(R.id.actvSearchMenu);
+        ImageButton ibFilter = toolbar.findViewById(R.id.ibFilter);
+        ImageButton ibSearch = toolbar.findViewById(R.id.ibSearch);
+        actvSearchMenu.setVisibility(View.GONE);
+        ibSearch.setVisibility(View.GONE);
+        ibFilter.setVisibility(View.GONE);*/
     }
 
 }

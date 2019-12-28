@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -69,14 +70,14 @@ public class DashboardOrderAdapter extends RecyclerView.Adapter<DashboardOrderAd
             }
         });
 
-//        final DisplayMetrics displayMetrics = new DisplayMetrics();
-//        context.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-//        int width = (int) (displayMetrics.widthPixels - HungryAdminUtility.getDpFfromPixel(60, context)) / 1;
-////         int width = (int)(holder.itemView.getWidth());
-//
-//        int height = (int) (width * 1.8);
-//
-//        holder.itemView.setLayoutParams(new LinearLayout.LayoutParams(width, height));
+       /* final DisplayMetrics displayMetrics = new DisplayMetrics();
+        context.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int width = (int) (displayMetrics.widthPixels - HungryAdminUtility.getDpFfromPixel(60, context)) / 3;
+//         int width = (int)(holder.itemView.getWidth());
+
+        int height = (int) (width * 1.8);
+
+        holder.itemView.setLayoutParams(new LinearLayout.LayoutParams(width, height));*/
 
 
     }

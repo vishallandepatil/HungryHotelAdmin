@@ -3,6 +3,7 @@ package com.hungry.hotel.hungryhoteladmin.orders.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.hungry.hotel.hungryhoteladmin.deliveryboy.model.DeliveryBoy;
 import com.hungry.hotel.hungryhoteladmin.restaurentmenu.model.Dish;
 
 import java.util.List;

@@ -11,13 +11,18 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.hungry.hotel.hungryhoteladmin.R;
+import com.hungry.hotel.hungryhoteladmin.home.MainActivity2;
 import com.hungry.hotel.hungryhoteladmin.restaurentmenu.model.Dish;
 import com.hungry.hotel.hungryhoteladmin.utils.HungryAdminUtility;
 import com.hungry.hotel.hungryhoteladmin.utils.OnFragmentInteractionListener;
@@ -172,8 +177,40 @@ public class AddUpdateMenuFragment extends Fragment {
     }
 
     private void setupToolbar() {
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        Toolbar toolbar;
+        ActionBar actionBar;
+        ActionBarDrawerToggle toggle;
+        DrawerLayout drawer;
+        toolbar = ((MainActivity2) getActivity()).findViewById(R.id.toolbar);
+        actionBar = ((MainActivity2) getActivity()).getSupportActionBar();
+        drawer = ((MainActivity2) getActivity()).findViewById(R.id.drawer_layout);
+        toggle = new ActionBarDrawerToggle(
+                getActivity(), drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        toggle.setDrawerIndicatorEnabled(false);
+        // Show back button
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
+        ((MainActivity2) getActivity()).setDrawerLocked(true);
+        TextView tvToolbarTitle = toolbar.findViewById(R.id.tvToolbarTitle);
+        tvToolbarTitle.setText("Add/Update Menu");
+        toggle.syncState();
+//        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+      /*  Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("Delivery Boy");
+        toolbar.setTitleTextColor(getActivity().getResources().getColor(R.color.black));
+
+        AutoCompleteTextView actvSearchMenu = toolbar.findViewById(R.id.actvSearchMenu);
+        ImageButton ibFilter = toolbar.findViewById(R.id.ibFilter);
+        ImageButton ibSearch = toolbar.findViewById(R.id.ibSearch);
+        actvSearchMenu.setVisibility(View.GONE);
+        ibSearch.setVisibility(View.GONE);
+        ibFilter.setVisibility(View.GONE);*/
+        /*Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Delivery Boy");
         toolbar.setTitleTextColor(getActivity().getResources().getColor(R.color.black));
         AutoCompleteTextView actvSearchMenu = toolbar.findViewById(R.id.actvSearchMenu);
@@ -181,7 +218,7 @@ public class AddUpdateMenuFragment extends Fragment {
         ImageButton ibSearch = toolbar.findViewById(R.id.ibSearch);
         actvSearchMenu.setVisibility(View.GONE);
         ibSearch.setVisibility(View.GONE);
-        ibFilter.setVisibility(View.GONE);
+        ibFilter.setVisibility(View.GONE);*/
     }
     /*public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);

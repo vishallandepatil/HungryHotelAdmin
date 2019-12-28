@@ -22,16 +22,16 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
     List<Order> orderList;
     OrderOpenListener orderOpenListener;
 
+    public OrdersAdapter(OrderOpenListener orderOpenListener) {
+        this.orderOpenListener = orderOpenListener;
+    }
+
     public List<Order> getOrderList() {
         return orderList;
     }
 
     public void setOrderList(List<Order> orderList) {
         this.orderList = orderList;
-    }
-
-    public OrdersAdapter(OrderOpenListener orderOpenListener) {
-        this.orderOpenListener = orderOpenListener;
     }
 
     @NonNull
@@ -76,6 +76,10 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
         return orderList.size();
     }
 
+    public interface OrderOpenListener {
+        void openOrder(Order order);
+    }
+
     public class OrderViewHolder extends RecyclerView.ViewHolder {
         LinearLayout llOrder;
         CircleImageView civOrderImage;
@@ -94,9 +98,5 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
             tvTotalPrice = itemView.findViewById(R.id.tvTotalPrice);
             rbOrderRating = itemView.findViewById(R.id.rbOrderRating);
         }
-    }
-
-    public interface OrderOpenListener {
-        void openOrder(Order order);
     }
 }

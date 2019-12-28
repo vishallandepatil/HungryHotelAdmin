@@ -9,11 +9,13 @@ import android.view.View;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.hungry.hotel.hungryhoteladmin.R;
 import com.hungry.hotel.hungryhoteladmin.dashboard.OrderDashboardFragment;
 import com.hungry.hotel.hungryhoteladmin.deliveryboy.DeliveryBoyFragment;
 import com.hungry.hotel.hungryhoteladmin.home.listener.DrawerLocker;
 import com.hungry.hotel.hungryhoteladmin.login.LoginFragment;
+import com.hungry.hotel.hungryhoteladmin.menudetails.AddUpdateMenuFragment;
 import com.hungry.hotel.hungryhoteladmin.orderdetail.OrderDetailsFragment;
 import com.hungry.hotel.hungryhoteladmin.orders.OrderFragment;
 import com.hungry.hotel.hungryhoteladmin.restaurentmenu.RestaurantMenuFragment;
@@ -38,9 +40,10 @@ public class MainActivity2 extends AppCompatActivity
     NavigationView navigationView;
     ActionBarDrawerToggle toggle;
     Toolbar toolbar;
-    AutoCompleteTextView actvSearchMenu;
-    ImageButton ibFilter;
-    ImageButton ibSearch;
+    /* AutoCompleteTextView actvSearchMenu;
+     ImageButton ibFilter;
+     ImageButton ibSearch;*/
+    String currentTag = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +66,11 @@ public class MainActivity2 extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
         /*navigationView = findViewById(R.id.nav_view);
         Menu nav_Menu = navigationView.getMenu();
         nav_Menu.findItem(R.id.navMenus).setVisible(false);*/
-        loadFragment(new LoginFragment(), "LOGIN", false);
+        loadFragment(new LoginFragment(), "LOGIN", false, "LOGIN");
 //        adding fragments
 
     }
@@ -77,7 +81,22 @@ public class MainActivity2 extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            Fragment openedFragment = getSupportFragmentManager().findFragmentById(R.id.clHomePageContainer);
+            if (openedFragment instanceof OrderDashboardFragment) {
+                super.onBackPressed();
+            } else if (openedFragment instanceof RestaurantMenuFragment) {
+                loadFragment(new OrderDashboardFragment(), "ORDER_DASHBOARD", false, "ORDER_DASHBOARD");
+            } else if (openedFragment instanceof OrderFragment) {
+                loadFragment(new OrderDashboardFragment(), "ORDER_DASHBOARD", false, "ORDER_DASHBOARD");
+            } else if (openedFragment instanceof DeliveryBoyFragment) {
+                loadFragment(new OrderDashboardFragment(), "ORDER_DASHBOARD", false, "ORDER_DASHBOARD");
+            } else if (openedFragment instanceof OrderDetailsFragment) {
+                loadFragment(new OrderFragment(), "ORDERS", false, "ORDERS");
+            } else if (openedFragment instanceof AddUpdateMenuFragment) {
+                loadFragment(new RestaurantMenuFragment(), "RESTAURANT_MENU", false, "RESTAURANT_MENU");
+            } else {
+                super.onBackPressed();
+            }
         }
     }
 
@@ -97,7 +116,10 @@ public class MainActivity2 extends AppCompatActivity
 
         int id = item.getItemId();
 
-
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
@@ -109,21 +131,23 @@ public class MainActivity2 extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.navOrders) {
-            loadFragment(new OrderFragment(), "ORDER_DASHBOARD", false);
+
+            loadFragment(new OrderFragment(), "ORDERS", false, "ORDERS");
         } else if (id == R.id.navMenus) {
-            loadFragment(new RestaurantMenuFragment(), "RESTAURANT_MENU", false);
+            loadFragment(new RestaurantMenuFragment(), "RESTAURANT_MENU", false, "RESTAURANT_MENU");
         } else if (id == R.id.navReports) {
-            loadFragment(new OrderDashboardFragment(), "ORDER_DASHBOARD", false);
+            loadFragment(new OrderDashboardFragment(), "ORDER_DASHBOARD", false, "ORDER_DASHBOARD");
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 
         } else if (id == R.id.nav_deliveryBoy) {
-            loadFragment(new DeliveryBoyFragment(), "DELIVERY_BOY", false);
+            loadFragment(new DeliveryBoyFragment(), "DELIVERY_BOY", false, "DELIVERY_BOY");
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -131,10 +155,10 @@ public class MainActivity2 extends AppCompatActivity
         return true;
     }
 
-    private void loadFragment(Fragment fragment, String fragmentName, boolean needToBackStack) {
+    private void loadFragment(Fragment fragment, String fragmentName, boolean needToBackStack, String fragmentTag) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.clHomePageContainer, fragment);
+        fragmentTransaction.replace(R.id.clHomePageContainer, fragment, fragmentTag);
         if (needToBackStack) {
             fragmentTransaction.addToBackStack(fragmentName);
         }
@@ -165,16 +189,15 @@ public class MainActivity2 extends AppCompatActivity
     @Override
     public void onFragmentInteraction(Fragment fragment) {
         if (fragment instanceof LoginFragment) {
-
         } else if (fragment instanceof OrderDashboardFragment) {
 //            Menu nav_Menu = navigationView.getMenu();
 //            nav_Menu.findItem(R.id.navMenus).setVisible(false);
         } else if (fragment instanceof DeliveryBoyFragment) {
-            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+           /* drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
             // Remove hamburger
             toggle.setDrawerIndicatorEnabled(false);
             // Show back button
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
         } else if (fragment instanceof RestaurantMenuFragment) {
         } else if (fragment instanceof OrderDetailsFragment) {
         }

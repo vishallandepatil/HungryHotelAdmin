@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -24,6 +25,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.hungry.hotel.hungryhoteladmin.R;
 import com.hungry.hotel.hungryhoteladmin.dashboard.OrderDashboardFragment;
+import com.hungry.hotel.hungryhoteladmin.home.MainActivity2;
 import com.hungry.hotel.hungryhoteladmin.login.model.User;
 import com.hungry.hotel.hungryhoteladmin.utils.OnFragmentInteractionListener;
 import com.hungry.hotel.hungryhoteladmin.utils.SharedPreferenceHelper;
@@ -72,7 +74,8 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        setupToolbar();
+
         final View loginView = inflater.inflate(R.layout.fragment_login, container, false);
         instantiateView(loginView);
 //        loginType = LOGIN_WITH_USERNAME;
@@ -110,6 +113,11 @@ public class LoginFragment extends Fragment {
             }
         });
         return loginView;
+    }
+
+    private void setupToolbar() {
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        ((MainActivity2) getActivity()).setDrawerLocked(true);
     }
 
     private List<String> getAccountTypes() {
@@ -187,7 +195,7 @@ public class LoginFragment extends Fragment {
             tvLoginChange.setText("Login with username");
             llLoginUserName.setVisibility(View.VISIBLE);
             llLoginOtp.setVisibility(View.GONE);
-            if(isOtpVerified){
+            if (isOtpVerified) {
                 btnLogin.setText("Verify OTp");
             } else {
                 btnLogin.setText("Send OTP");
@@ -246,6 +254,7 @@ public class LoginFragment extends Fragment {
 
     private void saveDetailsToPreferences(User user) {
         SharedPreferences.Editor spEditor = SharedPreferenceHelper.getEditorInstance(getActivity(), "USER");
+        spEditor.clear();
         spEditor.putString(User.ACCOUNT_TYPE, user.getAccountType());
         Log.d("ACC_", user.getAccountType());
         SharedPreferenceHelper.savePreference(spEditor);
