@@ -56,9 +56,9 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
             holder.tvDeliveryBoy.setText(order.getDeliveryBoy().getDeliveryBoyName());
             holder.tvDishCount.setText(order.getDishCount() + " Items");
             if (order.isNewOrder()) {
-                holder.tvOrderStatus.setText("NEW");
+                holder.tvOrderStatus.setText("New");
             }
-            holder.rbOrderRating.setRating(order.getOrderRating());
+            holder.rbOrderRating.setRating(5);
             holder.tvTotalPrice.setText("Rs. " + order.getTotalPrice());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

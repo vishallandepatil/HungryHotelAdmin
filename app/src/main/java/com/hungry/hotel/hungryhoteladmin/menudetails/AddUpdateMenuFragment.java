@@ -79,8 +79,8 @@ public class AddUpdateMenuFragment extends Fragment {
         instantiateView(view);
         menuTypes = getMenuTypes();
         menuCategory = getMenuCategory();
-        spDishType.setAdapter(new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, menuTypes));
-        spDishCategory.setAdapter(new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, menuCategory));
+        spDishType.setAdapter(new ArrayAdapter<String>(view.getContext(), R.layout.spinner_item, menuTypes));
+        spDishCategory.setAdapter(new ArrayAdapter<String>(view.getContext(), R.layout.spinner_item, menuCategory));
         etStartTime.setOnClickListener((v) -> {
             setTime(START_TIME);
         });

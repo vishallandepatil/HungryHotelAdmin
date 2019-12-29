@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/llOrder"
+    android:elevation="28dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="4dp">
@@ -10,26 +12,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:baselineAligned="false"
-        android:elevation="28dp"
+        android:padding="10dp"
         android:orientation="horizontal"
         android:paddingBottom="16dp">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="4dp"
-            android:layout_weight="2"
-            android:orientation="vertical">
 
-            <de.hdodenhof.circleimageview.CircleImageView
+        <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/civOrderImage"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_gravity="center"
-                android:layout_marginEnd="4dp"
-                tools:src="@drawable/food" />
-        </LinearLayout>
+                android:layout_margin="5dp"
+                tools:src="@drawable/food"
+            />
+
 
         <LinearLayout
             android:layout_width="0dp"
@@ -39,56 +35,77 @@
             android:orientation="vertical">
 
             <TextView
+                android:textColor="@color/colorPrimaryDark"
                 android:id="@+id/tvCustomerName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/ptserif_regular"
                 android:layout_gravity="left"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="4dp"
+                android:hint="Prasad Chawan"
                 android:textAppearance="?android:textAppearanceLarge"
                 android:textStyle="bold" />
 
             <TextView
+                android:textColor="@color/colorPrimaryDark"
                 android:id="@+id/tvOrderDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/ptserif_regular"
+                android:textSize="12dp"
                 android:layout_gravity="left"
-                android:layout_marginBottom="4dp"
-                android:textAppearance="?android:textAppearanceMedium" />
+                android:hint="26 nov 2019 11:55 AM"/>
 
             <TextView
+                android:textColor="@color/colorPrimaryDark"
                 android:id="@+id/tvDeliveryBoy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:textAppearance="?android:textAppearanceSmall" />
+                android:drawablePadding="5dp"
+                android:layout_marginLeft="-15dp"
+                android:layout_marginTop="5dp"
+                android:textSize="15dp"
+                android:scaleY="0.8"
+                android:scaleX="0.8"
+                android:gravity="center_vertical"
+                android:drawableLeft="@drawable/ic_person_black_24dp"
+                android:hint="Prasad Chanwan" />
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
+                android:layout_marginTop="5dp"
+                android:weightSum="2"
                 android:orientation="horizontal">
 
                 <TextView
+                    android:textColor="@color/colorPrimaryDark"
                     android:id="@+id/tvDishCount"
+                    android:layout_weight="1"
+                    android:textSize="12dp"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:textAppearance="?android:textAppearanceSmall" />
+                    android:hint="2 Items" />
 
                 <TextView
+                    android:textColor="@color/colorPrimaryDark"
                     android:id="@+id/tvOrderStatus"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:textAppearance="?android:textAppearanceSmall" />
-            </RelativeLayout>
+                    android:textSize="12dp"
+                    android:fontFamily="@font/ptserif_regular"
+                    android:hint="New"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
         </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
+            android:gravity="center_horizontal"
             android:orientation="vertical"
             android:paddingTop="8dp">
 
@@ -97,24 +114,27 @@
                 style="?android:attr/ratingBarStyleIndicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
+                android:layout_alignParentRight="true"
                 android:layout_marginTop="-5dp"
-                android:layout_marginRight="-50dp"
                 android:max="5"
-                android:rating="2.5"
+                android:rating="5"
+                android:numStars="4"
                 android:scaleX="0.3"
                 android:scaleY="0.3" />
 
             <TextView
+                android:layout_marginTop="20dp"
+                android:textColor="@color/colorPrimaryDark"
                 android:id="@+id/tvTotalPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:textAppearance="?android:textAppearanceLarge"
+                android:fontFamily="@font/ptserif_regular"
+                android:hint="Rs. 200.00"
+                android:gravity="center_horizontal"
+                android:textAppearance="?android:textAppearanceMedium"
                 android:textStyle="bold" />
 
-        </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 
 

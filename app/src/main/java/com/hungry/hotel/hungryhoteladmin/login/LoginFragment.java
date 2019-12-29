@@ -45,7 +45,7 @@ public class LoginFragment extends Fragment {
     Spinner spAccountType;
     EditText etMobileNumber;
     EditText etOtp;
-    ImageView ivReload;
+
     TextView tvResendOtp;
     LinearLayout llResendOtp;
     Button btnLogin;
@@ -83,7 +83,7 @@ public class LoginFragment extends Fragment {
         otpChange = SEND_OTP;
 
         List<String> accountTypes = getAccountTypes();
-        spAccountType.setAdapter(new ArrayAdapter<String>(loginView.getContext(), android.R.layout.simple_spinner_dropdown_item, accountTypes));
+        spAccountType.setAdapter(new ArrayAdapter<String>(loginView.getContext(), R.layout.spinner_item, accountTypes));
 //        final User user = getUserDetails();
         tvLoginChange.setOnClickListener(v -> {
             changeLoginLayout();
@@ -178,9 +178,7 @@ public class LoginFragment extends Fragment {
         tvLoginChange = loginView.findViewById(R.id.tvLoginChange);
         btnLogin = loginView.findViewById(R.id.btnLogin);
         etMobileNumber = loginView.findViewById(R.id.etMobileNumber);
-        ivReload = loginView.findViewById(R.id.ivReload);
         tvResendOtp = loginView.findViewById(R.id.tvResendOtp);
-        llResendOtp = loginView.findViewById(R.id.llResendOtp);
         etOtp = loginView.findViewById(R.id.etOtp);
     }
 
