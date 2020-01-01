@@ -79,8 +79,8 @@ public class AddUpdateMenuFragment extends Fragment {
         instantiateView(view);
         menuTypes = getMenuTypes();
         menuCategory = getMenuCategory();
-        spDishType.setAdapter(new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, menuTypes));
-        spDishCategory.setAdapter(new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, menuCategory));
+        spDishType.setAdapter(new ArrayAdapter<String>(view.getContext(), R.layout.spinner_item, menuTypes));
+        spDishCategory.setAdapter(new ArrayAdapter<String>(view.getContext(), R.layout.spinner_item, menuCategory));
         etStartTime.setOnClickListener((v) -> {
             setTime(START_TIME);
         });
@@ -92,26 +92,26 @@ public class AddUpdateMenuFragment extends Fragment {
     }
 
     private void setValues() {
-        etDishName.setText(dish.getDishName());
-        etDishAmount.setText(HungryAdminUtility.getFormattedPrice(dish.getDishPrice()));
-        etDishQuantity.setText("" + dish.getDishQuantity());
-        etDishDescription.setText(dish.getDishDescription());
-        for (int i = 0; i < menuTypes.size(); i++) {
-            if (menuTypes.get(i).equalsIgnoreCase(dish.getDishType())) {
-                spDishType.setSelected(true);
-            } else {
-                spDishType.setSelected(false);
+        if (dish != null) {
+            etDishName.setText(dish.getDishName());
+            etDishAmount.setText(HungryAdminUtility.getFormattedPrice(dish.getDishPrice()));
+            etDishQuantity.setText("" + dish.getDishQuantity());
+            etDishDescription.setText(dish.getDishDescription());
+            for (int i = 0; i < menuTypes.size(); i++) {
+                if (menuTypes.get(i).equalsIgnoreCase(dish.getDishType())) {
+                    spDishType.setSelected(true);
+                } else {
+                    spDishType.setSelected(false);
+                }
+            }
+            for (int i = 0; i < menuCategory.size(); i++) {
+                if (menuCategory.get(i).equalsIgnoreCase(dish.getDishType())) {
+                    spDishCategory.setSelected(true);
+                } else {
+                    spDishCategory.setSelected(false);
+                }
             }
         }
-        for (int i = 0; i < menuCategory.size(); i++) {
-            if (menuCategory.get(i).equalsIgnoreCase(dish.getDishType())) {
-                spDishCategory.setSelected(true);
-            } else {
-                spDishCategory.setSelected(false);
-            }
-        }
-
-
     }
 
     private void setTime(int timeConstant) {

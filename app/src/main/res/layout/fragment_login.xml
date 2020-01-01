@@ -1,49 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".login.LoginFragment">
+    android:layout_height="match_parent"
+    android:gravity="center"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_above="@id/cvLogin"
+            android:layout_gravity="center_horizontal"
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-
-        <androidx.cardview.widget.CardView
+            android:src="@drawable/ic_login" />
+    <androidx.cardview.widget.CardView
             android:id="@+id/cvLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="32dp"
-            android:elevation="28dp"
-            android:paddingStart="16dp"
-            android:paddingTop="16dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="16dp">
+            android:elevation="10dp"
+            android:layout_margin="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/bg"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="20dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginBottom="16dp"
+
                     android:padding="4dp"
+                    android:textSize="25dp"
                     android:text="LOGIN"
+                    android:fontFamily="@font/ptserif_bold"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textAllCaps="true"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvLoginChange"
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
@@ -58,6 +61,7 @@
                 <LinearLayout
                     android:id="@+id/llLoginUserName"
                     android:layout_width="match_parent"
+                    android:visibility="visible"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
@@ -84,7 +88,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:background="@drawable/border"
-                        android:drawableLeft="@drawable/ic_account_box_black_24dp"
+                        android:drawableLeft="@drawable/ic_lock_open_black_24dp"
                         android:drawablePadding="8dp"
                         android:gravity="center_vertical"
                         android:hint="Password"
@@ -94,7 +98,6 @@
                         android:textColor="@color/colorPrimaryDark"
                         android:textColorHint="@color/grey"
                         android:textSize="14sp" />
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -105,20 +108,20 @@
                         <Spinner
                             android:id="@+id/spAccountType"
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:padding="10dp" />
+                            android:layout_height="45dp"
+                            android:padding="5dp" />
 
 
                     </LinearLayout>
 
-                </LinearLayout>
+                    </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/llLoginOtp"
                     android:layout_width="match_parent"
-                    android:layout_height="167dp"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical">
-
 
                     <EditText
                         android:id="@+id/etMobileNumber"
@@ -145,7 +148,7 @@
                         android:drawableLeft="@drawable/ic_lock_black_24dp"
                         android:drawablePadding="8dp"
                         android:gravity="center_vertical"
-                        android:hint="Otp"
+                        android:hint="Enter OTP"
                         android:inputType="textPassword"
                         android:padding="10dp"
                         android:singleLine="true"
@@ -153,28 +156,19 @@
                         android:textColorHint="@color/grey"
                         android:textSize="14sp" />
 
-                    <LinearLayout
-                        android:id="@+id/llResendOtp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="16dp"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:id="@+id/ivReload"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="16dp"
-                            android:src="@drawable/ic_refresh_black_24dp" />
 
                         <TextView
+                            android:drawableLeft="@drawable/ic_refresh_black_24dp"
                             android:id="@+id/tvResendOtp"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
+                            android:textSize="20dp"
+                            android:scaleX="0.8"
+                            android:drawablePadding="4dp"
+                            android:scaleY="0.8"
                             android:layout_height="wrap_content"
-                            android:text="ResendOtp" />
-                    </LinearLayout>
+                            android:text="Resend Otp" />
+
+
 
 
                 </LinearLayout>
@@ -183,15 +177,15 @@
                     android:id="@+id/btnLogin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="40dp"
+                    android:fontFamily="@font/ptserif_bold"
+                    android:paddingRight="40dp"
+                    android:layout_marginTop="40dp"
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="32dp"
                     android:background="@drawable/ic_rounded_corner"
-                    android:paddingStart="32dp"
-                    android:paddingTop="8dp"
-                    android:paddingEnd="32dp"
-                    android:paddingBottom="8dp"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
                     android:text="Login" />
 
             </LinearLayout>
@@ -200,21 +194,17 @@
         </androidx.cardview.widget.CardView>
 
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_above="@id/cvLogin"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="16dp"
-            android:src="@drawable/ic_user" />
 
         <TextView
+            android:id="@+id/tvPrivacyPolicyLink"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/cvLogin"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="16dp"
+            android:gravity="center_horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textSize="10dp"
             android:text="This number will not used for any kind of promotional activity, it will kept confidential. For more please refer to our privacy policy" />
-    </RelativeLayout>
-</FrameLayout>
+
+    </LinearLayout>
+

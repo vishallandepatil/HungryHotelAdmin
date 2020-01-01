@@ -12,12 +12,13 @@
         android:layout_alignParentTop="true"
         android:layout_margin="8dp"
         android:gravity="center_horizontal"
+        android:textColor="@color/colorPrimaryDark"
         android:paddingStart="16dp"
         android:paddingTop="4dp"
         android:paddingEnd="16dp"
+        android:fontFamily="@font/ptserif_bold"
         android:paddingBottom="4dp"
         android:text="Today's Status"
-        android:textAppearance="?android:textAppearanceMedium"
         android:textStyle="bold" />
 
     <Button
@@ -25,11 +26,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_margin="8dp"
+        android:fontFamily="@font/ptserif_bold"
         android:background="@color/darkGreen"
         android:padding="16dp"
-        android:text="Other Orders"
-        android:textAppearance="?android:textAppearanceLarge" />
+        android:textSize="17dp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:text="Other Orders" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvOrderDashboard"
