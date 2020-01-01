@@ -1,16 +1,24 @@
 package com.hungry.hotel.hungryhoteladmin.home;
 
+import android.content.IntentFilter;
+import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import android.util.Log;
 import android.view.View;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.hungry.hotel.hungryhoteladmin.R;
+import com.hungry.hotel.hungryhoteladmin.broadcastreceiver.ConnectivityReceiver;
 import com.hungry.hotel.hungryhoteladmin.dashboard.OrderDashboardFragment;
 import com.hungry.hotel.hungryhoteladmin.deliveryboy.DeliveryBoyFragment;
 import com.hungry.hotel.hungryhoteladmin.home.listener.DrawerLocker;
@@ -19,15 +27,18 @@ import com.hungry.hotel.hungryhoteladmin.menudetails.AddUpdateMenuFragment;
 import com.hungry.hotel.hungryhoteladmin.orderdetail.OrderDetailsFragment;
 import com.hungry.hotel.hungryhoteladmin.orders.OrderFragment;
 import com.hungry.hotel.hungryhoteladmin.restaurentmenu.RestaurantMenuFragment;
+import com.hungry.hotel.hungryhoteladmin.utils.InternetConnectivityUtils;
 import com.hungry.hotel.hungryhoteladmin.utils.OnFragmentInteractionListener;
 
 import android.view.Menu;
-import android.widget.AutoCompleteTextView;
-import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -36,19 +47,18 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class MainActivity2 extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, DrawerLocker, OnFragmentInteractionListener {
+    ConnectivityReceiver connectivityReceiver;
     DrawerLayout drawer;
     NavigationView navigationView;
     ActionBarDrawerToggle toggle;
     Toolbar toolbar;
-    /* AutoCompleteTextView actvSearchMenu;
-     ImageButton ibFilter;
-     ImageButton ibSearch;*/
-    String currentTag = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+        setupFirebase();
+        connectivityReceiver = new ConnectivityReceiver();
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -66,13 +76,55 @@ public class MainActivity2 extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-
-        /*navigationView = findViewById(R.id.nav_view);
-        Menu nav_Menu = navigationView.getMenu();
-        nav_Menu.findItem(R.id.navMenus).setVisible(false);*/
         loadFragment(new LoginFragment(), "LOGIN", false, "LOGIN");
 //        adding fragments
 
+    }
+
+    // Showing the status in Snackbar
+    private void showSnack(boolean isConnected) {
+        String message;
+        int color;
+        if (isConnected) {
+            message = "Good! Connected to Internet";
+            color = Color.WHITE;
+        } else {
+            message = "Sorry! Not connected to internet";
+            color = Color.WHITE;
+        }
+
+        Snackbar snackbar = Snackbar
+                .make(findViewById(R.id.fab), message, isConnected ? Snackbar.LENGTH_LONG : Snackbar.LENGTH_INDEFINITE);
+        View snackBarView = snackbar.getView();
+        if (isConnected) {
+            snackBarView.setBackgroundColor(ContextCompat.getColor(this, R.color.darkGreen));
+        } else {
+            snackBarView.setBackgroundColor(ContextCompat.getColor(this, R.color.red));
+        }
+        TextView textView = snackBarView.findViewById(com.google.android.material.R.id.snackbar_text);
+        textView.setTextColor(color);
+        snackbar.show();
+    }
+
+    private void setupFirebase() {
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("Fireabse Instance", "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+
+                        // Log and toast
+                        String msg = token;
+                        Log.d("Firebase insance token", msg);
+                        Toast.makeText(MainActivity2.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override
@@ -204,4 +256,27 @@ public class MainActivity2 extends AppCompatActivity
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        InternetConnectivityUtils.setConnectivityListener(this::showSnack);
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(connectivityReceiver);
+    }
 }

@@ -92,26 +92,26 @@ public class AddUpdateMenuFragment extends Fragment {
     }
 
     private void setValues() {
-        etDishName.setText(dish.getDishName());
-        etDishAmount.setText(HungryAdminUtility.getFormattedPrice(dish.getDishPrice()));
-        etDishQuantity.setText("" + dish.getDishQuantity());
-        etDishDescription.setText(dish.getDishDescription());
-        for (int i = 0; i < menuTypes.size(); i++) {
-            if (menuTypes.get(i).equalsIgnoreCase(dish.getDishType())) {
-                spDishType.setSelected(true);
-            } else {
-                spDishType.setSelected(false);
+        if (dish != null) {
+            etDishName.setText(dish.getDishName());
+            etDishAmount.setText(HungryAdminUtility.getFormattedPrice(dish.getDishPrice()));
+            etDishQuantity.setText("" + dish.getDishQuantity());
+            etDishDescription.setText(dish.getDishDescription());
+            for (int i = 0; i < menuTypes.size(); i++) {
+                if (menuTypes.get(i).equalsIgnoreCase(dish.getDishType())) {
+                    spDishType.setSelected(true);
+                } else {
+                    spDishType.setSelected(false);
+                }
+            }
+            for (int i = 0; i < menuCategory.size(); i++) {
+                if (menuCategory.get(i).equalsIgnoreCase(dish.getDishType())) {
+                    spDishCategory.setSelected(true);
+                } else {
+                    spDishCategory.setSelected(false);
+                }
             }
         }
-        for (int i = 0; i < menuCategory.size(); i++) {
-            if (menuCategory.get(i).equalsIgnoreCase(dish.getDishType())) {
-                spDishCategory.setSelected(true);
-            } else {
-                spDishCategory.setSelected(false);
-            }
-        }
-
-
     }
 
     private void setTime(int timeConstant) {

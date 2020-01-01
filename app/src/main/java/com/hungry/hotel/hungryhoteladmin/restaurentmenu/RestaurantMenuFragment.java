@@ -26,6 +26,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.hungry.hotel.hungryhoteladmin.R;
 import com.hungry.hotel.hungryhoteladmin.home.MainActivity2;
 import com.hungry.hotel.hungryhoteladmin.menudetails.AddUpdateMenuFragment;
@@ -46,6 +48,7 @@ public class RestaurantMenuFragment extends Fragment {
     ActionBarDrawerToggle toggle;
     DrawerLayout drawer;
     RecyclerView rvMenu;
+    FloatingActionButton fabAddNewMenu;
 
     public RestaurantMenuFragment() {
         // Required empty public constructor
@@ -72,7 +75,10 @@ public class RestaurantMenuFragment extends Fragment {
                              Bundle savedInstanceState) {
         View dishMenu = inflater.inflate(R.layout.fragment_restaurent_menu, container, false);
         setupToolbar();
-        rvMenu = dishMenu.findViewById(R.id.rvMenu);
+        instantiateView(dishMenu);
+        fabAddNewMenu.setOnClickListener(view -> {
+            openEditMenuFragment(null);
+        });
         List<Dish> dishList = getDishes();
         RestaurantMenuAdapter menuAdapter = new RestaurantMenuAdapter(getActivity(), dishList, rvMenu, this::openEditMenuFragment);
 //        loadFragment(new AddUpdateMenuFragment(), "ADD_EDIT_MENU", true);
@@ -81,6 +87,11 @@ public class RestaurantMenuFragment extends Fragment {
         rvMenu.setAdapter(menuAdapter);
 
         return dishMenu;
+    }
+
+    private void instantiateView(View dishMenu) {
+        rvMenu = dishMenu.findViewById(R.id.rvMenu);
+        fabAddNewMenu = dishMenu.findViewById(R.id.fabAddNewMenu);
     }
 
     private void setupToolbar() {
@@ -182,11 +193,16 @@ public class RestaurantMenuFragment extends Fragment {
     }
 
     private void openEditMenuFragment(Dish dish) {
-        AddUpdateMenuFragment fragment = AddUpdateMenuFragment.newInstance(dish);
+        AddUpdateMenuFragment fragment;
+        if (dish != null) {
+            fragment = AddUpdateMenuFragment.newInstance(dish);
+        } else {
+            fragment = new AddUpdateMenuFragment();
+        }
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.clHomePageContainer, fragment);
-        fragmentTransaction.addToBackStack("ORDER_DETAILS");
+        fragmentTransaction.addToBackStack("ADD_UPDATE_MENU");
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         fragmentTransaction.commit();
     }

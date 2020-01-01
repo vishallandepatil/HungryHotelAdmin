@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,7 @@ import com.hungry.hotel.hungryhoteladmin.utils.SharedPreferenceHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 
 public class LoginFragment extends Fragment {
@@ -49,6 +51,7 @@ public class LoginFragment extends Fragment {
     TextView tvResendOtp;
     LinearLayout llResendOtp;
     Button btnLogin;
+    TextView tvPrivacyPolicyLink;
     //    final int LOGIN_WITH_OTP = 1, LOGIN_WITH_USERNAME = 2;
     final int SEND_OTP = 1, VERIFY_OTP = 2;
     int otpChange;
@@ -78,6 +81,7 @@ public class LoginFragment extends Fragment {
 
         final View loginView = inflater.inflate(R.layout.fragment_login, container, false);
         instantiateView(loginView);
+        addLinkToTextView();
 //        loginType = LOGIN_WITH_USERNAME;
         showLoginUserLayout();
         otpChange = SEND_OTP;
@@ -113,6 +117,12 @@ public class LoginFragment extends Fragment {
             }
         });
         return loginView;
+    }
+
+    private void addLinkToTextView() {
+        Pattern pattern = Pattern.compile("privacy policy");
+        tvPrivacyPolicyLink.setText("This number will not used for any kind of promotional activity, it will kept confidential. For more please refer to our privacy policy");
+        Linkify.addLinks(tvPrivacyPolicyLink,pattern, "http://www.google.ie/search?q=");
     }
 
     private void setupToolbar() {
@@ -180,6 +190,8 @@ public class LoginFragment extends Fragment {
         etMobileNumber = loginView.findViewById(R.id.etMobileNumber);
         tvResendOtp = loginView.findViewById(R.id.tvResendOtp);
         etOtp = loginView.findViewById(R.id.etOtp);
+        tvPrivacyPolicyLink = loginView.findViewById(R.id.tvPrivacyPolicyLink);
+
     }
 
     private void changeLoginLayout() {
