@@ -20,6 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.textfield.TextInputLayout;
 import com.hungry.hotel.hungryhoteladmin.R;
 import com.hungry.hotel.hungryhoteladmin.home.MainActivity2;
@@ -198,7 +199,11 @@ public class AddUpdateMenuFragment extends Fragment {
         ((MainActivity2) getActivity()).setDrawerLocked(true);
         TextView tvToolbarTitle = toolbar.findViewById(R.id.tvToolbarTitle);
         tvToolbarTitle.setText("Add/Update Menu");
+        AppBarLayout.LayoutParams params =
+                (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
+        params.setScrollFlags(0);
         toggle.syncState();
+
 //        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
       /*  Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Delivery Boy");

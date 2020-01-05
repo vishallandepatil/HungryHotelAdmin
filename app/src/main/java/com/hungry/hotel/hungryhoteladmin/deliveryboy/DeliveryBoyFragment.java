@@ -25,6 +25,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.hungry.hotel.hungryhoteladmin.R;
 import com.hungry.hotel.hungryhoteladmin.deliveryboy.model.DeliveryBoy;
@@ -141,6 +142,9 @@ public class DeliveryBoyFragment extends Fragment {
         ((MainActivity2) getActivity()).setDrawerLocked(true);
         TextView tvToolbarTitle = toolbar.findViewById(R.id.tvToolbarTitle);
         tvToolbarTitle.setText("Delivery Boy");
+        AppBarLayout.LayoutParams params =
+                (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
+        params.setScrollFlags(0);
         toggle.syncState();
 //        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
       /*  Toolbar toolbar = getActivity().findViewById(R.id.toolbar);

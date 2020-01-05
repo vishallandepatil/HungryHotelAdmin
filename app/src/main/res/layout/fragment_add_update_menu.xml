@@ -1,26 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".menudetails.AddUpdateMenuFragment">
 
-    <Button
-        android:id="@+id/btnAddDish"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:background="@color/darkGreen"
-        android:textColor="@color/white"
-        android:fontFamily="@font/ptserif_bold"
-        android:text="Save Dish" />
 
-    <ScrollView
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/btnAddDish"
         android:layout_alignParentTop="true"
         android:orientation="vertical">
 
@@ -236,8 +226,19 @@
                             android:textSize="14sp" />
                     </LinearLayout>
                 </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnAddDish"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center"
+                    android:background="@color/darkGreen"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/ptserif_bold"
+                    android:text="Save Dish" />
             </LinearLayout>
 
 
-    </ScrollView>
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>
