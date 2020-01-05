@@ -1,6 +1,7 @@
 package com.hungry.hotel.hungryhoteladmin.home;
 
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -23,12 +24,14 @@ import com.hungry.hotel.hungryhoteladmin.dashboard.OrderDashboardFragment;
 import com.hungry.hotel.hungryhoteladmin.deliveryboy.DeliveryBoyFragment;
 import com.hungry.hotel.hungryhoteladmin.home.listener.DrawerLocker;
 import com.hungry.hotel.hungryhoteladmin.login.LoginFragment;
+import com.hungry.hotel.hungryhoteladmin.login.model.User;
 import com.hungry.hotel.hungryhoteladmin.menudetails.AddUpdateMenuFragment;
 import com.hungry.hotel.hungryhoteladmin.orderdetail.OrderDetailsFragment;
 import com.hungry.hotel.hungryhoteladmin.orders.OrderFragment;
 import com.hungry.hotel.hungryhoteladmin.restaurentmenu.RestaurantMenuFragment;
 import com.hungry.hotel.hungryhoteladmin.utils.InternetConnectivityUtils;
 import com.hungry.hotel.hungryhoteladmin.utils.OnFragmentInteractionListener;
+import com.hungry.hotel.hungryhoteladmin.utils.SharedPreferenceHelper;
 
 import android.view.Menu;
 import android.widget.TextView;
@@ -52,6 +55,7 @@ public class MainActivity2 extends AppCompatActivity
     NavigationView navigationView;
     ActionBarDrawerToggle toggle;
     Toolbar toolbar;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +63,14 @@ public class MainActivity2 extends AppCompatActivity
         setContentView(R.layout.activity_main2);
         setupFirebase();
         connectivityReceiver = new ConnectivityReceiver();
+        setupToolbar();
+        loadFragment(new LoginFragment(), "LOGIN", false, "LOGIN");
+    }
+
+    private void setupToolbar() {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
+        fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,9 +85,6 @@ public class MainActivity2 extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-        loadFragment(new LoginFragment(), "LOGIN", false, "LOGIN");
-//        adding fragments
-
     }
 
     // Showing the status in Snackbar
@@ -230,10 +236,16 @@ public class MainActivity2 extends AppCompatActivity
     @Override
     public void onAttachFragment(Fragment fragment) {
 
-        if (fragment instanceof LoginFragment) {
-            getSupportActionBar().hide();
-        } else {
-            getSupportActionBar().show();
+        if (fragment instanceof OrderDashboardFragment) {
+            SharedPreferences sharedPreferences = SharedPreferenceHelper.getSharedPreferenceInstance(this, "USER");
+            String accountType = sharedPreferences.getString(User.ACCOUNT_TYPE, User.ACCOUNT_TYPE);
+            if (accountType.equalsIgnoreCase(User.HOTEL_ADMIN)) {
+                navigationView.getMenu().findItem(R.id.navMenus).setVisible(true);
+                navigationView.getMenu().findItem(R.id.nav_deliveryBoy).setVisible(false);
+            } else {
+                navigationView.getMenu().findItem(R.id.navMenus).setVisible(false);
+                navigationView.getMenu().findItem(R.id.nav_deliveryBoy).setVisible(true);
+            }
         }
     }
 

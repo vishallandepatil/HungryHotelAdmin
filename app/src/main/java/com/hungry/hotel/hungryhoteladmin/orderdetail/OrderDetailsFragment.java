@@ -29,6 +29,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.appbar.AppBarLayout;
 import com.hungry.hotel.hungryhoteladmin.R;
 import com.hungry.hotel.hungryhoteladmin.home.MainActivity2;
 import com.hungry.hotel.hungryhoteladmin.login.model.User;
@@ -313,6 +314,9 @@ public class OrderDetailsFragment extends Fragment {
         ((MainActivity2) getActivity()).setDrawerLocked(true);
         TextView tvToolbarTitle = toolbar.findViewById(R.id.tvToolbarTitle);
         tvToolbarTitle.setText("Order Details");
+        AppBarLayout.LayoutParams params =
+                (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
+        params.setScrollFlags(0);
         toggle.syncState();
 //        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
       /*  Toolbar toolbar = getActivity().findViewById(R.id.toolbar);

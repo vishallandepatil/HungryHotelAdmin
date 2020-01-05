@@ -30,6 +30,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.hungry.hotel.hungryhoteladmin.R;
 import com.hungry.hotel.hungryhoteladmin.dashboard.adapter.DashboardOrderAdapter;
@@ -236,7 +237,9 @@ public class OrderDashboardFragment extends Fragment {
         ((MainActivity2) getActivity()).setDrawerLocked(false);
         TextView tvToolbarTitle = toolbar.findViewById(R.id.tvToolbarTitle);
         tvToolbarTitle.setText("Dashboard");
-
+        AppBarLayout.LayoutParams params =
+                (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
+        params.setScrollFlags(0);
 //        actionBar.setTitle("Dashboard");
         toggle.syncState();
         /*toggle.setDrawerIndicatorEnabled(true);

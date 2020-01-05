@@ -122,7 +122,7 @@ public class LoginFragment extends Fragment {
     private void addLinkToTextView() {
         Pattern pattern = Pattern.compile("privacy policy");
         tvPrivacyPolicyLink.setText("This number will not used for any kind of promotional activity, it will kept confidential. For more please refer to our privacy policy");
-        Linkify.addLinks(tvPrivacyPolicyLink,pattern, "http://www.google.ie/search?q=");
+        Linkify.addLinks(tvPrivacyPolicyLink, pattern, "http://www.google.ie/search?q=");
     }
 
     private void setupToolbar() {
@@ -250,6 +250,10 @@ public class LoginFragment extends Fragment {
 
     private boolean verifyUser(User user) {
         if (llLoginUserName.getVisibility() == View.VISIBLE) {
+            if (!user.getAccountType().equalsIgnoreCase(User.HOTEL_ADMIN) && !user.getAccountType().equalsIgnoreCase(User.DELIVERY_BOY)) {
+                Toast.makeText(getActivity(), "Please select account type", Toast.LENGTH_SHORT).show();
+                return false;
+            }
             return true;
         }
         /*if (isOtpVerified) {
