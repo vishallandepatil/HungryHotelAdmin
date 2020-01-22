@@ -18,4 +18,8 @@ public class HungryAdminUtility {
         DecimalFormat decimalFormat = new DecimalFormat("#,###.00");
         return decimalFormat.format(price);
     }
+
+    public static boolean isNullOrEmpty(String string) {
+        return string == null || string.length() == 0 || string.equalsIgnoreCase("null");
+    }
 }

@@ -12,22 +12,24 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.hungry.hotel.hungryhoteladmin.R;
 import com.hungry.hotel.hungryhoteladmin.dashboard.OrderDashboardFragment;
 import com.hungry.hotel.hungryhoteladmin.home.MainActivity2;
 import com.hungry.hotel.hungryhoteladmin.login.model.User;
+import com.hungry.hotel.hungryhoteladmin.login.repository.LoginRepository;
+import com.hungry.hotel.hungryhoteladmin.login.viewmodel.UserViewModel;
+import com.hungry.hotel.hungryhoteladmin.utils.HungryAdminApiListener;
 import com.hungry.hotel.hungryhoteladmin.utils.OnFragmentInteractionListener;
 import com.hungry.hotel.hungryhoteladmin.utils.SharedPreferenceHelper;
 
@@ -150,7 +152,11 @@ public class LoginFragment extends Fragment {
             userName = etUserName.getText().toString();
             password = etPassword.getText().toString();
             account = spAccountType.getSelectedItem().toString();
-            user.setName(userName);
+
+            /*userName = "vishallDB";
+            password = "Vishal@123";
+            account = "DELIVERYBOY";*/
+            user.setUserName(userName);
             user.setPassword(password);
             user.setAccountType(account);
             Log.d("account_type", spAccountType.getSelectedItem().toString());
@@ -240,11 +246,30 @@ public class LoginFragment extends Fragment {
 //        loginType = LOGIN_WITH_USERNAME;
     }
 
-    private void showHomePage(User user) {
-        boolean isValidUser = verifyUser(user);
+    private void showHomePage(User loggedInUser) {
+        boolean isValidUser = verifyUser(loggedInUser);
+//        boolean isValidUser = false;
+        LoginRepository loginRepository = new LoginRepository();
         if (isValidUser) {
-            saveDetailsToPreferences(user);
-            loadFragment(new OrderDashboardFragment(), "ORDER_DASHBOARD", true);
+            UserViewModel userViewModel = ViewModelProviders.of(getActivity()).get(UserViewModel.class);
+            userViewModel.getUser(loggedInUser, new HungryAdminApiListener<User>() {
+                @Override
+                public void onSuccess(User user) {
+                    Log.d("user", user.toString());
+                    user.setUserName(loggedInUser.getUserName());
+                    user.setPassword(loggedInUser.getPassword());
+                    user.setAccountType(loggedInUser.getAccountType());
+                    saveDetailsToPreferences(user);
+                    loadFragment(new OrderDashboardFragment(), "ORDER_DASHBOARD", true);
+                }
+
+                @Override
+                public void onFailure(double status, String message) {
+                    Log.d("login_failure", message);
+                    Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                }
+            });
+
         }
     }
 
@@ -266,17 +291,12 @@ public class LoginFragment extends Fragment {
         return true;
     }
 
-    private void saveDetailsToPreferences(User user) {
+    private boolean saveDetailsToPreferences(User user) {
         SharedPreferences.Editor spEditor = SharedPreferenceHelper.getEditorInstance(getActivity(), "USER");
         spEditor.clear();
         spEditor.putString(User.ACCOUNT_TYPE, user.getAccountType());
-        Log.d("ACC_", user.getAccountType());
-        SharedPreferenceHelper.savePreference(spEditor);
-        /*SharedPreferences sp = getActivity().getSharedPreferences("ACCOUNT", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putString(User.ACCOUNT_TYPE, user.getAccountType());
-        editor.apply();
-        Log.d("ACC_TYPE_SP", user.getAccountType());*/
+        Log.d("ACC_", user.getAccountType() + "");
+        return SharedPreferenceHelper.savePreference(spEditor);
     }
 
     private void loadFragment(Fragment fragment, String fragmentName, boolean needToBackStack) {

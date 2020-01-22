@@ -18,8 +18,8 @@ public class SharedPreferenceHelper {
         return editor;
     }
 
-    public static void savePreference(SharedPreferences.Editor editor) {
-        editor.commit();
+    public static boolean savePreference(SharedPreferences.Editor editor) {
+        return editor.commit();
     }
 
     public static SharedPreferences getSharedPreferenceInstance(Context context, String sharedPreferenceName) {
