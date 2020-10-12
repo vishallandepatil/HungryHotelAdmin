@@ -1,13 +1,11 @@
 package com.hungry.hotel.hungryhoteladmin.dashboard.adapter;
 
 import android.app.Activity;
-import android.util.DisplayMetrics;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridLayout;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,28 +14,33 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hungry.hotel.hungryhoteladmin.R;
-import com.hungry.hotel.hungryhoteladmin.dashboard.model.OrderDashboard;
-import com.hungry.hotel.hungryhoteladmin.orders.model.Order;
+import com.hungry.hotel.hungryhoteladmin.dashboard.model.Dashboard;
 import com.hungry.hotel.hungryhoteladmin.utils.HungryAdminUtility;
 
 import java.util.List;
+import java.util.Random;
 
 public class DashboardOrderAdapter extends RecyclerView.Adapter<DashboardOrderAdapter.DashboardViewHolder> {
-    List<OrderDashboard> orderDashboardList;
+    List<Dashboard> orderDashboardList;
     OrderClickListener orderClickListener;
     Activity context;
 
-    public List<OrderDashboard> getOrderDashboardList() {
+    public List<Dashboard> getOrderDashboardList() {
         return orderDashboardList;
     }
 
-    public void setOrderDashboardList(List<OrderDashboard> orderDashboardList) {
+    public void setOrderDashboardList(List<Dashboard> orderDashboardList) {
         this.orderDashboardList = orderDashboardList;
     }
 
     public DashboardOrderAdapter(Activity context, OrderClickListener orderClickListener) {
         this.orderClickListener = orderClickListener;
         this.context = context;
+    }
+    public DashboardOrderAdapter(List<Dashboard> orderDashboardList, OrderClickListener orderClickListener) {
+            this.orderDashboardList = orderDashboardList;
+            this.orderClickListener = orderClickListener;
+
     }
 
     @NonNull
@@ -51,18 +54,29 @@ public class DashboardOrderAdapter extends RecyclerView.Adapter<DashboardOrderAd
 
     @Override
     public void onBindViewHolder(@NonNull DashboardViewHolder holder, int position) {
-        final OrderDashboard orderDashboard = orderDashboardList.get(position);
-        setBackground(holder, orderDashboard);
-//        holder.itemView.setBackgroundColor(orderDashboard.getBackgroundColor());
-        holder.tvTotalOrders.setText(String.valueOf(orderDashboard.getTotalOrder()));
-        holder.tvOrderName.setText(orderDashboard.getOrderName());
-        holder.tvOrderPrice.setText(String.valueOf(HungryAdminUtility.getFormattedPrice(orderDashboard.getOrderPrice())));
-        if (orderDashboard.isNew()) {
+        final Dashboard orderDashboard = orderDashboardList.get(position);
+      //10-10  setBackground(holder, orderDashboard);
+
+        Random r = new Random();
+        int red=r.nextInt(255 - 0 + 1)+0;
+        int green=r.nextInt(255 - 0 + 1)+0;
+        int blue=r.nextInt(255 - 0 + 1)+0;
+
+       /* GradientDrawable draw = new GradientDrawable();
+        draw.setShape(GradientDrawable.OVAL);
+        draw.setColor(Color.rgb(red,green,blue));
+*/
+        holder.itemView.setBackgroundColor(Color.rgb(red,green,blue));
+        holder.tvOrderPrice.setText(orderDashboard.getSTATUS());
+        holder.tvTotalOrders.setText(String.valueOf(orderDashboard.getTotal()));
+        holder.tvOrderName.setText(orderDashboard.getTitle());
+       // holder.tvOrderPrice.setText(String.valueOf(HungryAdminUtility.getFormattedPrice(Double.parseDouble(orderDashboard.getTotal()))));
+       /* 10-10 if (orderDashboard.isNew()) {
             holder.tvNewOrder.setVisibility(View.VISIBLE);
             holder.tvNewOrder.setText("NEW");
         } else {
             holder.tvNewOrder.setVisibility(View.GONE);
-        }
+        }*/
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,32 +127,32 @@ public class DashboardOrderAdapter extends RecyclerView.Adapter<DashboardOrderAd
     }
 
     public interface OrderClickListener {
-        void orderOpen(OrderDashboard order);
+        void orderOpen(Dashboard order);
     }
 
-    private void setBackground(DashboardViewHolder holder, OrderDashboard orderDashboard) {
-        if (orderDashboard.getOrderName().equalsIgnoreCase(OrderDashboard.TOTAL_ORDER)) {
+   /* private void setBackground(DashboardViewHolder holder, Dashboard orderDashboard) {
+        if (orderDashboard.getTitle().equalsIgnoreCase(Dashboard.TOTAL_ORDER)) {
             holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.totalOrder));
 
         }
-        if (orderDashboard.getOrderName().equalsIgnoreCase(OrderDashboard.NEW_ORDER)) {
+        if (orderDashboard.getTitle().equalsIgnoreCase(Dashboard.NEW_ORDER)) {
             holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.darkGreen));
 
         }
-        if (orderDashboard.getOrderName().equalsIgnoreCase(OrderDashboard.ACCEPTED_ORDER)) {
+        if (orderDashboard.getTitle().equalsIgnoreCase(Dashboard.ACCEPTED_ORDER)) {
             holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.accepted));
 
         }
-        if (orderDashboard.getOrderName().equalsIgnoreCase(OrderDashboard.READY_ORDER)) {
+        if (orderDashboard.getTitle().equalsIgnoreCase(Dashboard.READY_ORDER)) {
             holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.ready));
         }
-        if (orderDashboard.getOrderName().equalsIgnoreCase(OrderDashboard.REJECTED_ORDER)) {
+        if (orderDashboard.getTitle().equalsIgnoreCase(Dashboard.REJECTED_ORDER)) {
             holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.lightGray));
 
         }
-        if (orderDashboard.getOrderName().equalsIgnoreCase(OrderDashboard.DELIVERED_ORDER)) {
+        if (orderDashboard.getTitle().equalsIgnoreCase(Dashboard.DELIVERED_ORDER)) {
             holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.delivered));
 
         }
-    }
+    }*/
 }

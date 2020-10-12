@@ -23,7 +23,8 @@
             android:padding="8dp"
             android:rotation="45"
             android:text="NEW"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:visibility="gone"/>
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -14,46 +14,85 @@
         android:orientation="horizontal"
         android:paddingBottom="16dp">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civDIshImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
-            android:layout_marginEnd="4dp"
-            android:layout_weight="2"
-            android:orientation="vertical">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/civDIshImage"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:layout_marginEnd="4dp"
-                tools:src="@drawable/food" />
-        </LinearLayout>
+            android:layout_margin="5dp"
+            tools:src="@drawable/food"
+            />
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
-            android:layout_weight="5"
             android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                >
+
 
             <TextView
                 android:id="@+id/tvDishName"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="4dp"
                 android:textAppearance="?android:textAppearanceMedium"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="Sev bhaji"
+                android:textSize="20dp"
+                android:layout_toLeftOf="@+id/ivNonvegDishType"
+                />
+
+
+                <ImageView
+                    android:id="@+id/ivDishType"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:padding="4dp"
+                    android:src="@drawable/vegimg"
+                    android:visibility="gone"
+                    android:layout_toLeftOf="@+id/ivDishEdit"
+
+                    />
+
+                <ImageView
+                    android:id="@+id/ivNonvegDishType"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:padding="4dp"
+                    android:src="@drawable/vegimg"
+                    android:tint="@color/red"
+                    android:layout_toLeftOf="@+id/ivDishEdit"
+
+                    />
+
+                <ImageView
+                    android:id="@+id/ivDishEdit"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:padding="4dp"
+                    android:src="@drawable/ic_mode_edit"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="3dp"/>
+
+
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/tvDishQuantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:layout_marginBottom="4dp"
+                android:layout_marginBottom="2dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:text=" 2 items"
+                android:textSize="15dp"
                 android:textAppearance="?android:textAppearanceSmall" />
 
             <TextView
@@ -61,54 +100,48 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="Rs. 80.00"
+                android:textSize="15dp"
+                android:layout_marginBottom="2dp"
                 android:textAppearance="?android:textAppearanceSmall" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tvDishTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="15dp"
+                android:text="11.00 am to 02.00 pm"
                 android:textAppearance="?android:textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/tvDishShown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:textAppearanceSmall"
+                    android:textSize="15dp"
+                    android:text="hidden"
+                    android:gravity="right"
+                    android:layout_marginRight="3dp"
+                    android:padding="4dp"
+                    />
+
+            </LinearLayout>
+
 
 
         </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:orientation="vertical"
-            android:paddingTop="8dp">
-
-            <ImageView
-                android:id="@+id/ivDishType"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:padding="4dp"
-                android:src="@drawable/vegimg" />
-
-            <ImageView
-                android:id="@+id/ivDishEdit"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:padding="4dp"
-                android:src="@drawable/ic_mode_edit" />
 
 
-            <TextView
-                android:id="@+id/tvDishShown"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:textAppearance="?android:textAppearanceSmall"
-                android:textStyle="bold" />
 
-        </RelativeLayout>
     </LinearLayout>
 
 

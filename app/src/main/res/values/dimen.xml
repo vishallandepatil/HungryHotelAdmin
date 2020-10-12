@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <dimen name="toolbarText">18sp</dimen>
+
+    <dimen name="tabTextSize">15sp</dimen>
+    <dimen name="tabTextSubSize">11sp</dimen>
+
+
+    <dimen name="TextDashTitle">20sp</dimen>
+    <dimen name="TextsubTitle">14sp</dimen>
+    <dimen name="txtTitle">15sp</dimen>
+
+    <dimen name="TextDashSubTitle">17sp</dimen>
+
+    <dimen name="StyleDashBOardText" tools:ignore="MissingDefaultResource">16dp</dimen>
+
+    <!--Floating action button-->
+    <dimen name="design_fab_image_size" tools:override="true">50dp</dimen>
+
+
+    <dimen name="padding_10" tools:override="true">8dp</dimen>
+    <dimen name="cardsize">30dp</dimen>
+    <dimen name="padding_20" tools:override="true">20dp</dimen>
+    <dimen name="textSizeForm">15sp</dimen>
+
+
+    <dimen name="row_padding_vertical">10dp</dimen>
+
+    <dimen name="smallTextSize">12sp</dimen>
+    <dimen name="mediumTextSize">14sp</dimen>
+    <dimen name="largeTextSize">18sp</dimen>
+    <dimen name="extraLargeTextSize">22sp</dimen>
+
+    <!--genaral spacing-->
+    <dimen name="spacing_xsmall">2dp</dimen>
+    <dimen name="spacing_small">3dp</dimen>
+    <dimen name="spacing_medium">5dp</dimen>
+    <dimen name="spacing_xmedium">7dp</dimen>
+    <dimen name="spacing_middle">10dp</dimen>
+    <dimen name="spacing_large">15dp</dimen>
+    <dimen name="spacing_smlarge">18dp</dimen>
+    <dimen name="spacing_mlarge">20dp</dimen>
+    <dimen name="spacing_mxlarge">25dp</dimen>
+    <dimen name="spacing_xlarge">35dp</dimen>
+    <dimen name="spacing_xmlarge">40dp</dimen>
+    <dimen name="spacing_xxlarge">50dp</dimen>
+    <dimen name="spacing_xxxlarge">55dp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen>
+
+
+    <!--Font Sizes-->
+    <dimen name="fontStyle1">20dp</dimen>
+    <dimen name="fontStyle2">18dp</dimen>
+    <dimen name="fontStyle3">16dp</dimen>
+    <dimen name="fontStyle4">14dp</dimen>
+    <dimen name="fontStyle5">12dp</dimen>
+    <dimen name="fontStyle6">10dp</dimen>
+    <dimen name="editText">46dp</dimen>
+
+    <!--genaral spacing-->
+
+
+
+    <dimen name="row_height">44dp</dimen>
+    <dimen name="day_label_size_events_enabled">30dp</dimen>
+    <dimen name="day_label_size_events_disabled">38dp</dimen>
+
+    <dimen name="nav_drawer_text">14sp</dimen>
+    <dimen name="toolbar_text">20sp</dimen>
+
+
+
+
+
+
+    <dimen name="dots_height">30dp</dimen>
+    <dimen name="dots_margin_bottom">20dp</dimen>
+    <dimen name="img_width_height">120dp</dimen>
+    <dimen name="slide_title">30dp</dimen>
+    <dimen name="slide_desc">16dp</dimen>
+    <dimen name="desc_padding">40dp</dimen>
+    <dimen name="txtquiz">12sp</dimen>
+    <dimen name="padding_3" tools:override="true">3dp</dimen>
+
+</resources>

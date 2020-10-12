@@ -17,4 +17,7 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+    <string name="check_internet">Please check internet connection</string>
+    <string name="enter_all_details">Please Enter All Details</string>
+    <string name="something_went_wrong">Something Went Wrong</string>
 </resources>

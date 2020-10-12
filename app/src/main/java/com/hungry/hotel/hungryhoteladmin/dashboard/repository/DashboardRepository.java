@@ -3,23 +3,24 @@ package com.hungry.hotel.hungryhoteladmin.dashboard.repository;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.hungry.hotel.hungryhoteladmin.dashboard.model.OrderDashboard;
+import com.hungry.hotel.hungryhoteladmin.dashboard.model.Dashboard;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DashboardRepository {
-    public LiveData<List<OrderDashboard>> getOrdersList() {
-        List<OrderDashboard> orders = new ArrayList<>();
-        MutableLiveData<List<OrderDashboard>> ordersDashboardLiveData = new MutableLiveData<>();
+    public LiveData<List<Dashboard>> getOrdersList() {
+        List<Dashboard> orders = new ArrayList<>();
+        MutableLiveData<List<Dashboard>> ordersDashboardLiveData = new MutableLiveData<>();
 
-        orders.add(new OrderDashboard(100, OrderDashboard.TOTAL_ORDER, 100.00, false));
-        orders.add(new OrderDashboard(100, OrderDashboard.NEW_ORDER, 100.00, true));
-        orders.add(new OrderDashboard(100, OrderDashboard.ACCEPTED_ORDER, 100.00, false));
-        orders.add(new OrderDashboard(100, OrderDashboard.READY_ORDER, 100.00, false));
-        orders.add(new OrderDashboard(100, OrderDashboard.REJECTED_ORDER, 100.00, false));
-        orders.add(new OrderDashboard(100, OrderDashboard.DELIVERED_ORDER, 100.00, false));
-        ordersDashboardLiveData.setValue(orders);
+        /*10-10
+        orders.add(new Dashboard(100, Dashboard.TOTAL_ORDER, 100.00, false));
+        orders.add(new Dashboard(100, Dashboard.NEW_ORDER, 100.00, true));
+        orders.add(new Dashboard(100, Dashboard.ACCEPTED_ORDER, 100.00, false));
+        orders.add(new Dashboard(100, Dashboard.READY_ORDER, 100.00, false));
+        orders.add(new Dashboard(100, Dashboard.REJECTED_ORDER, 100.00, false));
+        orders.add(new Dashboard(100, Dashboard.DELIVERED_ORDER, 100.00, false));
+        ordersDashboardLiveData.setValue(orders);*/
         return ordersDashboardLiveData;
 
     }
