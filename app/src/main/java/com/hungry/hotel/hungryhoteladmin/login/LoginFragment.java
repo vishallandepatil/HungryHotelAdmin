@@ -1,18 +1,22 @@
 package com.hungry.hotel.hungryhoteladmin.login;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.UserHandle;
 import android.text.util.Linkify;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,17 +29,28 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.hungry.hotel.hungryhoteladmin.R;
 import com.hungry.hotel.hungryhoteladmin.dashboard.OrderDashboardFragment;
-import com.hungry.hotel.hungryhoteladmin.home.MainActivity2;
+import com.hungry.hotel.hungryhoteladmin.home.HomeActivity;
+import com.hungry.hotel.hungryhoteladmin.login.api.LoginApi;
+import com.hungry.hotel.hungryhoteladmin.login.model.DeliveryBoyResponse;
 import com.hungry.hotel.hungryhoteladmin.login.model.User;
-import com.hungry.hotel.hungryhoteladmin.login.repository.LoginRepository;
-import com.hungry.hotel.hungryhoteladmin.login.viewmodel.UserViewModel;
-import com.hungry.hotel.hungryhoteladmin.utils.HungryAdminApiListener;
+
+import com.hungry.hotel.hungryhoteladmin.login.model.UserResponse;
+import com.hungry.hotel.hungryhoteladmin.menudetails.api.MenuDetailsApi;
+import com.hungry.hotel.hungryhoteladmin.restaurentmenu.model.DishResponse;
+import com.hungry.hotel.hungryhoteladmin.retrofit.RetrofitClientInstance;
+
 import com.hungry.hotel.hungryhoteladmin.utils.OnFragmentInteractionListener;
+import com.hungry.hotel.hungryhoteladmin.utils.PrefManager;
 import com.hungry.hotel.hungryhoteladmin.utils.SharedPreferenceHelper;
+import com.hungry.hotel.hungryhoteladmin.utils.Utilities;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class LoginFragment extends Fragment {
@@ -58,6 +73,12 @@ public class LoginFragment extends Fragment {
     final int SEND_OTP = 1, VERIFY_OTP = 2;
     int otpChange;
     boolean isOtpVerified = false;
+    PrefManager prefManager;
+    ProgressDialog progressDialog;
+    String accountType="";
+    RelativeLayout layout1;
+    RelativeLayout layout2;
+    TextView txt_error;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -95,26 +116,56 @@ public class LoginFragment extends Fragment {
             changeLoginLayout();
         });
 
+
+        spAccountType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            public void onItemSelected(AdapterView<?> arg0, View view, int position, long id) {
+
+                accountType=spAccountType.getSelectedItem().toString();
+
+                if(accountType.equals("HOTEL"))
+                {
+                    prefManager.setROLEID(1);
+                }
+                else {
+                    prefManager.setROLEID(2);
+                }
+
+            }
+            public void onNothingSelected(AdapterView<?> arg0) { }
+        });
+
+
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(loginView.getContext(), "LoginClicked", Toast.LENGTH_SHORT).show();
-                /*if (loginType == LOGIN_WITH_OTP) {
-                    if (otpChange == SEND_OTP) {
-                        otpChange = VERIFY_OTP;
-                        btnLogin.setText("Send OTP");
-                    } else {
-                        btnLogin.setText("Verify OTP");
-                        showHomePage(loginView, user);
 
-                    }
-                } else {
-                    btnLogin.setText("Login");
-                    showHomePage(loginView, user);
-                }*/
-                final User user = getUserDetails();
+                Log.e( "onClick: ", String.valueOf(accountType.length()));
+                 if(etUserName.getText().toString().length()==0 || etPassword.getText().toString().length()==0
+                         || accountType.equals("Select Account Type"))
+                 {
+                     Toast.makeText(getActivity(), getResources().getString(R.string.enter_all_details), Toast.LENGTH_SHORT).show();
+                 }
+                 else {
+
+                     if(accountType.equals("HOTEL"))
+                     {
+                         checkLoginForHotel(etUserName.getText().toString(),etPassword.getText().toString(),
+                                 "HOTEL", RetrofitClientInstance.API_KEY);
+
+                     }
+                     else {
+                         checkLoginForDB(etUserName.getText().toString(),etPassword.getText().toString(),
+                                 "DELIVERYBOY", RetrofitClientInstance.API_KEY);
+
+                     }
+
+                 }
+
+              /*  final User user = getUserDetails();
                 showHomePage(user);
-
+*/
 
             }
         });
@@ -129,7 +180,7 @@ public class LoginFragment extends Fragment {
 
     private void setupToolbar() {
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-        ((MainActivity2) getActivity()).setDrawerLocked(true);
+        ((HomeActivity) getActivity()).setDrawerLocked(true);
     }
 
     private List<String> getAccountTypes() {
@@ -148,6 +199,7 @@ public class LoginFragment extends Fragment {
         String otp;
         User user = new User();
 
+
         if (llLoginUserName.getVisibility() == View.VISIBLE) {
             userName = etUserName.getText().toString();
             password = etPassword.getText().toString();
@@ -158,16 +210,17 @@ public class LoginFragment extends Fragment {
             account = "DELIVERYBOY";*/
             user.setUserName(userName);
             user.setPassword(password);
+
             user.setAccountType(account);
             Log.d("account_type", spAccountType.getSelectedItem().toString());
             Log.d("account", user.getAccountType());
         } else {
             mobileNumber = etMobileNumber.getText().toString();
             otp = etOtp.getText().toString();
-            user.setMobileNumber(mobileNumber);
-            user.setOtp(otp);
+            user.setMOBILE_NO(mobileNumber);
+            user.setADDRESS(otp);
         }
-        /*if (loginType == LOGIN_WITH_USERNAME) {
+        /*  if (llLoginUserName.getVisibility() == View.VISIBLE) {
             userName = etUserName.getText().toString();
             password = etPassword.getText().toString();
             account = spAccountType.getSelectedItem().toString();
@@ -197,6 +250,11 @@ public class LoginFragment extends Fragment {
         tvResendOtp = loginView.findViewById(R.id.tvResendOtp);
         etOtp = loginView.findViewById(R.id.etOtp);
         tvPrivacyPolicyLink = loginView.findViewById(R.id.tvPrivacyPolicyLink);
+        layout1 = loginView.findViewById(R.id.layout1);
+        layout2 = loginView.findViewById(R.id.layout2);
+        txt_error = loginView.findViewById(R.id.txt_error);
+        prefManager=new PrefManager(getActivity());
+        progressDialog=new ProgressDialog(getActivity());
 
     }
 
@@ -251,6 +309,7 @@ public class LoginFragment extends Fragment {
 //        boolean isValidUser = false;
         LoginRepository loginRepository = new LoginRepository();
         if (isValidUser) {
+
             UserViewModel userViewModel = ViewModelProviders.of(getActivity()).get(UserViewModel.class);
             userViewModel.getUser(loggedInUser, new HungryAdminApiListener<User>() {
                 @Override
@@ -269,6 +328,7 @@ public class LoginFragment extends Fragment {
                     Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
                 }
             });
+
 
         }
     }
@@ -333,4 +393,111 @@ public class LoginFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+    void checkLoginForHotel(String NAME, String AMOUNT,String TYPE, String key)
+    {
+        if(Utilities.isNetworkAvailable(getActivity()))
+        {
+
+            LoginApi loginApi = RetrofitClientInstance.getRetrofitInstanceServer().
+                    create(LoginApi.class);
+
+            progressDialog.setMessage("Please Wait...");
+            progressDialog.setCancelable(false);
+            // pbLoading.setProgressStyle(R.id.abbreviationsBar);
+            progressDialog.show();
+            loginApi.checkLogin(NAME,AMOUNT,TYPE, key).
+                    enqueue(new Callback<UserResponse>() {
+
+                        @Override
+                        public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+
+                            UserResponse userResponse = response.body();
+                            Log.e("onResponseckhk: ", userResponse.getResult().toString());
+                            if(userResponse.getStatus()==200)
+                            {
+                                Log.e( "onResponseuid: ",userResponse.getResult().get(0).getID());
+                                prefManager.setUSERID(Integer.parseInt(userResponse.getResult().get(0).getID()));
+                                final User user = getUserDetails();
+                                showHomePage(user);
+                            }
+                            else {
+
+                                Toast.makeText(getActivity(), "Invalid Credentials ", Toast.LENGTH_SHORT).show();
+
+                            }
+                            progressDialog.dismiss();
+                        }
+
+                        @Override
+                        public void onFailure(Call<UserResponse> call, Throwable t) {
+
+                            progressDialog.dismiss();
+                            Utilities.setError(layout1,layout2,txt_error,getResources().getString(R.string.something_went_wrong));
+
+                            Log.d("errorchk",t.getMessage());
+
+                        }
+                    });
+        }
+        else {
+
+            Utilities.setError(layout1,layout2,txt_error,getResources().getString(R.string.check_internet));
+
+
+        }
+    }
+    void checkLoginForDB(String NAME, String AMOUNT,String TYPE, String key)
+    {
+        if(Utilities.isNetworkAvailable(getActivity()))
+        {
+
+            LoginApi loginApi = RetrofitClientInstance.getRetrofitInstanceServer().
+                    create(LoginApi.class);
+
+            progressDialog.setMessage("Please Wait...");
+            progressDialog.setCancelable(false);
+            // pbLoading.setProgressStyle(R.id.abbreviationsBar);
+            progressDialog.show();
+            loginApi.checkDBLogin(NAME,AMOUNT,TYPE, key).
+                    enqueue(new Callback<DeliveryBoyResponse>() {
+
+                        @Override
+                        public void onResponse(Call<DeliveryBoyResponse> call, Response<DeliveryBoyResponse> response) {
+
+                            DeliveryBoyResponse deliveryBoyResponse = response.body();
+                            Log.e("chkdb: ", deliveryBoyResponse.getResult().toString());
+                            if(deliveryBoyResponse.getStatus()==200)
+                            {
+                                Log.e( "onResponsedbid: ",deliveryBoyResponse.getResult().get(0).getDL_BO_MA_ID());
+                                prefManager.setUSERID(Integer.parseInt(deliveryBoyResponse.getResult().get(0).getDL_BO_MA_ID()));
+                                final User user = getUserDetails();
+                                showHomePage(user);
+                            }
+                            else {
+
+                                Toast.makeText(getActivity(), "Invalid Credentials ", Toast.LENGTH_SHORT).show();
+
+                            }
+                            progressDialog.dismiss();
+                        }
+
+                        @Override
+                        public void onFailure(Call<DeliveryBoyResponse> call, Throwable t) {
+
+                            progressDialog.dismiss();
+                            Utilities.setError(layout1,layout2,txt_error,getResources().getString(R.string.something_went_wrong));
+                            Log.d("errorchk",t.getMessage());
+
+                        }
+                    });
+        }
+        else {
+
+            Utilities.setError(layout1,layout2,txt_error,getResources().getString(R.string.check_internet));
+
+        }
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package com.hungry.hotel.hungryhoteladmin.home;
 
+import android.app.Activity;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -31,11 +32,13 @@ import com.hungry.hotel.hungryhoteladmin.orders.OrderFragment;
 import com.hungry.hotel.hungryhoteladmin.restaurentmenu.RestaurantMenuFragment;
 import com.hungry.hotel.hungryhoteladmin.utils.InternetConnectivityUtils;
 import com.hungry.hotel.hungryhoteladmin.utils.OnFragmentInteractionListener;
+import com.hungry.hotel.hungryhoteladmin.utils.PrefManager;
 import com.hungry.hotel.hungryhoteladmin.utils.SharedPreferenceHelper;
+import com.hungry.hotel.hungryhoteladmin.utils.Utilities;
+import com.hungry.hotel.hungryhoteladmin.welcome.SplashActivity;
 
 import android.view.Menu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -48,7 +51,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-public class MainActivity2 extends AppCompatActivity
+public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, DrawerLocker, OnFragmentInteractionListener {
     ConnectivityReceiver connectivityReceiver;
     DrawerLayout drawer;
@@ -56,15 +59,28 @@ public class MainActivity2 extends AppCompatActivity
     ActionBarDrawerToggle toggle;
     Toolbar toolbar;
     FloatingActionButton fab;
-
+    Activity activity;
+    PrefManager prefManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+        activity= HomeActivity.this;
+        prefManager=new PrefManager(activity);
+
         setupFirebase();
         connectivityReceiver = new ConnectivityReceiver();
         setupToolbar();
-        loadFragment(new LoginFragment(), "LOGIN", false, "LOGIN");
+
+        if(prefManager.getIS_LOGIN()==true) {
+           loadFragment(new OrderDashboardFragment(), "LOGIN", false, "LOGIN");
+           // loadFragment(new AddUpdateMenuFragment(), "LOGIN", false, "LOGIN");
+
+        }
+        else {
+            loadFragment(new LoginFragment(), "LOGIN", false, "LOGIN");
+        }
+
     }
 
     private void setupToolbar() {
@@ -128,7 +144,7 @@ public class MainActivity2 extends AppCompatActivity
                         // Log and toast
                         String msg = token;
                         Log.d("Firebase insance token", msg);
-                        Toast.makeText(MainActivity2.this, msg, Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(HomeActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -207,6 +223,11 @@ public class MainActivity2 extends AppCompatActivity
         } else if (id == R.id.nav_deliveryBoy) {
             loadFragment(new DeliveryBoyFragment(), "DELIVERY_BOY", false, "DELIVERY_BOY");
         }
+        else if (id == R.id.navLogout) {
+
+            prefManager.setIS_LOGIN(false);
+            Utilities.launchActivity(activity, SplashActivity.class,true);
+        }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -239,7 +260,15 @@ public class MainActivity2 extends AppCompatActivity
         if (fragment instanceof OrderDashboardFragment) {
             SharedPreferences sharedPreferences = SharedPreferenceHelper.getSharedPreferenceInstance(this, "USER");
             String accountType = sharedPreferences.getString(User.ACCOUNT_TYPE, User.ACCOUNT_TYPE);
-            if (accountType.equalsIgnoreCase(User.HOTEL_ADMIN)) {
+           /* if (accountType.equalsIgnoreCase(User.HOTEL_ADMIN)) {
+                navigationView.getMenu().findItem(R.id.navMenus).setVisible(true);
+                navigationView.getMenu().findItem(R.id.nav_deliveryBoy).setVisible(false);
+            } else {
+                navigationView.getMenu().findItem(R.id.navMenus).setVisible(false);
+                navigationView.getMenu().findItem(R.id.nav_deliveryBoy).setVisible(true);
+            }*/
+
+            if (prefManager.getROLEID()==1) {
                 navigationView.getMenu().findItem(R.id.navMenus).setVisible(true);
                 navigationView.getMenu().findItem(R.id.nav_deliveryBoy).setVisible(false);
             } else {

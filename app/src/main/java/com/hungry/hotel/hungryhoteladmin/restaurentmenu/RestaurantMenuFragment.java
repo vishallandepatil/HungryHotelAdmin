@@ -2,21 +2,22 @@ package com.hungry.hotel.hungryhoteladmin.restaurentmenu;
 
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AutoCompleteTextView;
-import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -28,18 +29,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.hungry.hotel.hungryhoteladmin.R;
-import com.hungry.hotel.hungryhoteladmin.home.MainActivity2;
+import com.hungry.hotel.hungryhoteladmin.home.HomeActivity;
 import com.hungry.hotel.hungryhoteladmin.menudetails.AddUpdateMenuFragment;
-import com.hungry.hotel.hungryhoteladmin.orderdetail.OrderDetailsFragment;
-import com.hungry.hotel.hungryhoteladmin.orders.model.Order;
 import com.hungry.hotel.hungryhoteladmin.restaurentmenu.adapter.RestaurantMenuAdapter;
+import com.hungry.hotel.hungryhoteladmin.restaurentmenu.api.RestaurantMenuApi;
 import com.hungry.hotel.hungryhoteladmin.restaurentmenu.model.Dish;
+import com.hungry.hotel.hungryhoteladmin.restaurentmenu.model.DishResponse;
+import com.hungry.hotel.hungryhoteladmin.retrofit.RetrofitClientInstance;
 import com.hungry.hotel.hungryhoteladmin.utils.OnFragmentInteractionListener;
+import com.hungry.hotel.hungryhoteladmin.utils.PrefManager;
+import com.hungry.hotel.hungryhoteladmin.utils.Utilities;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class RestaurantMenuFragment extends Fragment {
@@ -50,7 +57,10 @@ public class RestaurantMenuFragment extends Fragment {
     DrawerLayout drawer;
     RecyclerView rvMenu;
     FloatingActionButton fabAddNewMenu;
-
+    ProgressDialog progressDialog;
+    PrefManager prefManager;
+    RelativeLayout layout1, layout2;
+    TextView txt_error;
     public RestaurantMenuFragment() {
         // Required empty public constructor
     }
@@ -80,25 +90,25 @@ public class RestaurantMenuFragment extends Fragment {
         fabAddNewMenu.setOnClickListener(view -> {
             openEditMenuFragment(null);
         });
-        List<Dish> dishList = getDishes();
-        RestaurantMenuAdapter menuAdapter = new RestaurantMenuAdapter(getActivity(), dishList, rvMenu, this::openEditMenuFragment);
-//        loadFragment(new AddUpdateMenuFragment(), "ADD_EDIT_MENU", true);
+            setList();
 
-        setRecyclerViewProperty(rvMenu);
-        rvMenu.setAdapter(menuAdapter);
-
-        return dishMenu;
+       return dishMenu;
     }
 
     private void instantiateView(View dishMenu) {
         rvMenu = dishMenu.findViewById(R.id.rvMenu);
         fabAddNewMenu = dishMenu.findViewById(R.id.fabAddNewMenu);
+        layout1 = dishMenu.findViewById(R.id.layout1);
+        layout2 = dishMenu.findViewById(R.id.layout2);
+        txt_error = dishMenu.findViewById(R.id.txt_error);
+        progressDialog=new ProgressDialog(getActivity());
+        prefManager=new PrefManager(getActivity());
     }
 
     private void setupToolbar() {
-        toolbar = ((MainActivity2) getActivity()).findViewById(R.id.toolbar);
-        actionBar = ((MainActivity2) getActivity()).getSupportActionBar();
-        drawer = ((MainActivity2) getActivity()).findViewById(R.id.drawer_layout);
+        toolbar = ((HomeActivity) getActivity()).findViewById(R.id.toolbar);
+        actionBar = ((HomeActivity) getActivity()).getSupportActionBar();
+        drawer = ((HomeActivity) getActivity()).findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
                 getActivity(), drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         toggle.setDrawerIndicatorEnabled(false);
@@ -110,7 +120,7 @@ public class RestaurantMenuFragment extends Fragment {
                 getActivity().onBackPressed();
             }
         });
-        ((MainActivity2) getActivity()).setDrawerLocked(true);
+        ((HomeActivity) getActivity()).setDrawerLocked(true);
         TextView tvToolbarTitle = toolbar.findViewById(R.id.tvToolbarTitle);
         tvToolbarTitle.setText("Menus");
         AppBarLayout.LayoutParams params =
@@ -119,53 +129,10 @@ public class RestaurantMenuFragment extends Fragment {
                 | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
         toggle.syncState();
 
-        /*Toolbar tbMain = getActivity().findViewById(R.id.tbMain);
-        tbMain.setVisibility(View.VISIBLE);*/
-        /*Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
-        toolbar.setTitle("Menus");
-        toolbar.setTitleTextColor(getActivity().getResources().getColor(R.color.black));
-        AutoCompleteTextView actvSearchMenu = toolbar.findViewById(R.id.actvSearchMenu);
-        ImageButton ibFilter = toolbar.findViewById(R.id.ibFilter);
-        ImageButton ibSearch = toolbar.findViewById(R.id.ibSearch);
-        actvSearchMenu.setVisibility(View.VISIBLE);
-        ibSearch.setVisibility(View.VISIBLE);
-        ibFilter.setVisibility(View.VISIBLE);
-        ibFilter.setOnClickListener((v) -> {
-            showMenuFilter();
-        });*/
+
     }
 
 
-    private List<Dish> getDishes() {
-        List<Dish> dishList = new ArrayList<>();
-        Dish dish = new Dish();
-        dish.setDishName("Sev Bhaji");
-        dish.setDishPrice(80.00);
-        dish.setDishQuantity(2);
-        dish.setDishStartTime("11:00 AM");
-        dish.setDishEndTime("10:00 PM");
-        dish.setVeg(true);
-        dish.setDishImage("");
-        dishList.add(dish);
-        dishList.add(dish);
-        dishList.add(dish);
-        dishList.add(dish);
-        dishList.add(dish);
-        dishList.add(dish);
-        dishList.add(dish);
-        dishList.add(dish);
-        dishList.add(dish);
-        dishList.add(dish);
-        dishList.add(dish);
-        dishList.add(dish);
-        dishList.add(dish);
-        dishList.add(dish);
-        dishList.add(dish);
-        dishList.add(dish);
-        dishList.add(dish);
-
-        return dishList;
-    }
 
     private void setRecyclerViewProperty(RecyclerView recyclerView) {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
@@ -197,7 +164,7 @@ public class RestaurantMenuFragment extends Fragment {
         dialog.show();
     }
 
-    private void openEditMenuFragment(Dish dish) {
+     public  void openEditMenuFragment(Dish dish) {
         AddUpdateMenuFragment fragment;
         if (dish != null) {
             fragment = AddUpdateMenuFragment.newInstance(dish);
@@ -234,5 +201,65 @@ public class RestaurantMenuFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    void setList()
+    {
+        if(Utilities.isNetworkAvailable(getActivity()))
+        {
+            RestaurantMenuApi restaurantMenuApi = RetrofitClientInstance.getRetrofitInstanceServer().
+                    create(RestaurantMenuApi.class);
+
+            progressDialog.setMessage("Please Wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+            restaurantMenuApi.getMenus(RetrofitClientInstance.API_KEY, null,null,prefManager.getUSERID()).
+                    enqueue(new Callback<DishResponse>() {
+
+                        @Override
+                        public void onResponse(Call<DishResponse> call, Response<DishResponse> response) {
+
+                            DishResponse dishResponse = response.body();
+                            Log.e("onResponseckhk: ", dishResponse.getResult().toString());
+                            RestaurantMenuAdapter menuAdapter = new RestaurantMenuAdapter(getActivity(), dishResponse.getResult(),
+                            rvMenu, this::openEditMenuFragment);
+                            setRecyclerViewProperty(rvMenu);
+                            rvMenu.setAdapter(menuAdapter);
+                            progressDialog.dismiss();
+
+                        }
+                        private void openEditMenuFragment(Dish dish) {
+
+                            AddUpdateMenuFragment fragment;
+                            if (dish != null) {
+                                fragment = AddUpdateMenuFragment.newInstance(dish);
+                            } else {
+                                fragment = new AddUpdateMenuFragment();
+                            }
+                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.clHomePageContainer, fragment);
+                            fragmentTransaction.addToBackStack("ADD_UPDATE_MENU");
+                            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                            fragmentTransaction.commit();
+                        }
+
+                        @Override
+                        public void onFailure(Call<DishResponse> call, Throwable t) {
+
+                            progressDialog.dismiss();
+                            Utilities.setError(layout1,layout2,txt_error,getResources().getString(R.string.something_went_wrong));
+                            Log.d("errorchk",t.getMessage());
+
+                        }
+                    });
+        }
+
+        else {
+            Utilities.setError(layout1,layout2,txt_error,getResources().getString(R.string.check_internet));
+
+
+        }
+
     }
 }

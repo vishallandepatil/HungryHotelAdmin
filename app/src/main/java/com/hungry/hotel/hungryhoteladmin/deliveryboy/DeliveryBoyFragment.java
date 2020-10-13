@@ -7,31 +7,24 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.hungry.hotel.hungryhoteladmin.R;
 import com.hungry.hotel.hungryhoteladmin.deliveryboy.model.DeliveryBoy;
 import com.hungry.hotel.hungryhoteladmin.deliveryboy.viewmodel.DeliveryBoyViewModel;
-import com.hungry.hotel.hungryhoteladmin.home.MainActivity2;
-import com.hungry.hotel.hungryhoteladmin.utils.FragmentUtils;
+import com.hungry.hotel.hungryhoteladmin.home.HomeActivity;
 import com.hungry.hotel.hungryhoteladmin.utils.OnFragmentInteractionListener;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -125,9 +118,9 @@ public class DeliveryBoyFragment extends Fragment {
     }
 
     private void setupToolbar() {
-        toolbar = ((MainActivity2) getActivity()).findViewById(R.id.toolbar);
-        actionBar = ((MainActivity2) getActivity()).getSupportActionBar();
-        drawer = ((MainActivity2) getActivity()).findViewById(R.id.drawer_layout);
+        toolbar = ((HomeActivity) getActivity()).findViewById(R.id.toolbar);
+        actionBar = ((HomeActivity) getActivity()).getSupportActionBar();
+        drawer = ((HomeActivity) getActivity()).findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
                 getActivity(), drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         toggle.setDrawerIndicatorEnabled(false);
@@ -139,7 +132,7 @@ public class DeliveryBoyFragment extends Fragment {
                 getActivity().onBackPressed();
             }
         });
-        ((MainActivity2) getActivity()).setDrawerLocked(true);
+        ((HomeActivity) getActivity()).setDrawerLocked(true);
         TextView tvToolbarTitle = toolbar.findViewById(R.id.tvToolbarTitle);
         tvToolbarTitle.setText("Delivery Boy");
         AppBarLayout.LayoutParams params =

@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hungry.hotel.hungryhoteladmin.R;
+import com.hungry.hotel.hungryhoteladmin.orders.model.Items;
 import com.hungry.hotel.hungryhoteladmin.restaurentmenu.model.Dish;
 import com.hungry.hotel.hungryhoteladmin.utils.HungryAdminUtility;
 
@@ -17,9 +18,9 @@ import java.util.List;
 
 public class DishesAdapter extends RecyclerView.Adapter<DishesAdapter.DishHolder> {
 
-    List<Dish> dishList;
+    List<Items> dishList;
 
-    public DishesAdapter(List<Dish> dishList) {
+    public DishesAdapter(List<Items> dishList) {
         this.dishList = dishList;
     }
 
@@ -33,9 +34,9 @@ public class DishesAdapter extends RecyclerView.Adapter<DishesAdapter.DishHolder
 
     @Override
     public void onBindViewHolder(@NonNull DishHolder holder, int position) {
-        Dish dish = dishList.get(position);
-        holder.tvDishName.setText(dish.getDishName());
-        holder.tvDishPrice.setText("Rs. " + HungryAdminUtility.getFormattedPrice(dish.getDishPrice()));
+        Items dish = dishList.get(position);
+        holder.tvDishName.setText(dish.getNAME());
+        holder.tvDishPrice.setText("Rs. " + HungryAdminUtility.getFormattedPrice(Double.parseDouble(dish.getNET_PRICE())));
     }
 
     @Override

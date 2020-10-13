@@ -3,12 +3,7 @@ package com.hungry.hotel.hungryhoteladmin.deliveryboy.repository;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.hungry.hotel.hungryhoteladmin.dashboard.model.OrderDashboard;
-import com.hungry.hotel.hungryhoteladmin.dashboard.repository.DashboardRepository;
 import com.hungry.hotel.hungryhoteladmin.deliveryboy.model.DeliveryBoy;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DeliveryBoyRepository {
     public LiveData<DeliveryBoy> getDeliveryBoyDetails() {

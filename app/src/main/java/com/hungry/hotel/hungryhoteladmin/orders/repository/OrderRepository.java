@@ -31,12 +31,14 @@ public class OrderRepository {
         hotel.setHotelName("Hotel Royal");
 //        Dishes
         Dish dish = new Dish();
-        dish.setDishName("Sev Bhaji");
-        dish.setDishPrice(80.00);
+        dish.setNAME("Sev Bhaji");
+        dish.setAMOUNT("80.00");
         List<Dish> dishList = new ArrayList<>();
         dishList.add(dish);
         dishList.add(dish);
 //        Order
+        /*
+        10-10
         Order order = new Order();
         order.setHotel(hotel);
         order.setNewOrder(true);
@@ -58,6 +60,6 @@ public class OrderRepository {
         orderList.add(order);
         orderList.add(order);
         liveDataOrderList.setValue(orderList);
-        return liveDataOrderList;
+        */return liveDataOrderList;
     }
 }

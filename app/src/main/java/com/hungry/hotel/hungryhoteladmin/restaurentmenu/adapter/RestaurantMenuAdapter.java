@@ -1,6 +1,7 @@
 package com.hungry.hotel.hungryhoteladmin.restaurentmenu.adapter;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,10 @@ import com.hungry.hotel.hungryhoteladmin.restaurentmenu.listener.LoadMoreListene
 import com.hungry.hotel.hungryhoteladmin.restaurentmenu.model.Dish;
 import com.hungry.hotel.hungryhoteladmin.utils.HungryAdminUtility;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -40,6 +45,12 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         this.activity = activity;
         this.rvDishes = rvDishes;
         this.editMenuListener = editMenuListener;
+    }
+
+    public RestaurantMenuAdapter(Activity activity, List<Dish> dishList, RecyclerView rvDishes) {
+        this.dishList = dishList;
+        this.activity = activity;
+        this.rvDishes = rvDishes;
     }
 
     @NonNull
@@ -70,25 +81,30 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             Dish dish = dishList.get(position);
             MenuViewHolder menuViewHolder = (MenuViewHolder) holder;
             Glide.with(menuViewHolder.civDIshImage.getContext())
-                    .load(R.drawable.food)
+                   // .load(R.drawable.food)
+                    .load(dish.getPath())
                     .centerCrop()
                     .placeholder(R.drawable.ic_user)
                     .into(menuViewHolder.civDIshImage);
-            menuViewHolder.tvDishName.setText(dish.getDishName());
-            menuViewHolder.tvDishQuantity.setText(dish.getDishQuantity() + " items");
-            menuViewHolder.tvDishPrice.setText("RS. " + HungryAdminUtility.getFormattedPrice(dish.getDishPrice()));
-            menuViewHolder.tvDishTime.setText(dish.getDishStartTime() + " to " + dish.getDishEndTime());
-            if (dish.isVeg()) {
+            menuViewHolder.tvDishName.setText(dish.getNAME());
+            menuViewHolder.tvDishQuantity.setText(dish.getQUNTITY() + " items");
+            menuViewHolder.tvDishPrice.setText("RS. " + HungryAdminUtility.getFormattedPrice(Double.parseDouble(dish.getAMOUNT())));
+           // menuViewHolder.tvDishTime.setText(dish.getSTART_TIME() + " to " + dish.getEND_TIME());
+            settime(dish.getSTART_TIME(), dish.getEND_TIME(), menuViewHolder.tvDishTime );
 
+            if (dish.getTYPE().equals("VEG")) {
+                menuViewHolder.ivDishType.setVisibility(View.VISIBLE);
+                menuViewHolder.ivNonvegDishType.setVisibility(View.GONE);
             } else {
-
+                menuViewHolder.ivDishType.setVisibility(View.GONE);
+                menuViewHolder.ivNonvegDishType.setVisibility(View.VISIBLE);
             }
 //            edit icon ivEditMenu
-            if (dish.isShown()) {
-                menuViewHolder.tvDishShown.setText("visible");
+            if (dish.getIS_SHOWN().equals("Y")) {
+                menuViewHolder.tvDishShown.setText("Visible");
                 menuViewHolder.tvDishShown.setTextColor(ContextCompat.getColor(activity, R.color.darkGreen));
             } else {
-                menuViewHolder.tvDishShown.setText("Hide");
+                menuViewHolder.tvDishShown.setText("Hiden");
                 menuViewHolder.tvDishShown.setTextColor(ContextCompat.getColor(activity, R.color.red));
 
             }
@@ -116,7 +132,7 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public class MenuViewHolder extends RecyclerView.ViewHolder {
         CircleImageView civDIshImage;
         TextView tvDishName, tvDishQuantity, tvDishPrice, tvDishTime, tvDishShown;
-        ImageView ivDishType, ivDishEdit;
+        ImageView ivDishType, ivDishEdit, ivNonvegDishType;
 
         public MenuViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -128,6 +144,7 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             tvDishShown = itemView.findViewById(R.id.tvDishShown);
             ivDishType = itemView.findViewById(R.id.ivDishType);
             ivDishEdit = itemView.findViewById(R.id.ivDishEdit);
+            ivNonvegDishType = itemView.findViewById(R.id.ivNonvegDishType);
         }
     }
 
@@ -147,5 +164,24 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             super(v);
             pbLoading = v.findViewById(R.id.pbLoading);
         }
+    }
+
+    void settime(String time1, String time2, TextView tvDishTime)
+    {
+        DateFormat f1 = new SimpleDateFormat("HH:mm:ss"); //HH for hour of the day (0 - 23)
+        Date d1 = null;
+        Date d2 = null;
+        try {
+            d1 = f1.parse(time1);
+            d2 = f1.parse(time2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        DateFormat f2 = new SimpleDateFormat("h:mma");
+        f2.format(d1).toLowerCase(); // "12:18am"
+        f2.format(d2).toLowerCase(); // "12:18am"
+        Log.e( "settime: ",  f2.format(d1).toLowerCase());
+        tvDishTime.setText( f2.format(d1).toLowerCase()+ " to "+ f2.format(d2).toLowerCase());
+
     }
 }

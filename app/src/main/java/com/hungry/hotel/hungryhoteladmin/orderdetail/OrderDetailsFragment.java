@@ -2,9 +2,7 @@ package com.hungry.hotel.hungryhoteladmin.orderdetail;
 
 
 import android.app.AlertDialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,15 +29,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.AppBarLayout;
 import com.hungry.hotel.hungryhoteladmin.R;
-import com.hungry.hotel.hungryhoteladmin.home.MainActivity2;
+import com.hungry.hotel.hungryhoteladmin.home.HomeActivity;
 import com.hungry.hotel.hungryhoteladmin.login.model.User;
 import com.hungry.hotel.hungryhoteladmin.orderdetail.adapter.DishesAdapter;
 import com.hungry.hotel.hungryhoteladmin.orders.model.Order;
 import com.hungry.hotel.hungryhoteladmin.utils.HungryAdminUtility;
 import com.hungry.hotel.hungryhoteladmin.utils.OnFragmentInteractionListener;
 import com.hungry.hotel.hungryhoteladmin.utils.SharedPreferenceHelper;
-
-import java.util.zip.GZIPOutputStream;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -95,7 +91,6 @@ public class OrderDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         setupToolbar();
         String accountType = "";
-
         View orderDetailsView = inflater.inflate(R.layout.fragment_order_details, container, false);
         instantiateView(orderDetailsView);
         accountType = getAccountType();
@@ -205,24 +200,25 @@ public class OrderDetailsFragment extends Fragment {
                     .centerCrop()
                     .placeholder(R.drawable.ic_user)
                     .into(civCustomerImage);
-            tvCustomerName.setText(order.getCustomer().getCustomerName());
-            tvOrderDate.setText(order.getOrderDate());
-            tvOrderStatus.setText(order.getOrderStatus());
-            rbOrderRating.setRating(order.getOrderRating());
-            tvTotalPrice.setText("Rs. " + HungryAdminUtility.getFormattedPrice(order.getTotalPrice()));
-            tvTotalAmount.setText("Rs. " + HungryAdminUtility.getFormattedPrice(order.getTotalPrice()));
-            tvCommissionPercent.setText("Commission " + HungryAdminUtility.getFormattedPrice(order.getCommissionPercent()) + "%");
-            tvCommissionAmount.setText("Rs. " + HungryAdminUtility.getFormattedPrice(order.getCommission()));
-            tvReceivableAmount.setText("Rs. " + HungryAdminUtility.getFormattedPrice(order.getReceivableAmount()));
-            tvDeliveredToName.setText(order.getCustomer().getCustomerName());
-            tvDeliveryAddress.setText(order.getDeliveryAddress());
-            tvDeliveryMobileNumber.setText(order.getCustomer().getCustomerMobileNumber());
-            tvDeliveryBoyName.setText(order.getDeliveryBoy().getDeliveryBoyName());
-            tvOrderFeedback.setText(order.getOrderFeedback());
-            Log.i("dishes", order.getDishList().get(0).getDishName());
-            DishesAdapter dishesAdapter = new DishesAdapter(order.getDishList());
+            tvCustomerName.setText(order.getCM_FIRST_NAME());
+            tvOrderDate.setText(order.getDL_DATE_TIME());
+            tvOrderStatus.setText(order.getOR_STATUS());
+           // rbOrderRating.setRating(Float.parseFloat(order.getRATING()));
+            rbOrderRating.setRating(8);
+            tvTotalPrice.setText("Rs. " + order.getTOTAL());
+            tvTotalAmount.setText("Rs. " + order.getNET_TOTAL());
+            tvCommissionPercent.setText("Commission " + order.getCOMM_PERCENT() + "%");
+            tvCommissionAmount.setText("Rs. " + order.getCOMM_AMMOUNT());
+            tvReceivableAmount.setText("Rs. " + order.getTOTAL());
+            tvDeliveredToName.setText(order.getCM_FIRST_NAME());
+            tvDeliveryAddress.setText("DeliveryAddress");
+            tvDeliveryMobileNumber.setText(order.getCM_MOBILE());
+            tvDeliveryBoyName.setText("getDeliveryBoyName");
+            tvOrderFeedback.setText(order.getFEEDBACK());
+           // Log.i("dishes", order.getDishList().get(0).getNAME());
+           /* 11-10 DishesAdapter dishesAdapter = new DishesAdapter(order.getItems());
             setDishListProperty(rvDishes);
-            rvDishes.setAdapter(dishesAdapter);
+            rvDishes.setAdapter(dishesAdapter);*/
 
         }
     }
@@ -297,9 +293,9 @@ public class OrderDetailsFragment extends Fragment {
         ActionBar actionBar;
         ActionBarDrawerToggle toggle;
         DrawerLayout drawer;
-        toolbar = ((MainActivity2) getActivity()).findViewById(R.id.toolbar);
-        actionBar = ((MainActivity2) getActivity()).getSupportActionBar();
-        drawer = ((MainActivity2) getActivity()).findViewById(R.id.drawer_layout);
+        toolbar = ((HomeActivity) getActivity()).findViewById(R.id.toolbar);
+        actionBar = ((HomeActivity) getActivity()).getSupportActionBar();
+        drawer = ((HomeActivity) getActivity()).findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
                 getActivity(), drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         toggle.setDrawerIndicatorEnabled(false);
@@ -311,7 +307,7 @@ public class OrderDetailsFragment extends Fragment {
                 getActivity().onBackPressed();
             }
         });
-        ((MainActivity2) getActivity()).setDrawerLocked(true);
+        ((HomeActivity) getActivity()).setDrawerLocked(true);
         TextView tvToolbarTitle = toolbar.findViewById(R.id.tvToolbarTitle);
         tvToolbarTitle.setText("Order Details");
         AppBarLayout.LayoutParams params =

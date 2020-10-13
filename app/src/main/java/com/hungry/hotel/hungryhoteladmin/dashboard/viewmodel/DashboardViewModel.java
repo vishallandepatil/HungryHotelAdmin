@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.hungry.hotel.hungryhoteladmin.dashboard.model.OrderDashboard;
+import com.hungry.hotel.hungryhoteladmin.dashboard.model.Dashboard;
 import com.hungry.hotel.hungryhoteladmin.dashboard.repository.DashboardRepository;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public class DashboardViewModel extends AndroidViewModel {
         super(application);
     }
 
-    public LiveData<List<OrderDashboard>> getOrdersList() {
+    public LiveData<List<Dashboard>> getOrdersList() {
         DashboardRepository dashboardRepository = new DashboardRepository();
         return dashboardRepository.getOrdersList();
     }

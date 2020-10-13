@@ -4,6 +4,138 @@ import com.google.gson.annotations.SerializedName;
 
 public class User {
     public static String ACCOUNT_TYPE = "Account Type";
+
+    public static String DELIVERY_BOY = "DELIVERY BOY";
+    public static String HOTEL_ADMIN = "HOTEL";
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "ID='" + ID + '\'' +
+                ", NAME='" + NAME + '\'' +
+                ", ADDRESS='" + ADDRESS + '\'' +
+                ", LANG='" + LANG + '\'' +
+                ", LAT='" + LAT + '\'' +
+                ", GOOGLE_ID='" + GOOGLE_ID + '\'' +
+                ", VEG_ONLY='" + VEG_ONLY + '\'' +
+                ", IMG_URL='" + IMG_URL + '\'' +
+                ", START_TIME='" + START_TIME + '\'' +
+                ", END_TIME='" + END_TIME + '\'' +
+                ", DELIVER_IN='" + DELIVER_IN + '\'' +
+                ", MEAL_TYPE='" + MEAL_TYPE + '\'' +
+                ", CI_MA_ID='" + CI_MA_ID + '\'' +
+                ", RATTING='" + RATTING + '\'' +
+                ", REG_ID='" + REG_ID + '\'' +
+                ", PAN_NO='" + PAN_NO + '\'' +
+                ", MOBILE_NO='" + MOBILE_NO + '\'' +
+                ", IS_ACTIVE='" + IS_ACTIVE + '\'' +
+                ", franchaices='" + franchaices + '\'' +
+                '}';
+    }
+
+    public static String getAccountType() {
+        return ACCOUNT_TYPE;
+    }
+
+    public static void setAccountType(String accountType) {
+        ACCOUNT_TYPE = accountType;
+    }
+
+    public static String getDeliveryBoy() {
+        return DELIVERY_BOY;
+    }
+
+    public static void setDeliveryBoy(String deliveryBoy) {
+        DELIVERY_BOY = deliveryBoy;
+    }
+
+    public static String getHotelAdmin() {
+        return HOTEL_ADMIN;
+    }
+
+    public static void setHotelAdmin(String hotelAdmin) {
+        HOTEL_ADMIN = hotelAdmin;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public String getNAME() {
+        return NAME;
+    }
+
+    public void setNAME(String NAME) {
+        this.NAME = NAME;
+    }
+
+    public String getADDRESS() {
+        return ADDRESS;
+    }
+
+    public void setADDRESS(String ADDRESS) {
+        this.ADDRESS = ADDRESS;
+    }
+
+    public String getLANG() {
+        return LANG;
+    }
+
+    public void setLANG(String LANG) {
+        this.LANG = LANG;
+    }
+
+    public String getLAT() {
+        return LAT;
+    }
+
+    public void setLAT(String LAT) {
+        this.LAT = LAT;
+    }
+
+    public String getGOOGLE_ID() {
+        return GOOGLE_ID;
+    }
+
+    public void setGOOGLE_ID(String GOOGLE_ID) {
+        this.GOOGLE_ID = GOOGLE_ID;
+    }
+
+    public String getVEG_ONLY() {
+        return VEG_ONLY;
+    }
+
+    public void setVEG_ONLY(String VEG_ONLY) {
+        this.VEG_ONLY = VEG_ONLY;
+    }
+
+    public String getIMG_URL() {
+        return IMG_URL;
+    }
+
+    public void setIMG_URL(String IMG_URL) {
+        this.IMG_URL = IMG_URL;
+    }
+
+    public String getSTART_TIME() {
+        return START_TIME;
+    }
+
+    public void setSTART_TIME(String START_TIME) {
+        this.START_TIME = START_TIME;
+    }
+
+    public String getEND_TIME() {
+        return END_TIME;
+    }
+
+    public void setEND_TIME(String END_TIME) {
+        this.END_TIME = END_TIME;
+=======
     public static String DELIVERY_BOY = "Delivery Boy";
     public static String HOTEL_ADMIN = "Hotel";
     private String userName;
@@ -89,355 +221,129 @@ public class User {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getAccountType() {
-        return accountType;
-    }
-
-    public void setAccountType(String accountType) {
-        this.accountType = accountType;
-    }
-
-    public String getMobileNumber() {
-        return mobileNumber;
-    }
-
-    public void setMobileNumber(String mobileNumber) {
-        this.mobileNumber = mobileNumber;
-    }
-
-    public String getOtp() {
-        return otp;
-    }
-
-    public void setOtp(String otp) {
-        this.otp = otp;
-    }
-
-
-    public String getDeliveryBoyMasterId() {
-        return deliveryBoyMasterId;
-    }
-
-    public void setDeliveryBoyMasterId(String deliveryBoyMasterId) {
-        this.deliveryBoyMasterId = deliveryBoyMasterId;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-
-    public String getIsMobileVerified() {
-        return isMobileVerified;
-    }
-
-    public void setIsMobileVerified(String isMobileVerified) {
-        this.isMobileVerified = isMobileVerified;
-    }
-
-    public String getIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(String isActive) {
-        this.isActive = isActive;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getEmailId() {
-        return emailId;
-    }
-
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
-    }
-
-    public String getIsEmailVerified() {
-        return isEmailVerified;
-    }
-
-    public void setIsEmailVerified(String isEmailVerified) {
-        this.isEmailVerified = isEmailVerified;
-    }
-
-    public String getAadharCard() {
-        return aadharCard;
-    }
-
-    public void setAadharCard(String aadharCard) {
-        this.aadharCard = aadharCard;
-    }
-
-    public String getPanCard() {
-        return panCard;
+    public String getREG_ID() {
+        return REG_ID;
     }
 
-    public void setPanCard(String panCard) {
-        this.panCard = panCard;
+    public void setREG_ID(String REG_ID) {
+        this.REG_ID = REG_ID;
     }
 
-    public String getImg() {
-        return img;
+    public String getPAN_NO() {
+        return PAN_NO;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setPAN_NO(String PAN_NO) {
+        this.PAN_NO = PAN_NO;
     }
 
-    public String getIsDocumentVerified() {
-        return isDocumentVerified;
+    public String getMOBILE_NO() {
+        return MOBILE_NO;
     }
 
-    public void setIsDocumentVerified(String isDocumentVerified) {
-        this.isDocumentVerified = isDocumentVerified;
+    public void setMOBILE_NO(String MOBILE_NO) {
+        this.MOBILE_NO = MOBILE_NO;
     }
 
-    public String getVoterId() {
-        return voterId;
+    public String getIS_ACTIVE() {
+        return IS_ACTIVE;
     }
 
-    public void setVoterId(String voterId) {
-        this.voterId = voterId;
+    public void setIS_ACTIVE(String IS_ACTIVE) {
+        this.IS_ACTIVE = IS_ACTIVE;
     }
 
-    public String getDrivingLicenceId() {
-        return drivingLicenceId;
+    public String getFranchaices() {
+        return franchaices;
     }
 
-    public void setDrivingLicenceId(String drivingLicenceId) {
-        this.drivingLicenceId = drivingLicenceId;
+    public void setFranchaices(String franchaices) {
+        this.franchaices = franchaices;
     }
 
-    public String getLang() {
-        return lang;
+    public User(String ID, String NAME, String ADDRESS, String LANG, String LAT, String GOOGLE_ID, String VEG_ONLY, String IMG_URL, String START_TIME, String END_TIME, String DELIVER_IN, String MEAL_TYPE, String CI_MA_ID, String RATTING, String REG_ID, String PAN_NO, String MOBILE_NO, String IS_ACTIVE, String franchaices) {
+        this.ID = ID;
+        this.NAME = NAME;
+        this.ADDRESS = ADDRESS;
+        this.LANG = LANG;
+        this.LAT = LAT;
+        this.GOOGLE_ID = GOOGLE_ID;
+        this.VEG_ONLY = VEG_ONLY;
+        this.IMG_URL = IMG_URL;
+        this.START_TIME = START_TIME;
+        this.END_TIME = END_TIME;
+        this.DELIVER_IN = DELIVER_IN;
+        this.MEAL_TYPE = MEAL_TYPE;
+        this.CI_MA_ID = CI_MA_ID;
+        this.RATTING = RATTING;
+        this.REG_ID = REG_ID;
+        this.PAN_NO = PAN_NO;
+        this.MOBILE_NO = MOBILE_NO;
+        this.IS_ACTIVE = IS_ACTIVE;
+        this.franchaices = franchaices;
     }
 
-    public void setLang(String lang) {
-        this.lang = lang;
+    public User() {
     }
 
-    public String getLat() {
-        return lat;
-    }
-
-    public void setLat(String lat) {
-        this.lat = lat;
-    }
-
-    public String getFranchicieId() {
-        return franchicieId;
-    }
-
-    public void setFranchicieId(String franchicieId) {
-        this.franchicieId = franchicieId;
-    }
-
-    public String getCityMasterId() {
-        return cityMasterId;
-    }
-
-    public void setCityMasterId(String cityMasterId) {
-        this.cityMasterId = cityMasterId;
-    }
-
-    public boolean isDeliveryBoy() {
-        return isDeliveryBoy;
-    }
-
-    public void setDeliveryBoy(boolean deliveryBoy) {
-        isDeliveryBoy = deliveryBoy;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getGoogleId() {
-        return googleId;
-    }
-
-    public void setGoogleId(String googleId) {
-        this.googleId = googleId;
-    }
+    @SerializedName("ID")
+    private String ID;
 
-    public String getVegOnly() {
-        return vegOnly;
-    }
-
-    public void setVegOnly(String vegOnly) {
-        this.vegOnly = vegOnly;
-    }
-
-    public String getHotelImageUrl() {
-        return hotelImageUrl;
-    }
-
-    public void setHotelImageUrl(String hotelImageUrl) {
-        this.hotelImageUrl = hotelImageUrl;
-    }
+    @SerializedName("NAME")
+    private String NAME;
 
-    public String getHotelStartTime() {
-        return hotelStartTime;
-    }
+    @SerializedName("ADDRESS")
+    private String ADDRESS;
 
-    public void setHotelStartTime(String hotelStartTime) {
-        this.hotelStartTime = hotelStartTime;
-    }
+    @SerializedName("LANG")
+    private String LANG;
 
-    public String getHotelEndTime() {
-        return hotelEndTime;
-    }
+    @SerializedName("LAT")
+    private String LAT;
 
-    public void setHotelEndTime(String hotelEndTime) {
-        this.hotelEndTime = hotelEndTime;
-    }
+    @SerializedName("GOOGLE_ID")
+    private String GOOGLE_ID;
 
-    public String getDeliverIn() {
-        return deliverIn;
-    }
+    @SerializedName("VEG_ONLY")
+    private String VEG_ONLY;
 
-    public void setDeliverIn(String deliverIn) {
-        this.deliverIn = deliverIn;
-    }
+    @SerializedName("IMG_URL")
+    private String IMG_URL;
 
-    public String getMealType() {
-        return mealType;
-    }
+    @SerializedName("START_TIME")
+    private String START_TIME;
 
-    public void setMealType(String mealType) {
-        this.mealType = mealType;
-    }
+    @SerializedName("END_TIME")
+    private String END_TIME;
 
-    public String getHotelCityMasterId() {
-        return hotelCityMasterId;
-    }
+    @SerializedName("DELIVER_IN")
+    private String DELIVER_IN;
 
-    public void setHotelCityMasterId(String hotelCityMasterId) {
-        this.hotelCityMasterId = hotelCityMasterId;
-    }
+    @SerializedName("MEAL_TYPE")
+    private String MEAL_TYPE;
 
-    public String getHotelRating() {
-        return hotelRating;
-    }
+    @SerializedName("CI_MA_ID")
+    private String CI_MA_ID;
 
-    public void setHotelRating(String hotelRating) {
-        this.hotelRating = hotelRating;
-    }
+    @SerializedName("RATTING")
+    private String RATTING;
 
-    public String getHotelRegId() {
-        return hotelRegId;
-    }
+    @SerializedName("REG_ID")
+    private String REG_ID;
 
-    public void setHotelRegId(String hotelRegId) {
-        this.hotelRegId = hotelRegId;
-    }
+    @SerializedName("PAN_NO")
+    private String PAN_NO;
 
-    public String getHotelPanNo() {
-        return hotelPanNo;
-    }
+    @SerializedName("MOBILE_NO")
+    private String MOBILE_NO;
 
-    public void setHotelPanNo(String hotelPanNo) {
-        this.hotelPanNo = hotelPanNo;
-    }
+    @SerializedName("IS_ACTIVE")
+    private String IS_ACTIVE;
 
-    public String getHotelMobileNo() {
-        return hotelMobileNo;
-    }
+    @SerializedName("franchaices")
+    private String franchaices;
 
-    public void setHotelMobileNo(String hotelMobileNo) {
-        this.hotelMobileNo = hotelMobileNo;
-    }
 
-    public String getFrenchies() {
-        return frenchies;
-    }
 
-    public void setFrenchies(String frenchies) {
-        this.frenchies = frenchies;
-    }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", accountType='" + accountType + '\'' +
-                ", otp='" + otp + '\'' +
-                ", isDeliveryBoy=" + isDeliveryBoy +
-                ", id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", googleId='" + googleId + '\'' +
-                ", vegOnly='" + vegOnly + '\'' +
-                ", hotelImageUrl='" + hotelImageUrl + '\'' +
-                ", hotelStartTime='" + hotelStartTime + '\'' +
-                ", hotelEndTime='" + hotelEndTime + '\'' +
-                ", deliverIn='" + deliverIn + '\'' +
-                ", mealType='" + mealType + '\'' +
-                ", hotelCityMasterId='" + hotelCityMasterId + '\'' +
-                ", hotelRating='" + hotelRating + '\'' +
-                ", hotelRegId='" + hotelRegId + '\'' +
-                ", hotelPanNo='" + hotelPanNo + '\'' +
-                ", hotelmobileNo='" + hotelMobileNo + '\'' +
-                ", frenchies='" + frenchies + '\'' +
-                ", deliveryBoyMasterId='" + deliveryBoyMasterId + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", mobileNumber='" + mobileNumber + '\'' +
-                ", isMobileVerified='" + isMobileVerified + '\'' +
-                ", isActive='" + isActive + '\'' +
-                ", address='" + address + '\'' +
-                ", emailId='" + emailId + '\'' +
-                ", isEmailVerified='" + isEmailVerified + '\'' +
-                ", aadharCard='" + aadharCard + '\'' +
-                ", panCard='" + panCard + '\'' +
-                ", img='" + img + '\'' +
-                ", isDocumentVerified='" + isDocumentVerified + '\'' +
-                ", voterId='" + voterId + '\'' +
-                ", drivingLicenceId='" + drivingLicenceId + '\'' +
-                ", lang='" + lang + '\'' +
-                ", lat='" + lat + '\'' +
-                ", franchicieId='" + franchicieId + '\'' +
-                ", cityMasterId='" + cityMasterId + '\'' +
-                '}';
-    }
 }
