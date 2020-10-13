@@ -4,11 +4,13 @@ import com.hungry.hotel.hungryhoteladmin.login.model.DeliveryBoyResponse;
 import com.hungry.hotel.hungryhoteladmin.login.model.UserResponse;
 import com.hungry.hotel.hungryhoteladmin.restaurentmenu.model.DishResponse;
 
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface LoginApi {
+
 
 
 //http://hungryindia.co.in/index.php/api/Hotels/authonticate?username=vishall&password=Vishal@123&
@@ -32,5 +34,6 @@ public interface LoginApi {
             // lang: eng/mar
 
     );
+
 
 }

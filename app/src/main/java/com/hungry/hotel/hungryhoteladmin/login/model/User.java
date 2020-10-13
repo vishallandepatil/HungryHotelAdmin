@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class User {
     public static String ACCOUNT_TYPE = "Account Type";
+
     public static String DELIVERY_BOY = "DELIVERY BOY";
     public static String HOTEL_ADMIN = "HOTEL";
 
@@ -134,40 +135,92 @@ public class User {
 
     public void setEND_TIME(String END_TIME) {
         this.END_TIME = END_TIME;
+=======
+    public static String DELIVERY_BOY = "Delivery Boy";
+    public static String HOTEL_ADMIN = "Hotel";
+    private String userName;
+    private String password;
+    private String accountType;
+    String otp;
+    private boolean isDeliveryBoy = true;
+
+    @SerializedName("ID")
+    private String id;
+    @SerializedName("NAME")
+    private String name;
+    @SerializedName("GOOGLE_ID")
+    private String googleId;
+    @SerializedName("Y")
+    private String vegOnly;
+    @SerializedName("IMG_URL")
+    private String hotelImageUrl;
+    @SerializedName("START_TIME")
+    private String hotelStartTime;
+    @SerializedName("END_TIME")
+    private String hotelEndTime;
+    @SerializedName("DELIVER_IN")
+    private String deliverIn;
+    @SerializedName("MEAL_TYPE")
+    private String mealType;
+    @SerializedName("CI_MA_ID")
+    private String hotelCityMasterId;
+    @SerializedName("RATTING")
+    private String hotelRating;
+    @SerializedName("REG_ID")
+    private String hotelRegId;
+    @SerializedName("PAN_NO")
+    private String hotelPanNo;
+    @SerializedName("MOBILE_NO")
+    private String hotelMobileNo;
+    @SerializedName("franchaices")
+    private String frenchies;
+    @SerializedName("DL_BO_MA_ID")
+    private String deliveryBoyMasterId;
+    @SerializedName("FNAME")
+    private String firstName;
+    @SerializedName("LNAME")
+    private String lastName;
+    @SerializedName("MOBILENO")
+    private String mobileNumber;
+    @SerializedName("IS_MOBILE_VERIFIED")
+    private String isMobileVerified;
+    @SerializedName("IS_ACTIVE")
+    private String isActive;
+    @SerializedName("ADDRESS")
+    private String address;
+    @SerializedName("EMAIL")
+    private String emailId;
+    @SerializedName("IS_EMAIL_VERIFIED")
+    private String isEmailVerified;
+    @SerializedName("ADHARCARD")
+    private String aadharCard;
+    @SerializedName("PANCARD_ID")
+    private String panCard;
+    @SerializedName("IMG")
+    private String img;
+    @SerializedName("IS_DOCUMENT_VERIFIED")
+    private String isDocumentVerified;
+    @SerializedName("VOTER_ID")
+    private String voterId;
+    @SerializedName("DRIVING_LICEN_ID")
+    private String drivingLicenceId;
+    @SerializedName("LANG")
+    private String lang;
+    @SerializedName("LAT")
+    private String lat;
+    @SerializedName("FRANCHAICIES_ID")
+    private String franchicieId;
+    @SerializedName("CITY_MA_ID")
+    private String cityMasterId;
+
+
+    public String getUserName() {
+        return userName;
     }
 
-    public String getDELIVER_IN() {
-        return DELIVER_IN;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
-
-    public void setDELIVER_IN(String DELIVER_IN) {
-        this.DELIVER_IN = DELIVER_IN;
-    }
-
-    public String getMEAL_TYPE() {
-        return MEAL_TYPE;
-    }
-
-    public void setMEAL_TYPE(String MEAL_TYPE) {
-        this.MEAL_TYPE = MEAL_TYPE;
-    }
-
-    public String getCI_MA_ID() {
-        return CI_MA_ID;
-    }
-
-    public void setCI_MA_ID(String CI_MA_ID) {
-        this.CI_MA_ID = CI_MA_ID;
-    }
-
-    public String getRATTING() {
-        return RATTING;
-    }
-
-    public void setRATTING(String RATTING) {
-        this.RATTING = RATTING;
-    }
-
     public String getREG_ID() {
         return REG_ID;
     }
