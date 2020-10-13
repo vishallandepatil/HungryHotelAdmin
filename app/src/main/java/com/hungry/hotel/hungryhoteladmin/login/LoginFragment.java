@@ -16,7 +16,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +24,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.hungry.hotel.hungryhoteladmin.R;
 import com.hungry.hotel.hungryhoteladmin.dashboard.OrderDashboardFragment;
@@ -33,12 +31,10 @@ import com.hungry.hotel.hungryhoteladmin.home.HomeActivity;
 import com.hungry.hotel.hungryhoteladmin.login.api.LoginApi;
 import com.hungry.hotel.hungryhoteladmin.login.model.DeliveryBoyResponse;
 import com.hungry.hotel.hungryhoteladmin.login.model.User;
-
 import com.hungry.hotel.hungryhoteladmin.login.model.UserResponse;
 import com.hungry.hotel.hungryhoteladmin.menudetails.api.MenuDetailsApi;
 import com.hungry.hotel.hungryhoteladmin.restaurentmenu.model.DishResponse;
 import com.hungry.hotel.hungryhoteladmin.retrofit.RetrofitClientInstance;
-
 import com.hungry.hotel.hungryhoteladmin.utils.OnFragmentInteractionListener;
 import com.hungry.hotel.hungryhoteladmin.utils.PrefManager;
 import com.hungry.hotel.hungryhoteladmin.utils.SharedPreferenceHelper;
@@ -76,9 +72,6 @@ public class LoginFragment extends Fragment {
     PrefManager prefManager;
     ProgressDialog progressDialog;
     String accountType="";
-    RelativeLayout layout1;
-    RelativeLayout layout2;
-    TextView txt_error;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -142,26 +135,26 @@ public class LoginFragment extends Fragment {
             public void onClick(View view) {
 
                 Log.e( "onClick: ", String.valueOf(accountType.length()));
-                 if(etUserName.getText().toString().length()==0 || etPassword.getText().toString().length()==0
-                         || accountType.equals("Select Account Type"))
-                 {
-                     Toast.makeText(getActivity(), getResources().getString(R.string.enter_all_details), Toast.LENGTH_SHORT).show();
-                 }
-                 else {
+                if(etUserName.getText().toString().length()==0 || etPassword.getText().toString().length()==0
+                        || accountType.equals("Select Account Type"))
+                {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.enter_all_details), Toast.LENGTH_SHORT).show();
+                }
+                else {
 
-                     if(accountType.equals("HOTEL"))
-                     {
-                         checkLoginForHotel(etUserName.getText().toString(),etPassword.getText().toString(),
-                                 "HOTEL", RetrofitClientInstance.API_KEY);
+                    if(accountType.equals("HOTEL"))
+                    {
+                        checkLoginForHotel(etUserName.getText().toString(),etPassword.getText().toString(),
+                                "HOTEL", RetrofitClientInstance.API_KEY);
 
-                     }
-                     else {
-                         checkLoginForDB(etUserName.getText().toString(),etPassword.getText().toString(),
-                                 "DELIVERYBOY", RetrofitClientInstance.API_KEY);
+                    }
+                    else {
+                        checkLoginForDB(etUserName.getText().toString(),etPassword.getText().toString(),
+                                "DELIVERYBOY", RetrofitClientInstance.API_KEY);
 
-                     }
+                    }
 
-                 }
+                }
 
               /*  final User user = getUserDetails();
                 showHomePage(user);
@@ -204,13 +197,8 @@ public class LoginFragment extends Fragment {
             userName = etUserName.getText().toString();
             password = etPassword.getText().toString();
             account = spAccountType.getSelectedItem().toString();
-
-            /*userName = "vishallDB";
-            password = "Vishal@123";
-            account = "DELIVERYBOY";*/
-            user.setUserName(userName);
-            user.setPassword(password);
-
+            user.setNAME(userName);
+            user.setADDRESS(password);
             user.setAccountType(account);
             Log.d("account_type", spAccountType.getSelectedItem().toString());
             Log.d("account", user.getAccountType());
@@ -250,9 +238,6 @@ public class LoginFragment extends Fragment {
         tvResendOtp = loginView.findViewById(R.id.tvResendOtp);
         etOtp = loginView.findViewById(R.id.etOtp);
         tvPrivacyPolicyLink = loginView.findViewById(R.id.tvPrivacyPolicyLink);
-        layout1 = loginView.findViewById(R.id.layout1);
-        layout2 = loginView.findViewById(R.id.layout2);
-        txt_error = loginView.findViewById(R.id.txt_error);
         prefManager=new PrefManager(getActivity());
         progressDialog=new ProgressDialog(getActivity());
 
@@ -304,32 +289,12 @@ public class LoginFragment extends Fragment {
 //        loginType = LOGIN_WITH_USERNAME;
     }
 
-    private void showHomePage(User loggedInUser) {
-        boolean isValidUser = verifyUser(loggedInUser);
-//        boolean isValidUser = false;
-        LoginRepository loginRepository = new LoginRepository();
+    private void showHomePage(User user) {
+        boolean isValidUser = verifyUser(user);
         if (isValidUser) {
-
-            UserViewModel userViewModel = ViewModelProviders.of(getActivity()).get(UserViewModel.class);
-            userViewModel.getUser(loggedInUser, new HungryAdminApiListener<User>() {
-                @Override
-                public void onSuccess(User user) {
-                    Log.d("user", user.toString());
-                    user.setUserName(loggedInUser.getUserName());
-                    user.setPassword(loggedInUser.getPassword());
-                    user.setAccountType(loggedInUser.getAccountType());
-                    saveDetailsToPreferences(user);
-                    loadFragment(new OrderDashboardFragment(), "ORDER_DASHBOARD", true);
-                }
-
-                @Override
-                public void onFailure(double status, String message) {
-                    Log.d("login_failure", message);
-                    Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-                }
-            });
-
-
+            prefManager.setIS_LOGIN(true);
+            saveDetailsToPreferences(user);
+            loadFragment(new OrderDashboardFragment(), "ORDER_DASHBOARD", false);
         }
     }
 
@@ -351,12 +316,17 @@ public class LoginFragment extends Fragment {
         return true;
     }
 
-    private boolean saveDetailsToPreferences(User user) {
+    private void saveDetailsToPreferences(User user) {
         SharedPreferences.Editor spEditor = SharedPreferenceHelper.getEditorInstance(getActivity(), "USER");
         spEditor.clear();
         spEditor.putString(User.ACCOUNT_TYPE, user.getAccountType());
-        Log.d("ACC_", user.getAccountType() + "");
-        return SharedPreferenceHelper.savePreference(spEditor);
+        Log.d("ACC_", user.getAccountType());
+        SharedPreferenceHelper.savePreference(spEditor);
+        /*SharedPreferences sp = getActivity().getSharedPreferences("ACCOUNT", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(User.ACCOUNT_TYPE, user.getAccountType());
+        editor.apply();
+        Log.d("ACC_TYPE_SP", user.getAccountType());*/
     }
 
     private void loadFragment(Fragment fragment, String fragmentName, boolean needToBackStack) {
@@ -414,17 +384,16 @@ public class LoginFragment extends Fragment {
 
                             UserResponse userResponse = response.body();
                             Log.e("onResponseckhk: ", userResponse.getResult().toString());
-                            if(userResponse.getStatus()==200)
+                            if(userResponse.getCount()==0)
                             {
+                                Toast.makeText(getActivity(), "Invalid Credentials ", Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+
                                 Log.e( "onResponseuid: ",userResponse.getResult().get(0).getID());
                                 prefManager.setUSERID(Integer.parseInt(userResponse.getResult().get(0).getID()));
                                 final User user = getUserDetails();
                                 showHomePage(user);
-                            }
-                            else {
-
-                                Toast.makeText(getActivity(), "Invalid Credentials ", Toast.LENGTH_SHORT).show();
-
                             }
                             progressDialog.dismiss();
                         }
@@ -433,7 +402,7 @@ public class LoginFragment extends Fragment {
                         public void onFailure(Call<UserResponse> call, Throwable t) {
 
                             progressDialog.dismiss();
-                            Utilities.setError(layout1,layout2,txt_error,getResources().getString(R.string.something_went_wrong));
+                            Toast.makeText(getActivity(), getResources().getString(R.string.something_went_wrong)+t.getMessage(), Toast.LENGTH_SHORT).show();
 
                             Log.d("errorchk",t.getMessage());
 
@@ -442,8 +411,7 @@ public class LoginFragment extends Fragment {
         }
         else {
 
-            Utilities.setError(layout1,layout2,txt_error,getResources().getString(R.string.check_internet));
-
+            Toast.makeText(getActivity(), getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
 
         }
     }
@@ -467,17 +435,16 @@ public class LoginFragment extends Fragment {
 
                             DeliveryBoyResponse deliveryBoyResponse = response.body();
                             Log.e("chkdb: ", deliveryBoyResponse.getResult().toString());
-                            if(deliveryBoyResponse.getStatus()==200)
+                            if(deliveryBoyResponse.getCount()==0)
                             {
+                                Toast.makeText(getActivity(), "Invalid Credentials ", Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+
                                 Log.e( "onResponsedbid: ",deliveryBoyResponse.getResult().get(0).getDL_BO_MA_ID());
                                 prefManager.setUSERID(Integer.parseInt(deliveryBoyResponse.getResult().get(0).getDL_BO_MA_ID()));
                                 final User user = getUserDetails();
                                 showHomePage(user);
-                            }
-                            else {
-
-                                Toast.makeText(getActivity(), "Invalid Credentials ", Toast.LENGTH_SHORT).show();
-
                             }
                             progressDialog.dismiss();
                         }
@@ -486,7 +453,7 @@ public class LoginFragment extends Fragment {
                         public void onFailure(Call<DeliveryBoyResponse> call, Throwable t) {
 
                             progressDialog.dismiss();
-                            Utilities.setError(layout1,layout2,txt_error,getResources().getString(R.string.something_went_wrong));
+                            Toast.makeText(getActivity(), getResources().getString(R.string.something_went_wrong)+t.getMessage(), Toast.LENGTH_SHORT).show();
                             Log.d("errorchk",t.getMessage());
 
                         }
@@ -494,7 +461,7 @@ public class LoginFragment extends Fragment {
         }
         else {
 
-            Utilities.setError(layout1,layout2,txt_error,getResources().getString(R.string.check_internet));
+            Toast.makeText(getActivity(), getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
 
         }
     }
