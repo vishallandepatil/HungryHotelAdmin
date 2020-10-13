@@ -15,6 +15,6 @@ public class UserViewModel extends AndroidViewModel {
     }
 
     public void getUser(User user, HungryAdminApiListener apiListener){
-        new LoginRepository().getUser(user, apiListener);
+
     }
 }

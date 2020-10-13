@@ -1,19 +1,19 @@
 package com.hungry.hotel.hungryhoteladmin.login.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.hungry.hotel.hungryhoteladmin.restaurentmenu.model.Dish;
 
-
-import java.util.List;
+import java.util.ArrayList;
 
 public class UserResponse {
-    @SerializedName("status")
-    private double status;
 
+
+    @SerializedName("status")
+    private int status;
     @SerializedName("count")
     private int count;
     @SerializedName("type")
     private String type;
-
     @SerializedName("result")
     public ArrayList<User> result;
 
@@ -22,7 +22,6 @@ public class UserResponse {
     }
 
     public void setStatus(int status) {
-
         this.status = status;
     }
 
@@ -42,6 +41,13 @@ public class UserResponse {
         this.type = type;
     }
 
+    public ArrayList<User> getResult() {
+        return result;
+    }
+
+    public void setResult(ArrayList<User> result) {
+        this.result = result;
+    }
 
     public String getMessage() {
         return message;
@@ -51,13 +57,25 @@ public class UserResponse {
         this.message = message;
     }
 
+    @SerializedName("message")
+    private String message;
 
-    public List<User> getUsers() {
-        return users;
+    public UserResponse(int status, int count, String type, ArrayList<User> result, String message) {
+        this.status = status;
+        this.count = count;
+        this.type = type;
+        this.result = result;
+        this.message = message;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
-
+    @Override
+    public String toString() {
+        return "UserResponse{" +
+                "status=" + status +
+                ", count=" + count +
+                ", type='" + type + '\'' +
+                ", result=" + result +
+                ", message='" + message + '\'' +
+                '}';
     }
 }
