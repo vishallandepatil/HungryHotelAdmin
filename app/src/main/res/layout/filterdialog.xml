@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/layout1">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Filters"
+        android:textColor="@color/black"
+        android:textSize="30dp"
+        android:textStyle="bold"/>
+ <ImageView
+        android:id="@+id/img_close"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_cancel"
+        android:layout_alignParentRight="true"
+     android:layout_centerVertical="true"
+        android:padding="6dp"/>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:layout_below="@+id/layout1">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RadioGroup
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:id="@+id/radioGroup"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/rbtnLessPrice"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Less Price"
+                    android:textSize="18sp"
+                    android:visibility="gone"/>
+
+                <RadioButton
+                    android:id="@+id/rbtnMaxPrice"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Max Price"
+                    android:textSize="18sp"
+                    android:visibility="gone"/>
+
+                <RadioButton
+                    android:id="@+id/rbtnShown"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Shown"
+                    android:textSize="18sp"/>
+
+                <RadioButton
+                    android:id="@+id/rbtnHidden"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Hidden"
+                    android:textSize="18sp"/>
+
+
+                <RadioButton
+                    android:id="@+id/rbtnVegOnly"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Veg Only"
+                    android:textSize="18sp"/>
+                <RadioButton
+                    android:id="@+id/rbtnNonVegOnly"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Non Veg Only"
+                    android:textSize="18sp"/>
+
+                <RadioButton
+                    android:id="@+id/rbtnClearFilter"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Clear Filter"
+                    android:textSize="18sp"/>
+            </RadioGroup>
+
+
+
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+
+
+
+
+</RelativeLayout>

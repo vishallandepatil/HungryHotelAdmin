@@ -17,6 +17,12 @@
             android:icon="@drawable/ic_report"
             android:title="Rerports" />
 
+        <item
+            android:id="@+id/navProfile"
+            android:icon="@drawable/profile_24dp"
+            android:title="Profile"
+            />
+
 
 
 

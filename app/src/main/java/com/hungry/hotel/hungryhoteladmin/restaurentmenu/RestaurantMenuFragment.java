@@ -1,17 +1,25 @@
 package com.hungry.hotel.hungryhoteladmin.restaurentmenu;
 
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,6 +69,8 @@ public class RestaurantMenuFragment extends Fragment {
     PrefManager prefManager;
     RelativeLayout layout1, layout2;
     TextView txt_error;
+    String TYPE,  IS_SHOWN,  HOT_MA_ID;
+    ImageButton ibFilter;
     public RestaurantMenuFragment() {
         // Required empty public constructor
     }
@@ -88,9 +98,16 @@ public class RestaurantMenuFragment extends Fragment {
         setupToolbar();
         instantiateView(dishMenu);
         fabAddNewMenu.setOnClickListener(view -> {
+            ibFilter.setVisibility(View.GONE);
             openEditMenuFragment(null);
         });
-            setList();
+
+
+         TYPE=null;
+         IS_SHOWN=null;
+         HOT_MA_ID= String.valueOf(prefManager.getUSERID());
+
+         setList(TYPE, IS_SHOWN, HOT_MA_ID);
 
        return dishMenu;
     }
@@ -107,6 +124,8 @@ public class RestaurantMenuFragment extends Fragment {
 
     private void setupToolbar() {
         toolbar = ((HomeActivity) getActivity()).findViewById(R.id.toolbar);
+        TextView tvToolbarTitle = toolbar.findViewById(R.id.tvToolbarTitle);
+        ibFilter = toolbar.findViewById(R.id.ibFilter);
         actionBar = ((HomeActivity) getActivity()).getSupportActionBar();
         drawer = ((HomeActivity) getActivity()).findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
@@ -117,19 +136,28 @@ public class RestaurantMenuFragment extends Fragment {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ibFilter.setVisibility(View.GONE);
                 getActivity().onBackPressed();
             }
         });
         ((HomeActivity) getActivity()).setDrawerLocked(true);
-        TextView tvToolbarTitle = toolbar.findViewById(R.id.tvToolbarTitle);
+         ibFilter.setVisibility(View.VISIBLE);
         tvToolbarTitle.setText("Menus");
+
         AppBarLayout.LayoutParams params =
                 (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
         params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL
                 | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
         toggle.syncState();
 
+        ibFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FilterDialog();
 
+
+            }
+        });
     }
 
 
@@ -203,7 +231,7 @@ public class RestaurantMenuFragment extends Fragment {
         mListener = null;
     }
 
-    void setList()
+    void setList(String TYPE, String IS_SHOWN, String HOT_MA_ID)
     {
         if(Utilities.isNetworkAvailable(getActivity()))
         {
@@ -213,19 +241,26 @@ public class RestaurantMenuFragment extends Fragment {
             progressDialog.setMessage("Please Wait...");
             progressDialog.setCancelable(false);
             progressDialog.show();
-            restaurantMenuApi.getMenus(RetrofitClientInstance.API_KEY, null,null,prefManager.getUSERID()).
+            restaurantMenuApi.getMenus(RetrofitClientInstance.API_KEY, TYPE,IS_SHOWN, Integer.parseInt(HOT_MA_ID)).
                     enqueue(new Callback<DishResponse>() {
 
                         @Override
                         public void onResponse(Call<DishResponse> call, Response<DishResponse> response) {
 
                             DishResponse dishResponse = response.body();
-                            Log.e("onResponseckhk: ", dishResponse.getResult().toString());
-                            RestaurantMenuAdapter menuAdapter = new RestaurantMenuAdapter(getActivity(), dishResponse.getResult(),
-                            rvMenu, this::openEditMenuFragment);
-                            setRecyclerViewProperty(rvMenu);
-                            rvMenu.setAdapter(menuAdapter);
-                            progressDialog.dismiss();
+                            if(dishResponse.getStatus()==200)
+                            {
+                                Log.e("onResponseckhk: ", dishResponse.getResult().toString());
+                                RestaurantMenuAdapter menuAdapter = new RestaurantMenuAdapter(getActivity(), dishResponse.getResult(),
+                                        rvMenu, this::openEditMenuFragment);
+                                setRecyclerViewProperty(rvMenu);
+                                rvMenu.setAdapter(menuAdapter);
+                                progressDialog.dismiss();
+                            }
+                            else {
+                                Utilities.setError(layout1,layout2,txt_error,dishResponse.getMessage());
+
+                            }
 
                         }
                         private void openEditMenuFragment(Dish dish) {
@@ -262,4 +297,64 @@ public class RestaurantMenuFragment extends Fragment {
         }
 
     }
+    private void FilterDialog()
+    {
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.setContentView(R.layout.filterdialog);
+        dialog.setCanceledOnTouchOutside(false);
+
+        RadioGroup   radioGroup =  dialog.findViewById(R.id.radioGroup);
+        ImageView   img_close =  dialog.findViewById(R.id.img_close);
+        radioGroup.clearCheck();
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @SuppressLint("ResourceType")
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton rb = (RadioButton) group.findViewById(checkedId);
+                if (null != rb && checkedId > 1) {
+                    Toast.makeText(getActivity(), rb.getText(), Toast.LENGTH_SHORT).show();
+
+                    if(rb.getText().toString().equals("Shown"))
+                    {
+                        TYPE=null;
+                        IS_SHOWN="Y";
+                    }else if(rb.getText().toString().equals("Hidden"))
+                    {
+                        TYPE=null;
+                        IS_SHOWN="N";
+                    }else if(rb.getText().toString().equals("Veg Only"))
+                    {
+                        TYPE="VEG";
+                        IS_SHOWN=null;
+                    }else if(rb.getText().toString().equals("Non Veg Only"))
+                    {
+                        TYPE="NON_VEG";
+                        IS_SHOWN=null;
+                    }else if(rb.getText().toString().equals("Clear Filter"))
+                    {
+                        TYPE=null;
+                        IS_SHOWN=null;
+                    }
+                    dialog.dismiss();
+                    setList(TYPE, IS_SHOWN, HOT_MA_ID);
+                }
+
+            }
+        });
+        img_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               dialog.dismiss();
+
+            }
+        });
+
+
+
+        dialog.show();
+    }
+
+
+
 }

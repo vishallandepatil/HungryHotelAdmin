@@ -6,7 +6,8 @@
     android:id="@+id/rlDashboardOrderItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="28dp">
+    android:elevation="28dp"
+    android:layout_margin="3dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
