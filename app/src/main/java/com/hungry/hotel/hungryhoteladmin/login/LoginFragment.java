@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -72,6 +73,8 @@ public class LoginFragment extends Fragment {
     PrefManager prefManager;
     ProgressDialog progressDialog;
     String accountType="";
+    RelativeLayout layout1, layout2;
+    TextView txt_error;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -240,6 +243,10 @@ public class LoginFragment extends Fragment {
         tvPrivacyPolicyLink = loginView.findViewById(R.id.tvPrivacyPolicyLink);
         prefManager=new PrefManager(getActivity());
         progressDialog=new ProgressDialog(getActivity());
+        layout1 = loginView.findViewById(R.id.layout1);
+        layout2 = loginView.findViewById(R.id.layout2);
+        txt_error = loginView.findViewById(R.id.txt_error);
+
 
     }
 
@@ -384,16 +391,17 @@ public class LoginFragment extends Fragment {
 
                             UserResponse userResponse = response.body();
                             Log.e("onResponseckhk: ", userResponse.getResult().toString());
-                            if(userResponse.getCount()==0)
+                            if(userResponse.getStatus()==200)
                             {
-                                Toast.makeText(getActivity(), "Invalid Credentials ", Toast.LENGTH_SHORT).show();
-                            }
-                            else {
-
                                 Log.e( "onResponseuid: ",userResponse.getResult().get(0).getID());
                                 prefManager.setUSERID(Integer.parseInt(userResponse.getResult().get(0).getID()));
                                 final User user = getUserDetails();
                                 showHomePage(user);
+                            }
+                            else {
+
+                                Toast.makeText(getActivity(), "Invalid Credentials ", Toast.LENGTH_SHORT).show();
+
                             }
                             progressDialog.dismiss();
                         }
@@ -402,7 +410,7 @@ public class LoginFragment extends Fragment {
                         public void onFailure(Call<UserResponse> call, Throwable t) {
 
                             progressDialog.dismiss();
-                            Toast.makeText(getActivity(), getResources().getString(R.string.something_went_wrong)+t.getMessage(), Toast.LENGTH_SHORT).show();
+                            Utilities.setError(layout1,layout2,txt_error,getResources().getString(R.string.something_went_wrong));
 
                             Log.d("errorchk",t.getMessage());
 
@@ -411,7 +419,7 @@ public class LoginFragment extends Fragment {
         }
         else {
 
-            Toast.makeText(getActivity(), getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+            Utilities.setError(layout1,layout2,txt_error,getResources().getString(R.string.check_internet));
 
         }
     }
@@ -435,16 +443,17 @@ public class LoginFragment extends Fragment {
 
                             DeliveryBoyResponse deliveryBoyResponse = response.body();
                             Log.e("chkdb: ", deliveryBoyResponse.getResult().toString());
-                            if(deliveryBoyResponse.getCount()==0)
+                            if(deliveryBoyResponse.getStatus()==200)
                             {
-                                Toast.makeText(getActivity(), "Invalid Credentials ", Toast.LENGTH_SHORT).show();
-                            }
-                            else {
-
                                 Log.e( "onResponsedbid: ",deliveryBoyResponse.getResult().get(0).getDL_BO_MA_ID());
                                 prefManager.setUSERID(Integer.parseInt(deliveryBoyResponse.getResult().get(0).getDL_BO_MA_ID()));
                                 final User user = getUserDetails();
                                 showHomePage(user);
+                            }
+                            else {
+
+                                Toast.makeText(getActivity(), "Invalid Credentials ", Toast.LENGTH_SHORT).show();
+
                             }
                             progressDialog.dismiss();
                         }
@@ -453,7 +462,7 @@ public class LoginFragment extends Fragment {
                         public void onFailure(Call<DeliveryBoyResponse> call, Throwable t) {
 
                             progressDialog.dismiss();
-                            Toast.makeText(getActivity(), getResources().getString(R.string.something_went_wrong)+t.getMessage(), Toast.LENGTH_SHORT).show();
+                            Utilities.setError(layout1,layout2,txt_error,getResources().getString(R.string.something_went_wrong));
                             Log.d("errorchk",t.getMessage());
 
                         }
@@ -461,7 +470,7 @@ public class LoginFragment extends Fragment {
         }
         else {
 
-            Toast.makeText(getActivity(), getResources().getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+            Utilities.setError(layout1,layout2,txt_error,getResources().getString(R.string.check_internet));
 
         }
     }
