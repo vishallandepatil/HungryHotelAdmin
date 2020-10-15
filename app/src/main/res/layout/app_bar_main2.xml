@@ -34,6 +34,17 @@
                     android:textAppearance="?android:textAppearanceMedium"
                     tools:text="Hello World" />
 
+                <ImageButton
+                    android:id="@+id/ibFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="?attr/colorPrimary"
+                    android:src="@drawable/ic_filter"
+                    android:visibility="gone"
+                    />
+
                 <!-- <AutoCompleteTextView
                      android:id="@+id/actvSearchMenu"
                      android:layout_width="match_parent"

@@ -81,7 +81,7 @@ public class HomeActivity extends AppCompatActivity
 
       if(prefManager.getIS_LOGIN()==true) {
            loadFragment(new OrderDashboardFragment(), "LOGIN", false, "LOGIN");
-           // loadFragment(new AddUpdateMenuFragment(), "LOGIN", false, "LOGIN");
+           // loadFragment(new ProfileFragment(), "LOGIN", false, "LOGIN");
         /*  tvHotelName.setText("hhh");
           tvUserName.setText("user");*/
         }

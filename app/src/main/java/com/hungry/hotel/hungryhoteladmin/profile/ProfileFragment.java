@@ -3,6 +3,7 @@ package com.hungry.hotel.hungryhoteladmin.profile;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.net.IpSecAlgorithm;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -33,8 +35,13 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.textfield.TextInputLayout;
 import com.hungry.hotel.hungryhoteladmin.R;
 import com.hungry.hotel.hungryhoteladmin.home.HomeActivity;
+import com.hungry.hotel.hungryhoteladmin.menudetails.AddUpdateMenuFragment;
 import com.hungry.hotel.hungryhoteladmin.menudetails.api.MenuDetailsApi;
+import com.hungry.hotel.hungryhoteladmin.profile.api.IsActiveApi;
+import com.hungry.hotel.hungryhoteladmin.profile.model.IsActiveResponse;
 import com.hungry.hotel.hungryhoteladmin.restaurentmenu.RestaurantMenuFragment;
+import com.hungry.hotel.hungryhoteladmin.restaurentmenu.adapter.RestaurantMenuAdapter;
+import com.hungry.hotel.hungryhoteladmin.restaurentmenu.api.RestaurantMenuApi;
 import com.hungry.hotel.hungryhoteladmin.restaurentmenu.model.Dish;
 import com.hungry.hotel.hungryhoteladmin.restaurentmenu.model.DishResponse;
 import com.hungry.hotel.hungryhoteladmin.retrofit.RetrofitClientInstance;
@@ -61,6 +68,12 @@ import retrofit2.Response;
 public class ProfileFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
+
+    Switch swIsActive;
+    String isActive="NO";
+    ProgressDialog progressDialog;
+    RelativeLayout layout1, layout2;
+    TextView txt_error;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -90,38 +103,36 @@ public class ProfileFragment extends Fragment {
         setupToolbar();
         instantiateView(view);
 
+        // Set a checked change listener for toggle button
+        swIsActive.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+
+                    isActive="YES";
+
+                }
+                else{
+
+                    isActive="NO";
+                }
+            }
+        });
+
+        setIsActive("NO","1");
+
         return view;
     }
 
 
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(this);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
     private void instantiateView(View view) {
 
-       // spDishType = view.findViewById(R.id.spDishType);
+        swIsActive = view.findViewById(R.id.swIsActive);
+        progressDialog=new ProgressDialog(getActivity());
+        layout1 = view.findViewById(R.id.layout11);
+        layout2 = view.findViewById(R.id.layout22);
+        txt_error = view.findViewById(R.id.txt_error);
+
 
     }
 
@@ -147,24 +158,65 @@ public class ProfileFragment extends Fragment {
         ((HomeActivity) getActivity()).setDrawerLocked(true);
         TextView tvToolbarTitle = toolbar.findViewById(R.id.tvToolbarTitle);
 
-            tvToolbarTitle.setText("Profile");
-
+        tvToolbarTitle.setText("Profile");
         AppBarLayout.LayoutParams params =
                 (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
         params.setScrollFlags(0);
         toggle.syncState();
 
+        ImageButton ibFilter = toolbar.findViewById(R.id.ibFilter);
+        ibFilter.setVisibility(View.GONE);
+
+
+
     }
 
 
-    public  void openEditMenuFragment() {
-        RestaurantMenuFragment fragment;
-        fragment = new RestaurantMenuFragment();
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.clHomePageContainer, fragment);
-        fragmentTransaction.addToBackStack("ADD_UPDATE_MENU");
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        fragmentTransaction.commit();
+    void setIsActive(String IS_ACTIVE, String DL_BO_MA_ID)
+    {
+        if(Utilities.isNetworkAvailable(getActivity()))
+        {
+            IsActiveApi isActiveApi = RetrofitClientInstance.getRetrofitInstanceServer().
+                    create(IsActiveApi.class);
+
+            progressDialog.setMessage("Please Wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+            isActiveApi.updateIsactive(RetrofitClientInstance.API_KEY, IS_ACTIVE,DL_BO_MA_ID).
+                    enqueue(new Callback<IsActiveResponse>() {
+
+                        @Override
+                        public void onResponse(Call<IsActiveResponse> call, Response<IsActiveResponse> response) {
+
+                            IsActiveResponse isActiveResponse = response.body();
+                            if (isActiveResponse.getStatus() == 200) {
+                                Log.e("onResponseckhk: ", isActiveResponse.getResult().toString());
+
+                                progressDialog.dismiss();
+                            } else {
+                                Utilities.setError(layout1, layout2, txt_error, isActiveResponse.getMessage());
+
+                            }
+
+                        }
+
+
+                        @Override
+                        public void onFailure(Call<IsActiveResponse> call, Throwable t) {
+
+                            progressDialog.dismiss();
+                            Utilities.setError(layout1,layout2,txt_error,getResources().getString(R.string.something_went_wrong));
+                            Log.d("errorchk",t.getMessage());
+
+                        }
+                    });
+        }
+
+        else {
+            Utilities.setError(layout1,layout2,txt_error,getResources().getString(R.string.check_internet));
+
+
+        }
+
     }
 }

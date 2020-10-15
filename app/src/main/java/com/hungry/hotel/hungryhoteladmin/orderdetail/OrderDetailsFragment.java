@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -314,6 +315,10 @@ public class OrderDetailsFragment extends Fragment {
                 (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
         params.setScrollFlags(0);
         toggle.syncState();
+
+        ImageButton ibFilter = toolbar.findViewById(R.id.ibFilter);
+        ibFilter.setVisibility(View.GONE);
+
 //        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
       /*  Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Delivery Boy");

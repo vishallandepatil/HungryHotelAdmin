@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -256,7 +257,7 @@ public class AddUpdateMenuFragment extends Fragment {
 
     public List<String> getMenuTypes() {
         List<String> menuTypes = new ArrayList<>();
-        menuTypes.add("Select Dish type");
+        menuTypes.add("Select IsActive type");
         menuTypes.add("VEG");
         menuTypes.add("NON_VEG");
         return menuTypes;
@@ -354,6 +355,10 @@ public class AddUpdateMenuFragment extends Fragment {
                 (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
         params.setScrollFlags(0);
         toggle.syncState();
+
+        ImageButton ibFilter = toolbar.findViewById(R.id.ibFilter);
+        ibFilter.setVisibility(View.GONE);
+
 
     }
 

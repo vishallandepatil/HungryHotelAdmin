@@ -30,7 +30,7 @@ public  class  Dish implements Parcelable {
 
     @Override
     public String toString() {
-        return "Dish{" +
+        return "IsActive{" +
                 "MENU_MA_ID='" + MENU_MA_ID + '\'' +
                 ", NAME='" + NAME + '\'' +
                 ", AMOUNT='" + AMOUNT + '\'' +
