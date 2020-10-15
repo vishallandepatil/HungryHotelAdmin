@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp">
+
+
+           <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/male_avatar"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/img_profile"/>
+
+                    <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_20"
+                android:layout_below="@+id/img_profile"
+                        android:layout_centerHorizontal="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:padding="4dp"
+                    android:textSize="25dp"
+                    android:text="Prasad Chavan"
+                    android:fontFamily="@font/ptserif_bold"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold"
+                    android:id="@+id/txt_name"/>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/padding_20"
+                            android:layout_below="@+id/txt_name"
+                            android:id="@+id/layout1">
+
+                        <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txt_fname1"
+                    android:padding="4dp"
+                    android:textSize="15dp"
+                    android:text="franchise name:  "
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+
+                    <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/txt_address1"
+                                android:padding="4dp"
+                                android:textSize="15dp"
+                                android:text="Address:  "
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                android:layout_below="@+id/txt_fname1"/>
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/txt_mobile1"
+                                android:padding="4dp"
+                                android:textSize="15dp"
+                                android:text="Mobile: "
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                android:layout_below="@+id/txt_address1"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/txt_activate"
+                                android:padding="4dp"
+                                android:textSize="15dp"
+                                android:text="Activate"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                android:layout_below="@+id/txt_mobile1"/>
+
+
+
+                        </RelativeLayout>
+
+
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/padding_20"
+                            android:layout_below="@+id/txt_name"
+                            android:layout_toRightOf="@+id/layout1">
+
+                        <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txt_fname2"
+                    android:padding="4dp"
+                    android:textSize="15dp"
+                    android:text="Gangapur"
+                    android:textColor="@color/grey"
+                    android:textStyle="bold"
+                    />
+
+
+                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txt_address2"
+                    android:padding="4dp"
+                    android:textSize="15dp"
+                    android:text="Gangapur"
+                    android:textColor="@color/grey"
+                    android:textStyle="bold"
+                    android:layout_below="@+id/txt_fname2"
+                     />
+
+
+                        <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txt_mobile2"
+                    android:padding="4dp"
+                    android:textSize="15dp"
+                    android:text="9999999999"
+                    android:textColor="@color/grey"
+                    android:textStyle="bold"
+                    android:layout_below="@+id/txt_address2"
+                    />
+
+
+                <Switch
+                    android:id="@+id/swIsShown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_mobile2"
+                    />
+
+
+                        </RelativeLayout>
+
+                <Button
+                    android:id="@+id/btnLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="40dp"
+                    android:fontFamily="@font/ptserif_bold"
+                    android:paddingRight="40dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/ic_rounded_corner"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+                    android:text="Login Out"
+                    android:textAllCaps="false"
+                    android:layout_below="@+id/layout1"/>
+
+            </RelativeLayout>
+
+
+
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

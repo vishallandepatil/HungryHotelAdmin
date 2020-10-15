@@ -29,6 +29,7 @@ import com.hungry.hotel.hungryhoteladmin.login.model.User;
 import com.hungry.hotel.hungryhoteladmin.menudetails.AddUpdateMenuFragment;
 import com.hungry.hotel.hungryhoteladmin.orderdetail.OrderDetailsFragment;
 import com.hungry.hotel.hungryhoteladmin.orders.OrderFragment;
+import com.hungry.hotel.hungryhoteladmin.profile.ProfileFragment;
 import com.hungry.hotel.hungryhoteladmin.restaurentmenu.RestaurantMenuFragment;
 import com.hungry.hotel.hungryhoteladmin.utils.InternetConnectivityUtils;
 import com.hungry.hotel.hungryhoteladmin.utils.OnFragmentInteractionListener;
@@ -61,6 +62,7 @@ public class HomeActivity extends AppCompatActivity
     FloatingActionButton fab;
     Activity activity;
     PrefManager prefManager;
+    TextView tvHotelName, tvUserName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,10 +74,16 @@ public class HomeActivity extends AppCompatActivity
         connectivityReceiver = new ConnectivityReceiver();
         setupToolbar();
 
-        if(prefManager.getIS_LOGIN()==true) {
+        tvHotelName = findViewById(R.id.tvHotelName);
+        tvUserName = findViewById(R.id.tvUserName);
+
+
+
+      if(prefManager.getIS_LOGIN()==true) {
            loadFragment(new OrderDashboardFragment(), "LOGIN", false, "LOGIN");
            // loadFragment(new AddUpdateMenuFragment(), "LOGIN", false, "LOGIN");
-
+        /*  tvHotelName.setText("hhh");
+          tvUserName.setText("user");*/
         }
         else {
             loadFragment(new LoginFragment(), "LOGIN", false, "LOGIN");
@@ -86,6 +94,7 @@ public class HomeActivity extends AppCompatActivity
     private void setupToolbar() {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,6 +231,8 @@ public class HomeActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_deliveryBoy) {
             loadFragment(new DeliveryBoyFragment(), "DELIVERY_BOY", false, "DELIVERY_BOY");
+        }else if (id == R.id.navProfile) {
+            loadFragment(new ProfileFragment(), "PROFILE", false, "PROFILE");
         }
         else if (id == R.id.navLogout) {
 

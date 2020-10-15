@@ -34,6 +34,7 @@ import com.hungry.hotel.hungryhoteladmin.home.HomeActivity;
 import com.hungry.hotel.hungryhoteladmin.menudetails.AddUpdateMenuFragment;
 import com.hungry.hotel.hungryhoteladmin.restaurentmenu.adapter.RestaurantMenuAdapter;
 import com.hungry.hotel.hungryhoteladmin.restaurentmenu.api.RestaurantMenuApi;
+import com.hungry.hotel.hungryhoteladmin.restaurentmenu.dialogs.FilterDialog;
 import com.hungry.hotel.hungryhoteladmin.restaurentmenu.model.Dish;
 import com.hungry.hotel.hungryhoteladmin.restaurentmenu.model.DishResponse;
 import com.hungry.hotel.hungryhoteladmin.retrofit.RetrofitClientInstance;
@@ -123,13 +124,22 @@ public class RestaurantMenuFragment extends Fragment {
         ((HomeActivity) getActivity()).setDrawerLocked(true);
         TextView tvToolbarTitle = toolbar.findViewById(R.id.tvToolbarTitle);
         tvToolbarTitle.setText("Menus");
+
         AppBarLayout.LayoutParams params =
                 (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
         params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL
                 | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
         toggle.syncState();
 
+        tvToolbarTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FilterDialog filterDialog=new FilterDialog(getActivity());
+                filterDialog.show();
+                filterDialog.setCancelable(false);
 
+            }
+        });
     }
 
 
@@ -220,12 +230,19 @@ public class RestaurantMenuFragment extends Fragment {
                         public void onResponse(Call<DishResponse> call, Response<DishResponse> response) {
 
                             DishResponse dishResponse = response.body();
-                            Log.e("onResponseckhk: ", dishResponse.getResult().toString());
-                            RestaurantMenuAdapter menuAdapter = new RestaurantMenuAdapter(getActivity(), dishResponse.getResult(),
-                            rvMenu, this::openEditMenuFragment);
-                            setRecyclerViewProperty(rvMenu);
-                            rvMenu.setAdapter(menuAdapter);
-                            progressDialog.dismiss();
+                            if(dishResponse.getStatus()==200)
+                            {
+                                Log.e("onResponseckhk: ", dishResponse.getResult().toString());
+                                RestaurantMenuAdapter menuAdapter = new RestaurantMenuAdapter(getActivity(), dishResponse.getResult(),
+                                        rvMenu, this::openEditMenuFragment);
+                                setRecyclerViewProperty(rvMenu);
+                                rvMenu.setAdapter(menuAdapter);
+                                progressDialog.dismiss();
+                            }
+                            else {
+                                Utilities.setError(layout1,layout2,txt_error,dishResponse.getMessage());
+
+                            }
 
                         }
                         private void openEditMenuFragment(Dish dish) {
