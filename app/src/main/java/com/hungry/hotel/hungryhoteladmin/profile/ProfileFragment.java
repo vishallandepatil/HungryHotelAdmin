@@ -49,6 +49,7 @@ import com.hungry.hotel.hungryhoteladmin.utils.HungryAdminUtility;
 import com.hungry.hotel.hungryhoteladmin.utils.OnFragmentInteractionListener;
 import com.hungry.hotel.hungryhoteladmin.utils.PrefManager;
 import com.hungry.hotel.hungryhoteladmin.utils.Utilities;
+import com.hungry.hotel.hungryhoteladmin.welcome.SplashActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -74,6 +75,9 @@ public class ProfileFragment extends Fragment {
     ProgressDialog progressDialog;
     RelativeLayout layout1, layout2;
     TextView txt_error;
+    Button btnLogin;
+    PrefManager prefManager;
+    TextView txt_activate;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -119,8 +123,41 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        setIsActive("NO","1");
+        if(prefManager.getROLEID()==1)
+        {
+            txt_activate.setVisibility(View.GONE);
+            swIsActive.setVisibility(View.GONE);
+        }
+        else {
 
+        }
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(prefManager.getROLEID()==1)
+                {
+                    prefManager.setIS_LOGIN(false);
+                    Utilities.launchActivity(getActivity(), SplashActivity.class,true);
+                }
+                else {
+                    if(isActive.equals("YES"))
+                    {
+                        Toast.makeText(getActivity(), "Please inactive status", Toast.LENGTH_SHORT).show();
+                    }else {
+
+                        // Toast.makeText(getActivity(), "nnn", Toast.LENGTH_SHORT).show();
+                        setIsActive(isActive, String.valueOf(prefManager.getUSERID()));
+                        prefManager.setIS_LOGIN(false);
+                        Utilities.launchActivity(getActivity(), SplashActivity.class,true);
+                    }
+                }
+
+
+
+            }
+        });
         return view;
     }
 
@@ -129,9 +166,12 @@ public class ProfileFragment extends Fragment {
 
         swIsActive = view.findViewById(R.id.swIsActive);
         progressDialog=new ProgressDialog(getActivity());
+        prefManager=new PrefManager(getActivity());
         layout1 = view.findViewById(R.id.layout11);
         layout2 = view.findViewById(R.id.layout22);
         txt_error = view.findViewById(R.id.txt_error);
+        btnLogin = view.findViewById(R.id.btnLogin);
+        txt_activate = view.findViewById(R.id.txt_activate);
 
 
     }
@@ -191,16 +231,12 @@ public class ProfileFragment extends Fragment {
                             IsActiveResponse isActiveResponse = response.body();
                             if (isActiveResponse.getStatus() == 200) {
                                 Log.e("onResponseckhk: ", isActiveResponse.getResult().toString());
-
                                 progressDialog.dismiss();
                             } else {
                                 Utilities.setError(layout1, layout2, txt_error, isActiveResponse.getMessage());
-
                             }
 
                         }
-
-
                         @Override
                         public void onFailure(Call<IsActiveResponse> call, Throwable t) {
 

@@ -16,9 +16,9 @@ public interface IsActiveApi {
     @FormUrlEncoded
     @PUT("Hotels/active")
     Call<IsActiveResponse> updateIsactive(
-            @Path("api_key") String api_key,
-            @Path("IS_ACTIVE") String IS_ACTIVE,
-            @Path("DL_BO_MA_ID") String DL_BO_MA_ID
+            @Field("api_key") String api_key,
+            @Field("IS_ACTIVE") String IS_ACTIVE,
+            @Field("DL_BO_MA_ID") String DL_BO_MA_ID
     );
 
 }
