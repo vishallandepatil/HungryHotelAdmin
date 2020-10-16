@@ -66,7 +66,7 @@ public class DashboardOrderAdapter extends RecyclerView.Adapter<DashboardOrderAd
         draw.setShape(GradientDrawable.OVAL);
         draw.setColor(Color.rgb(red,green,blue));
 */
-        holder.itemView.setBackgroundColor(Color.rgb(red,green,blue));
+       // holder.itemView.setBackgroundColor(Color.rgb(red,green,blue));
         holder.tvOrderPrice.setText(orderDashboard.getSTATUS());
         holder.tvTotalOrders.setText(String.valueOf(orderDashboard.getTotal()));
         holder.tvOrderName.setText(orderDashboard.getTitle());
@@ -94,6 +94,27 @@ public class DashboardOrderAdapter extends RecyclerView.Adapter<DashboardOrderAd
         holder.itemView.setLayoutParams(new LinearLayout.LayoutParams(width, height));*/
 
 
+        //Is to ensure that the two columns
+        int type=position/2;
+        //For each row processing respectively
+        switch(type){
+            case 0:
+                holder.itemView.setBackgroundColor(Color.parseColor("#ff0000"));
+                break;
+            case 1:
+                holder.itemView.setBackgroundColor(Color.parseColor("#00ff00"));
+                break;
+            case 2:
+                holder.itemView.setBackgroundColor(Color.parseColor("#0000ff"));
+                break;
+            case 3:
+                holder.itemView.setBackgroundColor(Color.parseColor("#000000"));
+                break;
+
+                default:
+                holder.itemView.setBackgroundColor(Color.parseColor("#678787"));
+
+        }
     }
 
 

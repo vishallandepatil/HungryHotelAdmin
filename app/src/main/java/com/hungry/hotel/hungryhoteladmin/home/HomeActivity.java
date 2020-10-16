@@ -1,6 +1,7 @@
 package com.hungry.hotel.hungryhoteladmin.home;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -226,9 +227,17 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.navReports) {
             loadFragment(new OrderDashboardFragment(), "ORDER_DASHBOARD", false, "ORDER_DASHBOARD");
         } else if (id == R.id.nav_share) {
-
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "https://www.google.co.in/");
+            sendIntent.setType("text/plain");
+            startActivity(sendIntent);
         } else if (id == R.id.nav_send) {
-
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "https://www.google.co.in/");
+            sendIntent.setType("text/plain");
+            startActivity(sendIntent);
         } else if (id == R.id.nav_deliveryBoy) {
             loadFragment(new DeliveryBoyFragment(), "DELIVERY_BOY", false, "DELIVERY_BOY");
         }else if (id == R.id.navProfile) {
