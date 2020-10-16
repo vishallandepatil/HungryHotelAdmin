@@ -75,14 +75,17 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
             holder.tvCustomerName.setText(order.getCM_FIRST_NAME()+ " "+ order.getCM_LAST_NAME());
           //  holder.tvOrderDate.setText(order.getEX_DILIVERY_TIME());
             holder.tvDeliveryBoy.setText(order.getFNAME()+" "+order.getLNAME());
-            holder.tvDishCount.setText(order.getTOTAL() + " Items");
+
+
+            holder.tvDishCount.setText(order.getItems().size() + " Items");
            /* 10-10 if (order.isNewOrder()) {
                 holder.tvOrderStatus.setText("New");
             }*/
             holder.rbOrderRating.setRating(5);
+            holder.tvOrderStatus.setText(order.getOR_STATUS());
             holder.tvTotalPrice.setText("Rs. " + order.getTOTAL());
           //  settime(orderList.getSTART_TIME(), dish.getEND_TIME(), holder.tvOrderDate  );
-            settime(order.getEX_DILIVERY_TIME(), holder.tvOrderDate);
+           // settime(order.getEX_DILIVERY_TIME(), holder.tvOrderDate);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -90,6 +93,8 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
                 }
             });
         }
+
+        setDateFormat(holder.tvOrderDate, order.getEX_DILIVERY_TIME());
 
 
     }
@@ -160,6 +165,18 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
 
     }
 
+    public static void setDateFormat(TextView view, String date) {
+        DateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("dd MMM yy hh:mma");
+
+        try {
+            Date date1= inputDateFormat.parse(date);
+            view.setText( dateFormat.format(date1));
+        } catch (ParseException e) {
+            e.printStackTrace();
+            view.setText("Invalid Date Format");
+        }
+    }
 
 
 }
