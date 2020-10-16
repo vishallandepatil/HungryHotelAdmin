@@ -94,26 +94,18 @@ public class DashboardOrderAdapter extends RecyclerView.Adapter<DashboardOrderAd
         holder.itemView.setLayoutParams(new LinearLayout.LayoutParams(width, height));*/
 
 
-        //Is to ensure that the two columns
-        int type=position/2;
-        //For each row processing respectively
-        switch(type){
-            case 0:
-                holder.itemView.setBackgroundColor(Color.parseColor("#ff0000"));
-                break;
-            case 1:
-                holder.itemView.setBackgroundColor(Color.parseColor("#00ff00"));
-                break;
-            case 2:
-                holder.itemView.setBackgroundColor(Color.parseColor("#0000ff"));
-                break;
-            case 3:
-                holder.itemView.setBackgroundColor(Color.parseColor("#000000"));
-                break;
-
-                default:
-                holder.itemView.setBackgroundColor(Color.parseColor("#678787"));
-
+        if (position % 3 == 0) {
+            holder.itemView.setBackgroundResource(R.color.totalOrder);
+        } else if (position % 3 == 1) {
+            holder.itemView.setBackgroundResource(R.color.delivered);
+        } else if (position % 3 == 2) {
+            holder.itemView.setBackgroundResource(R.color.accepted);
+        }else if (position % 3 == 3) {
+            holder.itemView.setBackgroundResource(R.color.ready);
+        }else if (position % 3 == 4) {
+            holder.itemView.setBackgroundResource(R.color.lightGray);
+        }else if (position % 3 == 5) {
+            holder.itemView.setBackgroundResource(R.color.darkGreen);
         }
     }
 
