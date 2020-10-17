@@ -47,8 +47,12 @@ import com.hungry.hotel.hungryhoteladmin.utils.OnFragmentInteractionListener;
 import com.hungry.hotel.hungryhoteladmin.utils.PrefManager;
 import com.hungry.hotel.hungryhoteladmin.utils.Utilities;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -206,9 +210,12 @@ public class AddUpdateMenuFragment extends Fragment {
             etDishAmount.setText(HungryAdminUtility.getFormattedPrice(Double.parseDouble(dish.getAMOUNT())));
             etDishQuantity.setText( dish.getQUNTITY());
             etDishDescription.setText(dish.getDESCRIPTION());
-            etStartTime.setText(dish.getSTART_TIME());
+
+            settime(dish.getSTART_TIME(), dish.getEND_TIME(), etStartTime, etEndTime);
+           /* etStartTime.setText(dish.getSTART_TIME());
             etEndTime.setText(dish.getEND_TIME());
-            Log.e( "setValues: ", dish.getTYPE());
+           */
+           Log.e( "setValues: ", dish.getTYPE());
 
             if(dish.getIS_SHOWN().equals("Y"))
             {
@@ -474,5 +481,25 @@ public class AddUpdateMenuFragment extends Fragment {
         fragmentTransaction.addToBackStack("ADD_UPDATE_MENU");
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         fragmentTransaction.commit();
+    }
+
+    void settime(String time1, String time2, TextView txttime1, TextView txttime2)
+    {
+        DateFormat f1 = new SimpleDateFormat("HH:mm:ss"); //HH for hour of the day (0 - 23)
+        Date d1 = null;
+        Date d2 = null;
+        try {
+            d1 = f1.parse(time1);
+            d2 = f1.parse(time2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        DateFormat f2 = new SimpleDateFormat("h:mma");
+        f2.format(d1).toLowerCase(); // "12:18am"
+        f2.format(d2).toLowerCase(); // "12:18am"
+        Log.e( "settime: ",  f2.format(d1).toLowerCase());
+        txttime1.setText( f2.format(d1).toLowerCase());
+        txttime2.setText( f2.format(d2).toLowerCase());
+
     }
 }
