@@ -56,7 +56,7 @@
                     android:id="@+id/txt_fname1"
                     android:padding="4dp"
                     android:textSize="15dp"
-                    android:text="franchise name:  "
+                    android:text="Franchise Name:  "
                     android:fontFamily="@font/ptserif_regular"
                     android:textColor="@color/darkGray"
                             />
