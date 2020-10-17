@@ -82,7 +82,7 @@ public class HomeActivity extends AppCompatActivity
 
       if(prefManager.getIS_LOGIN()==true) {
            loadFragment(new OrderDashboardFragment(), "LOGIN", false, "LOGIN");
-           // loadFragment(new ProfileFragment(), "LOGIN", false, "LOGIN");
+          // loadFragment(new OrderFragment(), "LOGIN", false, "LOGIN");
         /*  tvHotelName.setText("hhh");
           tvUserName.setText("user");*/
         }
@@ -111,6 +111,7 @@ public class HomeActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
     }
 
     // Showing the status in Snackbar
@@ -220,7 +221,6 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.navOrders) {
-
             loadFragment(new OrderFragment(), "ORDERS", false, "ORDERS");
         } else if (id == R.id.navMenus) {
             loadFragment(new RestaurantMenuFragment(), "RESTAURANT_MENU", false, "RESTAURANT_MENU");
@@ -244,7 +244,6 @@ public class HomeActivity extends AppCompatActivity
             loadFragment(new ProfileFragment(), "PROFILE", false, "PROFILE");
         }
         else if (id == R.id.navLogout) {
-
             prefManager.setIS_LOGIN(false);
             Utilities.launchActivity(activity, SplashActivity.class,true);
         }

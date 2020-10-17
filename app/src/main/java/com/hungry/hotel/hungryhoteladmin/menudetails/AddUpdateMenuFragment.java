@@ -353,7 +353,7 @@ public class AddUpdateMenuFragment extends Fragment {
         TextView tvToolbarTitle = toolbar.findViewById(R.id.tvToolbarTitle);
 
         if (dish != null) {
-            tvToolbarTitle.setText("Update Menu");
+            tvToolbarTitle.setText("Edit Menu");
         }
         else {
             tvToolbarTitle.setText("Add Menu");
