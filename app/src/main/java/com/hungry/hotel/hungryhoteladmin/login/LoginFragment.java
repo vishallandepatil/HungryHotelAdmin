@@ -450,7 +450,7 @@ public class LoginFragment extends Fragment {
                             {
                                 Log.e( "onResponsedbid: ",deliveryBoyResponse.getResult().get(0).getDL_BO_MA_ID());
                                 prefManager.setUSERID(Integer.parseInt(deliveryBoyResponse.getResult().get(0).getDL_BO_MA_ID()));
-                                prefManager.setFNAME(deliveryBoyResponse.getResult().get(0).getFRANCHAICIES_ID());
+                                prefManager.setFNAME(null);
                                 prefManager.setADDRESS(deliveryBoyResponse.getResult().get(0).getADDRESS());
                                 prefManager.setMOBILE(deliveryBoyResponse.getResult().get(0).getMOBILENO());
                                 final User user = getUserDetails();
