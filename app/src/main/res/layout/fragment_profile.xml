@@ -39,9 +39,8 @@
                     android:padding="4dp"
                     android:textSize="25dp"
                     android:text="Prasad Chavan"
-                    android:fontFamily="@font/ptserif_bold"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/ptserif_regular"
+                    android:textColor="@color/darkGray"
                     android:id="@+id/txt_name"/>
 
                         <RelativeLayout
@@ -58,8 +57,9 @@
                     android:padding="4dp"
                     android:textSize="15dp"
                     android:text="franchise name:  "
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/ptserif_regular"
+                    android:textColor="@color/darkGray"
+                            />
 
 
                     <TextView
@@ -69,9 +69,9 @@
                                 android:padding="4dp"
                                 android:textSize="15dp"
                                 android:text="Address:  "
-                                android:textColor="@color/black"
-                                android:textStyle="bold"
-                                android:layout_below="@+id/txt_fname1"/>
+                        android:fontFamily="@font/ptserif_regular"
+                        android:textColor="@color/darkGray"
+                        android:layout_below="@+id/txt_fname1"/>
 
 
                             <TextView
@@ -81,8 +81,8 @@
                                 android:padding="4dp"
                                 android:textSize="15dp"
                                 android:text="Mobile: "
-                                android:textColor="@color/black"
-                                android:textStyle="bold"
+                                android:fontFamily="@font/ptserif_regular"
+                                android:textColor="@color/darkGray"
                                 android:layout_below="@+id/txt_address1"/>
 
                             <TextView
@@ -92,8 +92,8 @@
                                 android:padding="4dp"
                                 android:textSize="15dp"
                                 android:text="Activate"
-                                android:textColor="@color/black"
-                                android:textStyle="bold"
+                                android:fontFamily="@font/ptserif_regular"
+                                android:textColor="@color/darkGray"
                                 android:layout_below="@+id/txt_mobile1"/>
 
 
@@ -116,8 +116,8 @@
                     android:padding="4dp"
                     android:textSize="15dp"
                     android:text="Gangapur"
-                    android:textColor="@color/grey"
-                    android:textStyle="bold"
+                            android:fontFamily="@font/ptserif_regular"
+                            android:textColor="@color/lightGray"
                     />
 
 
@@ -128,9 +128,8 @@
                     android:padding="4dp"
                     android:textSize="15dp"
                     android:text="Gangapur"
-                    android:textColor="@color/grey"
-                    android:textStyle="bold"
-                    android:layout_below="@+id/txt_fname2"
+                     android:fontFamily="@font/ptserif_regular"
+                     android:textColor="@color/lightGray"                    android:layout_below="@+id/txt_fname2"
                      />
 
 
@@ -141,8 +140,8 @@
                     android:padding="4dp"
                     android:textSize="15dp"
                     android:text="9999999999"
-                    android:textColor="@color/grey"
-                    android:textStyle="bold"
+                            android:fontFamily="@font/ptserif_regular"
+                            android:textColor="@color/lightGray"
                     android:layout_below="@+id/txt_address2"
                     />
 
@@ -162,7 +161,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="40dp"
-                    android:fontFamily="@font/ptserif_bold"
+                    android:fontFamily="@font/ptserif_regular"
                     android:paddingRight="40dp"
                     android:layout_marginTop="20dp"
                     android:layout_centerHorizontal="true"
