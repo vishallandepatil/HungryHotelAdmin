@@ -1,23 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialogbg">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:id="@+id/layout1">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:text="Filters"
-        android:textColor="@color/black"
-        android:textSize="30dp"
-        android:textStyle="bold"/>
+        android:textColor="@color/darkGray"
+        android:textSize="25dp"
+        android:fontFamily="@font/ptserif_regular"/>
  <ImageView
         android:id="@+id/img_close"
         android:layout_width="40dp"
@@ -29,7 +27,7 @@
     </RelativeLayout>
 
     <ScrollView
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/scrollView"
         android:layout_below="@+id/layout1">
@@ -40,7 +38,6 @@
             android:layout_height="match_parent">
 
             <RadioGroup
-                android:layout_margin="@dimen/activity_horizontal_margin"
                 android:id="@+id/radioGroup"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -67,14 +64,20 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="Shown"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    android:textColor="@color/grey"
+                    android:fontFamily="@font/ptserif_regular"
+                    />
 
                 <RadioButton
                     android:id="@+id/rbtnHidden"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="Hidden"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    android:textColor="@color/grey"
+                    android:fontFamily="@font/ptserif_regular"
+                    />
 
 
                 <RadioButton
@@ -82,20 +85,29 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="Veg Only"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    android:textColor="@color/grey"
+                    android:fontFamily="@font/ptserif_regular"
+                    />
                 <RadioButton
                     android:id="@+id/rbtnNonVegOnly"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="Non Veg Only"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    android:textColor="@color/grey"
+                    android:fontFamily="@font/ptserif_regular"
+                    />
 
                 <RadioButton
                     android:id="@+id/rbtnClearFilter"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="Clear Filter"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    android:textColor="@color/grey"
+                    android:fontFamily="@font/ptserif_regular"
+                    />
             </RadioGroup>
 
 
@@ -106,8 +118,4 @@
 
     </ScrollView>
 
-
-
-
-
-</RelativeLayout>
+    </RelativeLayout>

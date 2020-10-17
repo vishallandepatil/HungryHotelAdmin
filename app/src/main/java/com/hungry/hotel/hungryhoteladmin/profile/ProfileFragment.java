@@ -153,14 +153,10 @@ public class ProfileFragment extends Fragment {
                         Utilities.launchActivity(getActivity(), SplashActivity.class,true);
                     }
                 }
-
-
-
             }
         });
         return view;
     }
-
 
     private void instantiateView(View view) {
 
@@ -172,8 +168,6 @@ public class ProfileFragment extends Fragment {
         txt_error = view.findViewById(R.id.txt_error);
         btnLogin = view.findViewById(R.id.btnLogin);
         txt_activate = view.findViewById(R.id.txt_activate);
-
-
     }
 
     private void setupToolbar() {

@@ -2,16 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
-
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/navOrders"
             android:icon="@drawable/ic_basket"
-            android:title="Orders" />
+            android:title="Orders"
+            />
         <item
             android:id="@+id/navMenus"
             android:icon="@drawable/ic_menu"
-            android:title="Menus" />
+            android:title="Menus"
+            />
         <item
             android:id="@+id/navReports"
             android:icon="@drawable/ic_report"
@@ -22,10 +23,6 @@
             android:icon="@drawable/profile_24dp"
             android:title="Profile"
             />
-
-
-
-
     </group>
 
     <item android:title="Communicate">
@@ -41,7 +38,8 @@
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
-                android:title="@string/menu_send" />
+                android:title="@string/menu_send"
+                android:visible="false"/>
             <item
                 android:id="@+id/navLogout"
                 android:icon="@drawable/ic_logout"

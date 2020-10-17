@@ -168,7 +168,8 @@ public class OrderFragment extends Fragment {
         });
         ((HomeActivity) getActivity()).setDrawerLocked(true);
         TextView tvToolbarTitle = toolbar.findViewById(R.id.tvToolbarTitle);
-        tvToolbarTitle.setText("Orders");
+       // tvToolbarTitle.setText("Orders");
+        tvToolbarTitle.setText(this.orderName);
         AppBarLayout.LayoutParams params =
                 (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
         params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL
