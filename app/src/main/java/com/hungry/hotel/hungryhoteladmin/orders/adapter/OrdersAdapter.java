@@ -76,8 +76,6 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
             holder.tvCustomerName.setText(order.getCM_FIRST_NAME()+ " "+ order.getCM_LAST_NAME());
           //  holder.tvOrderDate.setText(order.getEX_DILIVERY_TIME());
             holder.tvDeliveryBoy.setText(order.getFNAME()+" "+order.getLNAME());
-
-
             holder.tvDishCount.setText(order.getItems().size() + " Items");
            /* 10-10 if (order.isNewOrder()) {
                 holder.tvOrderStatus.setText("New");
@@ -85,7 +83,6 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
             holder.rbOrderRating.setRating(Float.parseFloat(order.getRATING()));
             Log.e( "onBindViewHolder: ",order.getRATING() );
             holder.tvOrderStatus.setText(order.getOR_STATUS());
-
             setRS(Integer.parseInt(order.getTOTAL()), holder.tvTotalPrice);
            // holder.tvTotalPrice.setText("Rs. " + order.getTOTAL());
           //  settime(orderList.getSTART_TIME(), dish.getEND_TIME(), holder.tvOrderDate  );
