@@ -7,7 +7,9 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -306,6 +308,8 @@ public class RestaurantMenuFragment extends Fragment {
         RadioGroup   radioGroup =  dialog.findViewById(R.id.radioGroup);
         ImageView   img_close =  dialog.findViewById(R.id.img_close);
         radioGroup.clearCheck();
+
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @SuppressLint("ResourceType")
