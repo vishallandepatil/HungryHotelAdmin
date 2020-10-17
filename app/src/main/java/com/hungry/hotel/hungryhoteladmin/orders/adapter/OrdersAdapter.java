@@ -1,5 +1,6 @@
 package com.hungry.hotel.hungryhoteladmin.orders.adapter;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.hungry.hotel.hungryhoteladmin.R;
 import com.hungry.hotel.hungryhoteladmin.dashboard.adapter.DashboardOrderAdapter;
 import com.hungry.hotel.hungryhoteladmin.dashboard.model.Dashboard;
 import com.hungry.hotel.hungryhoteladmin.orders.model.Order;
+import com.hungry.hotel.hungryhoteladmin.utils.PrefManager;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -31,6 +33,8 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
     List<Order> orderList;
     OrderOpenListener orderOpenListener;
     OrderClickListener orderClickListener;
+    PrefManager prefManager;
+    Context context;
 
 
     public OrdersAdapter(OrderOpenListener orderOpenListener) {
@@ -47,7 +51,8 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
 
 
 
-    public OrdersAdapter(List<Order> orderdList, OrderClickListener orderClickListener) {
+    public OrdersAdapter(Context context,List<Order> orderdList, OrderClickListener orderClickListener) {
+        this.context = context;
         this.orderList = orderdList;
         this.orderClickListener = orderClickListener;
 
@@ -61,6 +66,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
     public OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View orderView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_order_item, parent, false);
+        prefManager=new PrefManager(context);
         return new OrderViewHolder(orderView);
     }
 
@@ -81,12 +87,14 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
                 holder.tvOrderStatus.setText("New");
             }*/
             holder.rbOrderRating.setRating(Float.parseFloat(order.getRATING()));
-            Log.e( "onBindViewHolder: ",order.getRATING() );
-            holder.tvOrderStatus.setText(order.getOR_STATUS());
             setRS(Integer.parseInt(order.getTOTAL()), holder.tvTotalPrice);
-           // holder.tvTotalPrice.setText("Rs. " + order.getTOTAL());
-          //  settime(orderList.getSTART_TIME(), dish.getEND_TIME(), holder.tvOrderDate  );
-           // settime(order.getEX_DILIVERY_TIME(), holder.tvOrderDate);
+            if(prefManager.getROLEID()==1)
+            {
+                holder.tvOrderStatus.setText(order.getOR_STATUS());
+            }
+            else {
+                holder.tvOrderStatus.setText(order.getDL_BOY_STATUS());
+            }
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

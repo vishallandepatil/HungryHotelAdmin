@@ -27,6 +27,7 @@ public class DashboardOrderAdapter extends RecyclerView.Adapter<DashboardOrderAd
     List<Dashboard> orderDashboardList;
     OrderClickListener orderClickListener;
     Activity context;
+    ArrayList<String> list;
 
     public List<Dashboard> getOrderDashboardList() {
         return orderDashboardList;
@@ -53,6 +54,7 @@ public class DashboardOrderAdapter extends RecyclerView.Adapter<DashboardOrderAd
                 .inflate(R.layout.item_dashboard_order, parent, false);
         itemView.setMinimumHeight(itemView.getWidth());
 
+        colorset();
         return new DashboardViewHolder(itemView);
     }
 
@@ -65,12 +67,6 @@ public class DashboardOrderAdapter extends RecyclerView.Adapter<DashboardOrderAd
         int red=r.nextInt(255 - 0 + 1)+0;
         int green=r.nextInt(255 - 0 + 1)+0;
         int blue=r.nextInt(255 - 0 + 1)+0;
-
-       /* GradientDrawable draw = new GradientDrawable();
-        draw.setShape(GradientDrawable.OVAL);
-        draw.setColor(Color.rgb(red,green,blue));
-*/
-       // holder.itemView.setBackgroundColor(Color.rgb(red,green,blue));
         holder.tvOrderPrice.setText(orderDashboard.getSTATUS());
         holder.tvTotalOrders.setText(String.valueOf(orderDashboard.getTotal()));
         holder.tvOrderName.setText(orderDashboard.getTitle());
@@ -87,30 +83,39 @@ public class DashboardOrderAdapter extends RecyclerView.Adapter<DashboardOrderAd
                 orderClickListener.orderOpen(orderDashboard);
             }
         });
-
-       /* final DisplayMetrics displayMetrics = new DisplayMetrics();
-        context.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int width = (int) (displayMetrics.widthPixels - HungryAdminUtility.getDpFfromPixel(60, context)) / 3;
-//         int width = (int)(holder.itemView.getWidth());
-
-        int height = (int) (width * 1.8);
-
-        holder.itemView.setLayoutParams(new LinearLayout.LayoutParams(width, height));*/
-
-
-        if (position % 3 == 0) {
+        if (position  == 0) {
             holder.itemView.setBackgroundResource(R.color.totalOrder);
-        } else if (position % 3 == 1) {
+        } else if (position  == 1) {
             holder.itemView.setBackgroundResource(R.color.delivered);
-        } else if (position % 3 == 2) {
+        }else if (position  == 2) {
+            holder.itemView.setBackgroundResource(R.color.darkGray);
+        } else if (position  == 3) {
             holder.itemView.setBackgroundResource(R.color.accepted);
-        }else if (position % 3 == 3) {
+        }else if (position  == 4) {
             holder.itemView.setBackgroundResource(R.color.ready);
-        }else if (position % 3 == 4) {
+        }else if (position  == 5) {
             holder.itemView.setBackgroundResource(R.color.lightGray);
-        }else if (position % 3 == 5) {
+        }else if (position  == 6) {
+            holder.itemView.setBackgroundResource(R.color.darkGreen);
+        }else if (position  == 7) {
+            holder.itemView.setBackgroundResource(R.color.colorAccent);
+        }else if (position  == 8) {
+            holder.itemView.setBackgroundResource(R.color.colorPrimary);
+        }else if (position  == 9) {
+            holder.itemView.setBackgroundResource(R.color.accepted);
+        }else if (position  == 10) {
             holder.itemView.setBackgroundResource(R.color.darkGreen);
         }
+
+        /*for (int i=0; i<list.size(); i++)
+        {
+            if(position==i)
+            {
+                Log.e( "onBindViewHolder: ", list.get(i));
+                //  holder.itemView.setBackgroundColor(Integer.parseInt(list.get(i)));
+
+            }
+        }*/
     }
 
 
@@ -131,22 +136,22 @@ public class DashboardOrderAdapter extends RecyclerView.Adapter<DashboardOrderAd
             tvNewOrder = itemView.findViewById(R.id.tvNewOrder);
             tvOrderName = itemView.findViewById(R.id.tvOrderName);
             tvOrderPrice = itemView.findViewById(R.id.tvOrderPrice);
-//            int width = rlDashboardOrderItem.getWidth();
-//            rlDashboardOrderItem.setMinimumHeight(width);
-//            DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-//            int dpWidth = displayMetrics.widthPixels;
-//            int height = dpWidth;
-//
-//            itemView.setLayoutParams(new CardView.LayoutParams(new ViewGroup.LayoutParams(dpWidth, height)));
-
-
-        }
+     }
     }
 
     public interface OrderClickListener {
         void orderOpen(Dashboard order);
     }
 
+
+    public void  colorset() {
+        list = new ArrayList<String>();
+        list.add("#9c27b0");
+        list.add("#673ab7");
+        list.add("#009688");
+        list.add("#3f51b5");
+        list.add("#a4a4a4");
+    }
    /* private void setBackground(DashboardViewHolder holder, Dashboard orderDashboard) {
         if (orderDashboard.getTitle().equalsIgnoreCase(Dashboard.TOTAL_ORDER)) {
             holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.totalOrder));
