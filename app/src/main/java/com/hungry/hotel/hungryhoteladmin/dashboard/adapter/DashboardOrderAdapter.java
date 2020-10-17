@@ -3,6 +3,7 @@ package com.hungry.hotel.hungryhoteladmin.dashboard.adapter;
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import com.hungry.hotel.hungryhoteladmin.R;
 import com.hungry.hotel.hungryhoteladmin.dashboard.model.Dashboard;
 import com.hungry.hotel.hungryhoteladmin.utils.HungryAdminUtility;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -49,6 +52,7 @@ public class DashboardOrderAdapter extends RecyclerView.Adapter<DashboardOrderAd
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_dashboard_order, parent, false);
         itemView.setMinimumHeight(itemView.getWidth());
+
         return new DashboardViewHolder(itemView);
     }
 

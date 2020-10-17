@@ -18,6 +18,7 @@ import com.hungry.hotel.hungryhoteladmin.dashboard.model.Dashboard;
 import com.hungry.hotel.hungryhoteladmin.orders.model.Order;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -81,9 +82,12 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
            /* 10-10 if (order.isNewOrder()) {
                 holder.tvOrderStatus.setText("New");
             }*/
-            holder.rbOrderRating.setRating(5);
+            holder.rbOrderRating.setRating(Float.parseFloat(order.getRATING()));
+            Log.e( "onBindViewHolder: ",order.getRATING() );
             holder.tvOrderStatus.setText(order.getOR_STATUS());
-            holder.tvTotalPrice.setText("Rs. " + order.getTOTAL());
+
+            setRS(Integer.parseInt(order.getTOTAL()), holder.tvTotalPrice);
+           // holder.tvTotalPrice.setText("Rs. " + order.getTOTAL());
           //  settime(orderList.getSTART_TIME(), dish.getEND_TIME(), holder.tvOrderDate  );
            // settime(order.getEX_DILIVERY_TIME(), holder.tvOrderDate);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -128,40 +132,12 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
         }
     }
 
-    void settime(String time1, TextView tvDishTime)
+    void setRS(int RS, TextView txtrs)
     {
-       // String startTime = "2013-02-27 21:06:30";
-        StringTokenizer tk = new StringTokenizer(time1);
-        String date = tk.nextToken();
-        String time = tk.nextToken();
 
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
-        SimpleDateFormat sdfs = new SimpleDateFormat("hh:mm a");
-        Date dt;
-        try {
-            dt = sdf.parse(time);
-            tvDishTime.setText(sdfs.format(dt));
-            Log.e( "settime: ",  sdfs.format(dt));
-           // System.out.println("Time Display: " + sdfs.format(dt)); // <-- I got result here
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        /*
-        DateFormat f1 = new SimpleDateFormat("HH:mm:ss"); //HH for hour of the day (0 - 23)
-        Date d1 = null;
-        Date d2 = null;
-        try {
-            d1 = f1.parse(time1);
-            d2 = f1.parse(time2);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        DateFormat f2 = new SimpleDateFormat("h:mma");
-        f2.format(d1).toLowerCase(); // "12:18am"
-        f2.format(d2).toLowerCase(); // "12:18am"
-        Log.e( "settime: ",  f2.format(d1).toLowerCase());
-        tvDishTime.setText( f2.format(d1).toLowerCase()+ " to "+ f2.format(d2).toLowerCase());*/
+        DecimalFormat formatter = new DecimalFormat("#,###,###");
+        String yourFormattedString = formatter.format(RS);
+        txtrs.setText("Rs. "+yourFormattedString);
 
     }
 

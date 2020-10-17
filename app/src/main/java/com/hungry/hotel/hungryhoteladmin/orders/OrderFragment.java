@@ -112,6 +112,8 @@ public class OrderFragment extends Fragment {
 
         if(prefManager.getROLEID()==1)
         {
+            Toast.makeText(getActivity(), "cccc"+this.orderName, Toast.LENGTH_SHORT).show();
+
             HOT_MS_ID= String.valueOf(prefManager.getUSERID());
             OR_STATUS=this.orderName;
             CM_MS_ID=null;
@@ -120,6 +122,8 @@ public class OrderFragment extends Fragment {
             DL_BO_MA_ID=null;
             DL_BOY_STATUS=null;     }
         else {
+            Toast.makeText(getActivity(), "222", Toast.LENGTH_SHORT).show();
+
             HOT_MS_ID=null;
             OR_STATUS=null;
             CM_MS_ID=null;
