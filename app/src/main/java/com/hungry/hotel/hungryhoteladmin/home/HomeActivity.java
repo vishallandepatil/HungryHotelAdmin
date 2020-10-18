@@ -289,10 +289,10 @@ public class HomeActivity extends AppCompatActivity
 
             if (prefManager.getROLEID()==1) {
                 navigationView.getMenu().findItem(R.id.navMenus).setVisible(true);
-                navigationView.getMenu().findItem(R.id.nav_deliveryBoy).setVisible(false);
+               // navigationView.getMenu().findItem(R.id.nav_deliveryBoy).setVisible(false);
             } else {
                 navigationView.getMenu().findItem(R.id.navMenus).setVisible(false);
-                navigationView.getMenu().findItem(R.id.nav_deliveryBoy).setVisible(true);
+               // navigationView.getMenu().findItem(R.id.nav_deliveryBoy).setVisible(true);
             }
         }
     }

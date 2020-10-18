@@ -77,7 +77,8 @@ public class ProfileFragment extends Fragment {
     TextView txt_error;
     Button btnLogin;
     PrefManager prefManager;
-    TextView txt_activate;
+    TextView txt_activate, txt_fname2,txt_address2,txt_mobile2;
+
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -107,6 +108,9 @@ public class ProfileFragment extends Fragment {
         setupToolbar();
         instantiateView(view);
 
+        txt_address2.setText(prefManager.getADDRESS());
+        txt_mobile2.setText(prefManager.getMOBILE());
+        txt_fname2.setText(prefManager.getFNAME());
         // Set a checked change listener for toggle button
         swIsActive.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -168,6 +172,9 @@ public class ProfileFragment extends Fragment {
         txt_error = view.findViewById(R.id.txt_error);
         btnLogin = view.findViewById(R.id.btnLogin);
         txt_activate = view.findViewById(R.id.txt_activate);
+        txt_fname2 = view.findViewById(R.id.txt_fname2);
+        txt_address2 = view.findViewById(R.id.txt_address2);
+        txt_mobile2 = view.findViewById(R.id.txt_mobile2);
     }
 
     private void setupToolbar() {

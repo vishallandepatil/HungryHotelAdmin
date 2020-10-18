@@ -285,7 +285,7 @@ public class OrderFragment extends Fragment {
     {
         Log.e( "seta: ", levelwiseQuizArrayList.toString() );
         setOrdersProperty(rvOrders);
-        ordersAdapter = new OrdersAdapter( levelwiseQuizArrayList, new OrdersAdapter.OrderClickListener() {
+        ordersAdapter = new OrdersAdapter(getActivity(), levelwiseQuizArrayList, new OrdersAdapter.OrderClickListener() {
             @Override
             public void orderOpen(Order order) {
                 Toast.makeText(getActivity(), "Order clicked"+ order.getTOTAL(), Toast.LENGTH_LONG).show();

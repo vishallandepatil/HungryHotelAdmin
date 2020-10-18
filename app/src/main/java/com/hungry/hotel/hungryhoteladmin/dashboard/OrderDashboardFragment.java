@@ -109,7 +109,7 @@ public class OrderDashboardFragment extends Fragment {
                 new DashboardOrderAdapter.OrderClickListener() {
             @Override
             public void orderOpen(Dashboard order) {
-                Toast.makeText(dashboardView.getContext(), "Order clicked", Toast.LENGTH_LONG).show();
+              //  Toast.makeText(dashboardView.getContext(), "Order clicked", Toast.LENGTH_LONG).show();
                 OrderFragment orderFragment = OrderFragment.newInstance(order.getTitle());
                 loadFragment(orderFragment, "ORDER_FRAGMENT", true);
             }

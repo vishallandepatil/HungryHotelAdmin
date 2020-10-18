@@ -395,6 +395,9 @@ public class LoginFragment extends Fragment {
                             {
                                 Log.e( "onResponseuid: ",userResponse.getResult().get(0).getID());
                                 prefManager.setUSERID(Integer.parseInt(userResponse.getResult().get(0).getID()));
+                                prefManager.setFNAME(userResponse.getResult().get(0).getFranchaices());
+                                prefManager.setADDRESS(userResponse.getResult().get(0).getADDRESS());
+                                prefManager.setMOBILE(userResponse.getResult().get(0).getMOBILE_NO());
                                 final User user = getUserDetails();
                                 showHomePage(user);
                             }
@@ -447,6 +450,9 @@ public class LoginFragment extends Fragment {
                             {
                                 Log.e( "onResponsedbid: ",deliveryBoyResponse.getResult().get(0).getDL_BO_MA_ID());
                                 prefManager.setUSERID(Integer.parseInt(deliveryBoyResponse.getResult().get(0).getDL_BO_MA_ID()));
+                                prefManager.setFNAME(deliveryBoyResponse.getResult().get(0).getFRANCHAICIES_ID());
+                                prefManager.setADDRESS(deliveryBoyResponse.getResult().get(0).getADDRESS());
+                                prefManager.setMOBILE(deliveryBoyResponse.getResult().get(0).getMOBILENO());
                                 final User user = getUserDetails();
                                 showHomePage(user);
                             }
